@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Title, Button } from '../styles/styles';
-import ReviewList from './Reviews/ReviewList.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -37,7 +36,6 @@ class App extends Component {
 
         <Title>Project Cat Walk</Title>
         <Button>button</Button>
-        <ReviewList products={this.state.products}/>
       </div>
     )
   }
