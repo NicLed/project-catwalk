@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Title, Button } from '../styles/styles';
 import axios from 'axios';
+import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
 class App extends Component {
   constructor(props) {
