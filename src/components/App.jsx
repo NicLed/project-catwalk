@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Title, Button } from '../styles/styles';
-import ReviewListv1 from './Reviews/ReviewListv1.jsx';
+import RatingsReviews from './Reviews/RatingsReviews.jsx';
 import axios from 'axios';
 
 class App extends Component {
@@ -40,7 +40,7 @@ class App extends Component {
         {/* <Overview products={this.state.products} product={this.state.product} /> */}
         {/* <RelatedProducts products={this.state.products} product={this.state.product} /> */}
         {/* <QnA products={this.state.products} product={this.state.product} /> */}
-        {Object.keys(this.state.product).length && this.state.products.length ? <ReviewListv1 products={this.state.products} product={this.state.product} /> : null}
+        {Object.keys(this.state.product).length && this.state.products.length ? <RatingsReviews products={this.state.products} product={this.state.product} /> : null}
       </div>
     )
   }

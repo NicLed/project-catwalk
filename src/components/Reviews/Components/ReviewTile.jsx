@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ReviewListEntry = (props) => {
+const ReviewTile = (props) => {
 
   return (
     <div>{props.review.summary}</div>
   )
 }
 
-export default ReviewListEntry;
+export default ReviewTile;
