@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Title, Button } from '../styles/styles';
+// import ReviewList from './Reviews/ReviewList.jsx';
 import axios from 'axios';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
@@ -7,24 +8,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: [],
+      product: {}
     }
     this.getProducts = this.getProducts.bind(this);
   }
 
   componentDidMount () {
     this.getProducts();
-
   }
 
   getProducts() {
     axios.get('/API/products')
     .then((response) => {
-      // console.log('Reponse:', response.data)
       this.setState({
-        products: response.data
+        products: response.data,
+        product: response.data[0]
       })
-      console.log('Products', this.state.products)
     })
     .catch((error) => {
       throw new Error(error);
@@ -34,11 +34,15 @@ class App extends Component {
   render() {
     return (
       <div>
-
         <Title>Project Cat Walk</Title>
         <Button>button</Button>
+        {/* <Overview products={this.state.products} product={this.state.product} /> */}
+        <RelatedItems products={this.state.products} product={this.state.product} />
+        {/* <QnA products={this.state.products} product={this.state.product} /> */}
+        {/* <ReviewList products={this.state.products} product={this.state.product} /> */}
       </div>
     )
   }
 }
+
 export default App;
