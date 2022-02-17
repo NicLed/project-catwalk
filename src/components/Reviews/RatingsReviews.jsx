@@ -3,15 +3,17 @@ import axios from 'axios';
 import ReviewList from './Components/ReviewList.jsx';
 import RatingSummary from './Components/RatingSummary.jsx';
 
-const RatingsReviews = (props) => {
+const RatingsReviews = ({products, product}) => {
   const [reviews, setReviews] = useState([]);
+  const [reviewsMeta, setReviewsMeta] = useState({});
   // could make get request to reviews api here and pass down as props depending on what components need access to it
   useEffect(() => {
     getReviews();
+    getReviewsMetaData();
   }, [])
 
   const getReviews = () => {
-    axios.get(`/reviews/${props.product.id}`)
+    axios.get(`/reviews/${product.id}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -22,10 +24,10 @@ const RatingsReviews = (props) => {
   }
 
   const getReviewsMetaData = () => {
-    axios.get(`/reviews/meta/${props.product.id}`)
+    axios.get(`/reviews/meta/${product.id}`)
       .then((response) => {
-        console.log("reviews response", response.data);
-        setReviews(response.data.results)
+        console.log("reviews meta response", response.data);
+        setReviewsMeta(response.data)
       })
       .catch((error) => {
         throw new Error(error);
@@ -34,8 +36,13 @@ const RatingsReviews = (props) => {
 
   return (
     <>
-      <RatingSummary products={props.products} product={props.product} reviews={reviews} />
-      <ReviewList products={props.products} product={props.product} reviews={reviews} />
+      {Object.keys(reviewsMeta).length && reviews.length ?
+      <>
+        <RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} />
+
+        <ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} />
+      </>
+      : null}
     </>
   )
 }

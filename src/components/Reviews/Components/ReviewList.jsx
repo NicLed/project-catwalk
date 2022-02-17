@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import axios from 'axios';
 
-const ReviewList = ({products, product, reviews}) => {
+const ReviewList = ({products, product, reviews, reviewsMeta}) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
 
   const showMoreReviews = () => {

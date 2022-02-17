@@ -18,7 +18,7 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/reviews/:product_id', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=${req.params.product_id}&count=100`,
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=${req.params.product_id}&count=1000`,
    {headers: {Authorization: config.TOKEN}})
   .then((response) => {
     res.status(200).send(response.data)
