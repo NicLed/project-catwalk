@@ -1,6 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
-import ReviewList from './Components/ReviewList.jsx';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ReviewList from './Components/ReviewList.jsx';
+import RatingSummary from './Components/RatingSummary.jsx';
 
 const RatingsReviews = (props) => {
   const [reviews, setReviews] = useState([]);
@@ -10,7 +11,18 @@ const RatingsReviews = (props) => {
   }, [])
 
   const getReviews = () => {
-    axios.get(`/API/reviews/${props.product.id}`)
+    axios.get(`/reviews/${props.product.id}`)
+      .then((response) => {
+        console.log("reviews response", response.data);
+        setReviews(response.data.results)
+      })
+      .catch((error) => {
+        throw new Error(error);
+      })
+  }
+
+  const getReviewsMetaData = () => {
+    axios.get(`/reviews/meta/${props.product.id}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -22,6 +34,7 @@ const RatingsReviews = (props) => {
 
   return (
     <>
+      <RatingSummary products={props.products} product={props.product} reviews={reviews} />
       <ReviewList products={props.products} product={props.product} reviews={reviews} />
     </>
   )

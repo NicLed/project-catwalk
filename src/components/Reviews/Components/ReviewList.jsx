@@ -19,12 +19,13 @@ const ReviewList = ({products, product, reviews}) => {
         <h3>Reviews</h3>
 
         {reviews.length > displayedReviews ?
-        reviews.slice(0, displayedReviews).map(review => {
-          return <ReviewTile review={review} key={review.review_id} />
-        })
-        : reviews.map(review => {
-          return <ReviewTile review={review} key={review.review_id} />
-        })}
+          reviews.slice(0, displayedReviews).map(review => {
+            return <ReviewTile review={review} key={review.review_id} />
+          })
+          : reviews.map(review => {
+            return <ReviewTile review={review} key={review.review_id} />
+          })
+        }
 
         {reviews.length >= displayedReviews ?
         <button onClick={() => showMoreReviews()} >More Reviews</button>
