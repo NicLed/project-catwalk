@@ -15,8 +15,9 @@ const ReviewTile = ({ review }) => {
       {review.recommend ?
       <div>I recommend this product</div> // add checkmark
       : null}
-      <div>{review.response}</div>
+      {review.response ? <div>Response: {review.response}</div> : null}
       <RatingHelpfulness review={review} />
+      <div>---------------Placeholder-----------------</div>
     </div>
   )
 }

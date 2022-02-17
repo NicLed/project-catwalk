@@ -8,14 +8,6 @@ const AverageRatingHeader = ({products, product, reviews, reviewsMeta}) => {
   }, [])
 
   const calculateAverageRating = () => {
-    // set variable for all 5 star ratings
-    // set variable for all 4 star ratings
-    // set variable for all 3 star ratings
-    // set variable for all 2 star ratings
-    // set variable for all 1 star ratings
-    // set variable for total number of ratings
-    // set variable for total of added ratings
-
     const ratings = Object.values(reviewsMeta.ratings)
     const fiveStars = Number(ratings[4]);
     const fourStars = Number(ratings[3]);
@@ -29,7 +21,7 @@ const AverageRatingHeader = ({products, product, reviews, reviewsMeta}) => {
 
   return (
     <>
-      <h3>Ratings & Reviews</h3>
+      <h3>Ratings &amp; Reviews</h3>
       <h1>Average Rating: {averageRating} Stars</h1>
     </>
   )
