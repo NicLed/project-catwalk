@@ -1,48 +1,40 @@
-import React, {Component} from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
-// import ReviewList from './Reviews/ReviewList.jsx';
+import RatingsReviews from './Reviews/RatingsReviews.jsx';
 import axios from 'axios';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [],
-      product: {}
-    }
-    this.getProducts = this.getProducts.bind(this);
-  }
+const App = (props) => {
+  const [products, setProducts] = useState([])
+  const [product, setProduct] = useState({})
 
-  componentDidMount () {
-    this.getProducts();
-  }
+  useEffect(() => {
+    getProducts();
+  }, [])
 
-  getProducts() {
+  const getProducts = () => {
     axios.get('/API/products')
-    .then((response) => {
-      this.setState({
-        products: response.data,
-        product: response.data[0]
+      .then((response) => {
+        setProducts(response.data);
+        setProduct(response.data[0]);
       })
-    })
-    .catch((error) => {
-      throw new Error(error);
-    })
+      .catch((error) => {
+        throw new Error(error);
+      })
   }
 
-  render() {
-    return (
-      <div>
-        <Title>Project Cat Walk</Title>
-        <Button>button</Button>
-        {/* <Overview products={this.state.products} product={this.state.product} /> */}
-        <RelatedItems products={this.state.products} product={this.state.product} />
-        {/* <QnA products={this.state.products} product={this.state.product} /> */}
-        {/* <ReviewList products={this.state.products} product={this.state.product} /> */}
-      </div>
-    )
-  }
+
+  return (
+    <div>
+      <Title>Project Cat Walk</Title>
+      <Button>button</Button>
+      {/* <Overview products={products} product={product} /> */}
+      {/* <RelatedItems products={products} product={product} /> */}
+      {/* <QnA products={products} product={product} /> */}
+      {/* <ReviewList products={products} product={product} /> */}
+    </div>
+  )
+
 }
 
 export default App;
