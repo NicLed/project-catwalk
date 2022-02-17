@@ -1,7 +1,11 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
-import RatingsReviews from './Reviews/RatingsReviews.jsx';
 import axios from 'axios';
+// import RatingsReviews from './Reviews/RatingsReviews.jsx';
+// import RelatedItems from './RelatedItems/RelatedItems.jsx';
+// import Questions from './CustomerQnA/Questions.jsx';
+// import ProductOverview from './ProductOverview/ProductOverview.jsx';
+
 
 const App = (props) => {
   const [products, setProducts] = useState([])
@@ -12,7 +16,7 @@ const App = (props) => {
   }, [])
 
   const getProducts = () => {
-    axios.get('/API/products')
+    axios.get('/products')
       .then((response) => {
         setProducts(response.data);
         setProduct(response.data[0]);
@@ -26,13 +30,13 @@ const App = (props) => {
     <div>
       <Title>Project Cat Walk</Title>
       <Button>button</Button>
-      {/* <Overview products={products} product={product} /> */}
-      {/* <RelatedProducts products={products} product={product} /> */}
-      {/* <QnA products={products} product={product} /> */}
-      {Object.keys(product).length && products.length ?
-        <RatingsReviews products={products} product={product} />
-        : null}
-      {console.log(products.length)}
+      {/* <ProductOverview products={products} product={product} /> */}
+      {/* <RelatedItems products={products} product={product} /> */}
+      {/* <Questions products={products} product={product} /> */}
+      {/* {Object.keys(product).length && products.length ? */}
+        {/* // <RatingsReviews products={products} product={product} /> */}
+        {/* // : null} */}
+      {/* {console.log(products.length)} */}
     </div>
   )
 }
