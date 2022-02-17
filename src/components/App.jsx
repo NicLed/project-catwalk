@@ -29,9 +29,10 @@ const App = (props) => {
       {/* <Overview products={products} product={product} /> */}
       {/* <RelatedProducts products={products} product={product} /> */}
       {/* <QnA products={products} product={product} /> */}
-      {/* {Object.keys(product).length && products.length ?
+      {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
-        : null} */}
+        : null}
+      {console.log(products.length)}
     </div>
   )
 }
