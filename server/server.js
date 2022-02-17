@@ -7,7 +7,7 @@ const axios = require('axios');
 app.use(express.static('dist'));
 
 app.get('/API/products', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products',
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products?count=all',
    {headers: {Authorization: config.TOKEN}})
   .then((response) => {
     res.status(200).send(response.data);
