@@ -29,7 +29,7 @@ const App = (props) => {
       <Title>Project Cat Walk</Title>
       <Button>button</Button>
       {/* <Overview products={products} product={product} /> */}
-      {/* <RelatedItems products={products} product={product} /> */}
+      <RelatedItems products={products} product={product} />
       {/* <QnA products={products} product={product} /> */}
       {/* <ReviewList products={products} product={product} /> */}
     </div>
