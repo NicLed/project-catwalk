@@ -9,11 +9,20 @@ class ReviewListv1 extends React.Component {
     this.state = {
       id: 0,
       reviews: [],
-
+      displayedReviews: 2
     }
 
     this.getReviews = this.getReviews.bind(this);
   }
+
+  // for just displaying 2 reviews by default, set a state, displayedReviews, with number value equal to 2 by default - ternary operator
+  // if number of reviews is greater than displayedReviews
+  // display only the number of reviews equal to displayedReviews value
+  // otherwise display all the reviews and remove the More Reviews button
+  // when More Reviews is clicked
+  // increase the value of displayedReviews by 2
+  // if value of displayedReviews is greater than total number of reviews
+  // get rid of More Reviews button
 
   componentDidMount() {
     this.getReviews();
@@ -33,27 +42,21 @@ class ReviewListv1 extends React.Component {
   }
 
   render() {
-    if (this.state.reviews.length > 2) {
-      return (
-        <div>
-          <h3>Reviews</h3>
-          {this.state.reviews.map((review, i) => {
-            return <ReviewTile review={review} key={i} />
-          })}
-          <button>More Reviews</button>
-          <div>{this.props.products.campus}</div>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h3>Reviews</h3>
-          {this.state.reviews.map((review, i) => {
-            return <ReviewListEntry review={review} key={i} />
-          })}
-        </div>
-      )
-    }
+    return (
+      <div>
+        <h3>Reviews</h3>
+        {this.state.reviews.length > 2 ?
+          this.state.reviews.map(review => {
+            return <ReviewTile review={review} key={review.review_id} />
+          }) :
+          this.state.reviews.map(review => {
+            return <ReviewListEntry review={review} key={review.review_id} />
+          })
+        }
+        <button>More Reviews</button>
+        <div>{this.props.products.campus}</div>
+      </div>
+    )
   }
 }
 
