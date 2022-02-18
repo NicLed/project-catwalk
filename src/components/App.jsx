@@ -36,7 +36,6 @@ const App = (props) => {
       {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
         : null}
-      {console.log(products.length)}
     </div>
   )
 }

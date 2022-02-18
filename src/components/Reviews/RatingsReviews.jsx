@@ -6,7 +6,7 @@ import RatingSummary from './Components/RatingSummary.jsx';
 
 const SectionsContainer = styled.div`
   display: flex;
-  // justify-content: space-evenly;
+  justify-content: center;
   gap: 100px;
 `
 

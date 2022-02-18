@@ -2,11 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import StarRating from './StarRating.jsx';
 import RatingHelpfulness from './RatingHelpfulness.jsx';
+import styled from 'styled-components';
+
+const Tile = styled.div`
+  border-bottom: solid;
+`
 
 const ReviewTile = ({ review }) => {
 
   return (
-    <div>
+    <Tile>
       <StarRating />
       <h4>{review.reviewer_name}</h4>
       <div>{moment(review.date).format('LL')}</div>
@@ -17,8 +22,7 @@ const ReviewTile = ({ review }) => {
       : null}
       {review.response ? <div>Response: {review.response}</div> : null}
       <RatingHelpfulness review={review} />
-      <div>---------------Placeholder-----------------</div>
-    </div>
+    </Tile>
   )
 }
 

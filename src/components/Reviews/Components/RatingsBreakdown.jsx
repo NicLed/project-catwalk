@@ -7,7 +7,7 @@ const StarBar = styled.div`
 `
 
 const MainBar = styled.div`
-  background-color: grey;
+  background-color: lightgrey;
   width: 200px;
   height: 10px;
 `
@@ -18,14 +18,50 @@ const BarTitle = styled.a`
 `
 
 const AmountBar = styled.div`
-  background-color: black;
-  width: 20px; // determined by percentage of reviews
+  background-color: #525252;
+  max-width: ${({width}) => {
+    `${width}%`}};
+  // max-width: 50%;
   height: 10px;
 `
 
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
-  const [widthPercentage, setWidthPercentage] = useState(50);
+  const [fiveStarWidthPercentage, setFiveStarWidthPercentage] = useState(0);
+  const [fourStarWidthPercentage, setFourStarWidthPercentage] = useState(0);
+  const [threeStarWidthPercentage, setThreeStarWidthPercentage] = useState(0);
+  const [twoStarWidthPercentage, setTwoStarWidthPercentage] = useState(0);
+  const [oneStarWidthPercentage, setOneStarWidthPercentage] = useState(0);
   const [starNumber, setStarNumber] = useState(['5', '4', '3', '2', '1']);
+
+  useEffect(() => {
+    calculateStarPercentages();
+  }, [])
+
+  const calculateStarPercentages = () => {
+    const starRatings = Object.values(reviewsMeta.ratings);
+    let mostStarRatings = Number(starRatings[0]);
+
+
+    for (let i = 1; i < starRatings.length; i++) {
+      if (Number(starRatings[i]) > Number(mostStarRatings)) {
+        mostStarRatings = Number(starRatings[i])
+      }
+    }
+
+    for (let i = 0; i < starRatings.length; i++) {
+      if (i === 0) {
+        setOneStarWidthPercentage((starRatings[i] / mostStarRatings) * 100);
+      } else if (i === 1) {
+        setTwoStarWidthPercentage((starRatings[i] / mostStarRatings) * 100);
+      } else if (i === 2) {
+        setThreeStarWidthPercentage((starRatings[i] / mostStarRatings) * 100);
+      } else if (i === 3) {
+        setFourStarWidthPercentage((starRatings[i] / mostStarRatings) * 100);
+      } else if (i === 4) {
+        setFiveStarWidthPercentage((starRatings[i] / mostStarRatings) * 100);
+      }
+    }
+  }
 
   return (
     <>
@@ -33,7 +69,7 @@ const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
       <StarBar key={number + 3}>
         <BarTitle href="" key={number + 2}>{number} Stars</BarTitle>
         <MainBar key={number + 1}>
-          <AmountBar width={widthPercentage} key={number}></AmountBar>
+          <AmountBar width={fourStarWidthPercentage} key={number}></AmountBar>
         </MainBar>
       </StarBar>
       ))}
