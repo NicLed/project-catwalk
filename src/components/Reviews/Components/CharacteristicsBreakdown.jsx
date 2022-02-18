@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
-const CharacteristicsBreakdown = (props) => {
+const CharacteristicsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const CharacteristicsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
 
   return (
     <>
-      <input type="range"></input>
-      <div></div>
-      <input type="range"></input>
+      <CharacteristicsContainer>
+        <input type="range" text="Size"></input>
+        <div></div>
+        <input type="range" text="Comfort"></input>
+      </CharacteristicsContainer>
     </>
   )
 }
