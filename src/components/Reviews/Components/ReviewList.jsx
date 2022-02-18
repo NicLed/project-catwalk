@@ -1,43 +1,40 @@
 import React, { Component, useState, useEffect } from 'react';
+import ReviewTile from './ReviewTile.jsx';
+import axios from 'axios';
 
-const ReviewList = (props) => {
+const ReviewList = ({products, product, reviews}) => {
+  const [displayedReviews, setDisplayedReviews] = useState(2);
 
-  // getReviews() {
-    // console.log('ReviewList this', this)
-    // console.log('ReviewList product', this.state.id)
-    // axios.get(`/API/reviews/:${this.props.product.id}`)
-    //   .then((response) => {
-    //     console.log("reviews response", response.data);
-    //     this.setState({
-    //       reviews: response.data.results
-    //     })
-    //   })
-    //   .catch((error) => {
-    //     throw new Error(error);
-    //   })
-  // }
+  const showMoreReviews = () => {
+    const newDisplayedReviews = displayedReviews + 2;
+    setDisplayedReviews(newDisplayedReviews);
+  }
 
-  // if (this.state.reviews.length > 2) {
+  const showFewerReviews = () => {
+    setDisplayedReviews(2);
+  }
+
   return (
       <div>
         <h3>Reviews</h3>
-        {/* {this.state.reviews.map((review, i) => {
-          return <ReviewListEntry review={review} key={i} />
-        })} */}
-        <button>More Reviews</button>
-      <div>{props.product.id}</div>
+
+        {reviews.length > displayedReviews ?
+        reviews.slice(0, displayedReviews).map(review => {
+          return <ReviewTile review={review} key={review.review_id} />
+        })
+        : reviews.map(review => {
+          return <ReviewTile review={review} key={review.review_id} />
+        })}
+
+        {reviews.length >= displayedReviews ?
+        <button onClick={() => showMoreReviews()} >More Reviews</button>
+        : null}
+
+        {reviews.length <= displayedReviews ?
+        <button onClick={() => showFewerReviews()}>Fewer Reviews</button>
+        : null}
     </div>
   )
-  // } else {
-  // return (
-  //   <div>
-  //     <h3>Reviews</h3>
-  //     {/* {this.state.reviews.map((review, i) => {
-  //       return <ReviewListEntry review={review} key={i} />
-  //     })} */}
-  //   </div>
-  // )
-  // }
 }
 
 export default ReviewList
