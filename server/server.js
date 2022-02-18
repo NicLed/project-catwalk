@@ -7,6 +7,7 @@ const PORT = 3000;
 const app = express();
 const path = require('path');
 
+
 // MIDDLEWARE
 app.use(express.json());
 app.use(express.static('dist'));
