@@ -5,7 +5,8 @@ import RatingHelpfulness from './RatingHelpfulness.jsx';
 import styled from 'styled-components';
 
 const Tile = styled.div`
-  border-bottom: solid;
+  border-bottom: 1px solid #525252;
+  margin-bottom: 20px;
 `
 
 const ReviewTile = ({ review }) => {

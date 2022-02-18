@@ -6,7 +6,8 @@ import NewReviewModal from './NewReviewModal.jsx';
 import SortDropdown from './SortDropdown.jsx';
 
 const InfiniteScroll = styled.div`
-  overflow: hidden;
+  max-height: 70vh;
+  overflow: scroll;
 `
 
 const ReviewList = ({ products, product, reviews, reviewsMeta }) => {

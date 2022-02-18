@@ -21,7 +21,11 @@ const Section = styled.div`
 const RatingsReviews = ({products, product}) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
-  // could make get request to reviews api here and pass down as props depending on what components need access to it
+
+  // set state here for showing new review modal
+  // pass down that state and handle function to review list
+  // when click add a reivew button it toggles modal state here to display modal
+
   useEffect(() => {
     getReviews();
     getReviewsMetaData();
