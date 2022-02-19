@@ -7,24 +7,36 @@ import RelatedItems from './RelatedItems/RelatedItems.jsx';
 // import ProductOverview from './ProductOverview/ProductOverview.jsx';
 
 
-const App = (props) => {
-  const [products, setProducts] = useState([])
+const App = () => {
+  const [productID, setProductID] = useState(37311)
   const [product, setProduct] = useState({})
 
   useEffect(() => {
-    getProducts();
+    getProduct();
   }, [])
 
-  const getProducts = () => {
-    axios.get('/products')
+  const getProduct = () => {
+    axios.get(`/products/${productID}`)
       .then((response) => {
-        setProducts(response.data);
-        setProduct(response.data[0]);
+        // console.log(response.data);
+        // setProducts(response.data);
+        setProduct(response.data);
       })
       .catch((error) => {
         throw new Error(error);
       })
   }
+  // const getProducts = () => {
+  //   axios.get(`/products/${productID}`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       // setProducts(response.data);
+  //       // setProduct(response.data[0]);
+  //     })
+  //     .catch((error) => {
+  //       throw new Error(error);
+  //     })
+  // }
 
 
   return (
@@ -32,7 +44,7 @@ const App = (props) => {
       <Title>Project Cat Walk</Title>
       <Button>button</Button>
       {/* <ProductOverview products={products} product={product} /> */}
-      <RelatedItems products={products} product={product} />
+      <RelatedItems productID={productID}/>
       {/* <Questions products={products} product={product} /> */}
       {/* {Object.keys(product).length && products.length ? */}
         {/* // <RatingsReviews products={products} product={product} /> */}
