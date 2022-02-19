@@ -8,10 +8,6 @@ const AverageHeader = styled.h1`
   margin-right: 10px;
 `
 
-// const PercentRec = styled.p`
-//   color: grey;
-// `
-
 const SummaryHeader = styled.h3`
   color: #525252;
 `
@@ -21,43 +17,30 @@ const RatingContainer = styled.div`
 `
 
 const AverageRatingHeader = ({ products, product, reviews, reviewsMeta }) => {
-  const [averageRating, setAverageRating] = useState(0);
-  // const [percentRecommended, setPercentRecommended] = useState(null);
+  let averageRating;
+  let ratings = [];
 
-  useEffect(() => {
-    setAverageRating(calculateAverageRating());
-    // setPercentRecommended(calculatePercentRecommended());
-  }, [])
+  if (ratings.length < 5) {
+    const ratingValues = [1, 2, 3, 4, 5]
 
-  const calculateAverageRating = () => {
-    // need to fix this so it works with products that do not have ratigns of a certain star value
-    // in current form it will not work if a certain star value has no ratings because it relies of a static number or indexes
-    const ratings = Object.values(reviewsMeta.ratings)
-    const fiveStars = Number(ratings[4]) || 0;
-    const fourStars = Number(ratings[3]) || 0;
-    const threeStars = Number(ratings[2]) || 0;
-    const twoStars = Number(ratings[1]) || 0;
-    const oneStars = Number(ratings[0]) || 0;
-
-    return ((5 * fiveStars + 4 * fourStars + 3 * threeStars + 2 * twoStars + 1 * oneStars) / (fiveStars + fourStars + threeStars + twoStars + oneStars)).toFixed(1);
+    for (let i = 0; i < ratingValues.length; i++) {
+      if (!reviewsMeta.ratings[ratingValues[i]]) {
+        ratings.push(0);
+      } else {
+        ratings.push(reviewsMeta.ratings[ratingValues[i]]);
+      }
+    }
+  } else {
+    ratings = Object.values(reviewsMeta.ratings);
   }
 
-  // const calculatePercentRecommended = () => {
-  //   const reviewCount = reviews.length;
-  //   let recommendCount = 0;
-  //   let recommendPercent;
+  const fiveStars = Number(ratings[4]);
+  const fourStars = Number(ratings[3]);
+  const threeStars = Number(ratings[2]);
+  const twoStars = Number(ratings[1]);
+  const oneStars = Number(ratings[0]);
 
-  //   for (let i = 0; i < reviewCount; i++) {
-  //     const review = reviews[i];
-  //     if (review.recommend) {
-  //       recommendCount++;
-  //     }
-  //   }
-
-  //   recommendPercent = (recommendCount / reviewCount) * 100;
-
-  //   return Math.round(recommendPercent);
-  // }
+  averageRating = ((5 * fiveStars + 4 * fourStars + 3 * threeStars + 2 * twoStars + 1 * oneStars) / (fiveStars + fourStars + threeStars + twoStars + oneStars)).toFixed(1);
 
   return (
     <>
@@ -66,7 +49,6 @@ const AverageRatingHeader = ({ products, product, reviews, reviewsMeta }) => {
         <AverageHeader>{averageRating} </AverageHeader>
         <StarDisplayAverage average={averageRating} />
       </RatingContainer>
-      {/* <PercentRec>{percentRecommended}% of reviews recommend this product</PercentRec> */}
     </>
   )
 }

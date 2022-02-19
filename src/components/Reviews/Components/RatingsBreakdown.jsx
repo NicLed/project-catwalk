@@ -35,8 +35,8 @@ const PercentRec = styled.p`
 
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
 
-  const recommended = Number(reviewsMeta.recommended.true);
-  const notRecommended = Number(reviewsMeta.recommended.false);
+  const recommended = Number(reviewsMeta.recommended.true) || 0;
+  const notRecommended = Number(reviewsMeta.recommended.false) || 0;
   const recommendCount = recommended + notRecommended;
   const percentRecommended = Math.round((recommended / recommendCount) * 100);
   let averages = [];
