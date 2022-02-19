@@ -20,6 +20,7 @@ const ReviewTile = ({ review }) => {
       <div>{moment(review.date).format('LL')}</div>
       <h3>{review.summary}</h3>
       <div>{review.body}</div>
+      <div>Review pictures</div>
       {review.recommend ?
       <div>I recommend this product</div> // add checkmark
       : null}
