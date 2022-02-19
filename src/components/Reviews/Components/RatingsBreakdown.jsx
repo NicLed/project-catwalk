@@ -34,46 +34,43 @@ const PercentRec = styled.p`
 `
 
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
-  const [percentRecommended, setPercentRecommended] = useState(null);
 
-  useEffect(() =>{
-    setPercentRecommended(calculatePercentRecommended());
-  }, [])
-
+  const recommended = Number(reviewsMeta.recommended.true);
+  const notRecommended = Number(reviewsMeta.recommended.false);
+  const recommendCount = recommended + notRecommended;
+  const percentRecommended = Math.round((recommended / recommendCount) * 100);
   let averages = [];
+  let totalsByRating = [];
 
-  const totals = Object.values(reviewsMeta.ratings).reverse();
-  console.log('totals', totals);
-  const totalRatings = totals.reduce((previous, current) => {
-    return Number(previous) + Number(current);
-  })
-  averages = totals.map((value) => {
-    return (Number(value) / totalRatings) * 100;
-  })
-  console.log('averages:', averages)
+  if (Object.values(reviewsMeta.ratings).length !== 5) {
+    const ratingValues = [5, 4, 3, 2, 1];
 
-  const calculatePercentRecommended = () => {
-    const reviewCount = reviews.length;
-    let recommendCount = 0;
-    let recommendPercent;
-
-    for (let i = 0; i < reviewCount; i++) {
-      const review = reviews[i];
-      if (review.recommend) {
-        recommendCount++;
+    for (let i = 0; i < ratingValues.length; i++) {
+      if (!reviewsMeta.ratings[ratingValues[i]]) {
+        totalsByRating.push(0);
+      } else {
+        totalsByRating.push(reviewsMeta.ratings[ratingValues[i]]);
       }
     }
 
-    recommendPercent = (recommendCount / reviewCount) * 100;
-
-    return Math.round(recommendPercent);
+  } else {
+    totalsByRating = Object.values(reviewsMeta.ratings).reverse();
   }
+
+
+  const totalRatings = totalsByRating.reduce((previous, current) => {
+    return Number(previous) + Number(current);
+  })
+
+  averages = totalsByRating.map((value) => {
+    return (Number(value) / totalRatings) * 100;
+  })
 
   return (
     <>
       {averages.map((average, i) => {
-        let number = 5 - i
-        average = average + '%'
+        let number = 5 - i;
+        average = average + '%';
 
         return (
           <StarBar key={number}>
@@ -81,7 +78,7 @@ const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
             <MainBar key={number + 1}>
               <AmountBar width={average} key={number}></AmountBar>
             </MainBar>
-            {totals[i]}
+            {totalsByRating[i]}
           </StarBar>)
       })}
       <PercentRec>{percentRecommended}% of reviews recommend this product</PercentRec>

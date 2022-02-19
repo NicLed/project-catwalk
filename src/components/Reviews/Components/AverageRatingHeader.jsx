@@ -30,12 +30,14 @@ const AverageRatingHeader = ({ products, product, reviews, reviewsMeta }) => {
   }, [])
 
   const calculateAverageRating = () => {
+    // need to fix this so it works with products that do not have ratigns of a certain star value
+    // in current form it will not work if a certain star value has no ratings because it relies of a static number or indexes
     const ratings = Object.values(reviewsMeta.ratings)
-    const fiveStars = Number(ratings[4]);
-    const fourStars = Number(ratings[3]);
-    const threeStars = Number(ratings[2]);
-    const twoStars = Number(ratings[1]);
-    const oneStars = Number(ratings[0]);
+    const fiveStars = Number(ratings[4]) || 0;
+    const fourStars = Number(ratings[3]) || 0;
+    const threeStars = Number(ratings[2]) || 0;
+    const twoStars = Number(ratings[1]) || 0;
+    const oneStars = Number(ratings[0]) || 0;
 
     return ((5 * fiveStars + 4 * fourStars + 3 * threeStars + 2 * twoStars + 1 * oneStars) / (fiveStars + fourStars + threeStars + twoStars + oneStars)).toFixed(1);
   }
