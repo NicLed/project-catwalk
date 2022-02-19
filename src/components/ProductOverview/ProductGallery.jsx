@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ProductItemView from './ProductItemView';
+import ProductItemView from './ProductItemView.jsx';
 
 
-const ProductGallery = () => {
+const ProductGallery = ({productImages}) => {
+
+  const [photo,setPhoto] = useState(productImages);
+
+
+  // const onHandleExpand;
 
   return (
 
     <div>
       <button className="left-button"></button>
-      <ProductItemView />
+      {console.log('GALLERY PHOTO', productImages)}
+      <ProductItemView photo={productImages}/>
       <button className="right-button"></button>
     </div>
 

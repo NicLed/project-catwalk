@@ -30,6 +30,17 @@ const getAllProducts = () => {
   return axios(options);
 };
 
+// `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=13&page=2`
+const getAllProductIDs = () => {
+  const options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=50`,
+    method: 'GET',
+    headers: { Authorization: TOKEN },
+  };
+
+  return axios(options);
+};
+
 // GET PRODUCT DETAILS BY ID
 const getProductDetails = (productID) => {
   const options = {
@@ -96,4 +107,10 @@ const addItemToCart = (item) => {
 };
 
 
-module.exports = { getAllProducts, getProductDetails, getProductStyles, getProductReviews, getProductStylePhotos, addItemToCart }
+module.exports = { getAllProducts, getAllProductIDs, getProductDetails, getProductStyles, getProductReviews, getProductStylePhotos, addItemToCart};
+
+
+
+
+
+
