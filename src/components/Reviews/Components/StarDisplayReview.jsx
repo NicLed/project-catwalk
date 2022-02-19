@@ -13,7 +13,7 @@ const StarDisplayReview = ({review}) => {
     <>
       {ratingValues.map((ratingValue, i) => {
         if (review.rating >= ratingValue) {
-          return <StarIcon fill={'gold'} key={i} />
+          return <StarIcon fill={'#ffa651'} key={i} />
         }
 
         return <StarIcon fill={'none'} key={i} />

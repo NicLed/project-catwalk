@@ -15,7 +15,7 @@ const StarDisplayAverage = ({ average }) => {
         const rounded = Math.round(Number(average));
 
         if (rounded >= ratingValue) {
-          return <StarIcon fill={'gold'} key={i}/>
+          return <StarIcon fill={'#ffa651'} key={i}/>
         }
 
         return <StarIcon fill={'none'} key={i} />
