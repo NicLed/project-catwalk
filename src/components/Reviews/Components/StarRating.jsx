@@ -1,9 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
+import StarIcon from './StarIcon.jsx';
 
 const StarRating = (props) => {
 
   return (
-    <div>Star Rating Here</div>
+    <StarIcon />
   )
 }
 

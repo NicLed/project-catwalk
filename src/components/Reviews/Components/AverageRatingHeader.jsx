@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import StarDisplayAverage from './StarDisplayAverage.jsx';
 
 const AverageHeader = styled.h1`
   color: #525252;
+  font-size: 48;
 `
 
 const PercentPara = styled.p`
@@ -12,8 +14,11 @@ const PercentPara = styled.p`
 const SummaryHeader = styled.h3`
   color: #525252;
 `
+const RatingContainer = styled.div`
+  flex-direction: row;
+`
 
-const AverageRatingHeader = ({products, product, reviews, reviewsMeta}) => {
+const AverageRatingHeader = ({ products, product, reviews, reviewsMeta }) => {
   const [averageRating, setAverageRating] = useState(0);
   const [percentRecommended, setPercentRecommended] = useState(null);
 
@@ -53,7 +58,10 @@ const AverageRatingHeader = ({products, product, reviews, reviewsMeta}) => {
   return (
     <>
       <SummaryHeader>Ratings &amp; Reviews</SummaryHeader>
-      <AverageHeader>{averageRating} Stars</AverageHeader>
+      <RatingContainer>
+        <AverageHeader>{averageRating} </AverageHeader>
+        <StarDisplayAverage average={averageRating} />
+      </RatingContainer>
       <PercentPara>{percentRecommended}% of reviews recommend this product</PercentPara>
     </>
   )

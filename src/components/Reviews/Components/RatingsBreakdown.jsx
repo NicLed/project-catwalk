@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StarBar = styled.div`
   display:flex;
+  align-items: center;
   margin-bottom: 10px;
 `
 
@@ -27,7 +28,7 @@ const AmountBar = styled.div`
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
   let averages = [];
 
-  const totals = Object.values(reviewsMeta.ratings);
+  const totals = Object.values(reviewsMeta.ratings).reverse();
   const totalRatings = totals.reduce((previous, current) => {
     return Number(previous) + Number(current);
   })

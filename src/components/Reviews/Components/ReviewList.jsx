@@ -19,6 +19,10 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
     setDisplayedReviews(newDisplayedReviews);
   }
 
+  const showModal = () => {
+    setShowNewReviewForm(true);
+  }
+
   // const showFewerReviews = () => {
   //   setDisplayedReviews(2);
   // }
@@ -26,6 +30,7 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
   return (
     <div>
       <h3> {reviews.length} Reviews, sorted by <SortDropdown /> </h3>
+
       <InfiniteScroll>
         {reviews.length > displayedReviews ?
           reviews.slice(0, displayedReviews).map(review => {
@@ -36,11 +41,12 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
           })
         }
       </InfiniteScroll>
+
       {reviews.length >= displayedReviews ?
         <button onClick={() => showMoreReviews()} >More Reviews</button>
         : null}
 
-      <button>Add a Review +</button>
+      <button onClick={showModal}>Add a Review +</button>
 
       {/* {reviews.length <= displayedReviews ?
         <button onClick={() => showFewerReviews()}>Fewer Reviews</button>
