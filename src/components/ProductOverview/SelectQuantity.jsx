@@ -17,7 +17,8 @@ const SelectQuantity = () => {
   return (
 
     <div>
-      <Select className="select-quantity" value={"equalsCurrentSize"} onChange={() => "invokeHandleSelectQuantity"}>
+      {/* <Select className="select-quantity" value={"equalsCurrentSize"} onChange={() => "invokeHandleSelectQuantity"}> */}
+      <Select className="select-quantity">
         <option className="option-quantity"> - </option>
         <option className="option-quantity"> 1 </option>
         <option className="option-quantity"> 2 </option>

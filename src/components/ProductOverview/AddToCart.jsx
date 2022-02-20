@@ -24,7 +24,9 @@ const Div = styled.div`
 `
 
 
-const AddToCart = ({AddToCart, styles}) => {
+const AddToCart = ({ AddToCart, styles }) => {
+
+
 
   return (
 
@@ -39,7 +41,7 @@ const AddToCart = ({AddToCart, styles}) => {
 
       <br /><br />
 
-      <Button>Add to Cart</Button>
+      <Button onClick={() => console.log('clicked')} >Add to Cart</Button>
 
       {/* <Button onClick={() => "shouldAddFav"} style={{ width: '15%' }} >
         <img src="" style={{ height: '20px', width: '20px' }} alt="" />

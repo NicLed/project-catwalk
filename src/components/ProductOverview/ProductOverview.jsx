@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import requestsAPI from '../../../server/requestsAPI';
 import ProductGallery from './ProductGallery.jsx';
-import ExpandedView from './ExpandedView.jsx';
+// import ExpandedView from './ExpandedView.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
@@ -130,7 +130,7 @@ const ProductOverview = ({ product, products, productID }) => {
       {console.log('thumbnailPhotos: ', thumbnailPhotos)};
 
 
-      <ExpandedView />
+      {/* <ExpandedView /> */}
 
       <ContainerDiv className="product-overview">
         <Div className="container">

@@ -32,7 +32,7 @@ const ProductDescription = ({ product }) => {
         <p>{product.description}</p>
       </Div>
       <Div>
-        <p>{product.description}</p>
+        {/* <p>{product.description}</p> */}
       </Div>
     </DescriptionDiv>
   );

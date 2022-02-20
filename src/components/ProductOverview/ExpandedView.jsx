@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 
-const ExpandDiv = styled.figure`
+const ExpandDiv = styled.div`
   animation-name: custom;
   animation-timing-function: ease;
   animation-iteration-count: 1;

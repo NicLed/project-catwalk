@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { TOKEN } = require('../config');
+const { TOKEN } = require('../config.js');
 
 
 // PRODUCT OVERVIEW API REQUESTS

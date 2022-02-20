@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import from ***** RATINGS *****
+import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
 
 
 const Div = styled.div`
@@ -35,7 +35,7 @@ const ProductInformation = ({product, productID, rating, styleID}) => {
 
     <Div className="product-information">
 
-      <div>⭐⭐⭐⭐⭐ STAR RATINGS would probably GO HERE!!!</div>
+      <StarDisplayAverage average=""/>
 
       <Category>{product.category}</Category>
       <Name>{product.name}</Name>
