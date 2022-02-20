@@ -120,6 +120,7 @@ const ProductOverview = ({ product, products, productID }) => {
 
     <div>
 
+
       {console.log('stylesOVERVIEW', styles)};
       {console.log('styleID', styleID)};
       {console.log('product: ', product)}
