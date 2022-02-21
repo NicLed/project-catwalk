@@ -6,8 +6,8 @@ import NewReviewModal from './NewReviewModal.jsx';
 import SortDropdown from './SortDropdown.jsx';
 
 const InfiniteScroll = styled.div`
-  max-height: 70vh;
-  overflow: scroll;
+  max-height: 80vh;
+  overflow: auto;
 `
 
 const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
@@ -56,9 +56,3 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
 }
 
 export default ReviewList
-
-
-// TODO Tomorrow:
-// Fix infinite scroll on ReviewList
-// algo for dynamic ratings bars
-// fix styled-component for dynamic ratings bars
