@@ -10,11 +10,9 @@ const InfiniteScroll = styled.div`
   overflow: auto;
 `
 
-const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage }) => {
+const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm }) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
-  const [showNewReviewForm, setShowNewReviewForm] = useState(false);
-  // const [largeImage, setLargeImage] = useState(false);
-  // const [imageSource, setImageSource] = useState('');
+  // const [showNewReviewForm, setShowNewReviewForm] = useState(false);
 
   const showMoreReviews = () => {
     const newDisplayedReviews = displayedReviews + 2;
@@ -22,6 +20,7 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
   }
 
   const showModal = () => {
+    console.log('ooga booga');
     setShowNewReviewForm(true);
   }
 
@@ -29,21 +28,9 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
   //   setDisplayedReviews(2);
   // }
 
-  // const closeLargeImage = () => {
-  //   setLargeImage(false);
-  //   setImageSource('');
-  // }
-
-  // const displayLargeImage = (e) => {
-  //   setImageSource(e.target.src);
-  //   setLargeImage(true);
-  // }
-
   return (
     <div>
       <h3> {reviews.length} Reviews, sorted by <SortDropdown /> </h3>
-
-      {/* {largeImage ? <figure><img src={imageSource} onClick={closeLargeImage}></img></figure> : null} */}
 
       <InfiniteScroll>
         {reviews.length > displayedReviews ?

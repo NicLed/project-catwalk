@@ -27,18 +27,6 @@ const Thumbnail = styled.img`
 `
 
 const ReviewTile = ({ review, displayLargeImage }) => {
-  // const [largeImage, setLargeImage] = useState(false);
-  // const [imageSource, setImageSource] = useState('');
-
-  // const displayLargeImage = (e) => {
-  //   setImageSource(e.target.src);
-  //   setLargeImage(true);
-  // }
-
-  // const closeLargeImage = () => {
-  //   setLargeImage(false);
-  //   setImageSource('');
-  // }
 
   return (
     <Tile>
@@ -62,7 +50,6 @@ const ReviewTile = ({ review, displayLargeImage }) => {
       {review.response ? <div>Response: {review.response}</div> : null}
       <br></br>
       <RatingHelpfulness review={review} />
-      {/* {largeImage ? <figure><img src={imageSource} onClick={closeLargeImage}></img></figure> : null} */}
     </Tile>
   )
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import ReviewList from './Components/ReviewList.jsx';
 import RatingSummary from './Components/RatingSummary.jsx';
+import NewReviewModal from './Components/NewReviewModal.jsx';
 
 const SectionsContainer = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const RatingsReviews = ({products, product}) => {
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
   const [imageSource, setImageSource] = useState('');
+  const [showNewReviewForm, setShowNewReviewForm] = useState(false);
 
   // set state here for showing new review modal
   // pass down that state and handle function to review list
@@ -95,7 +97,9 @@ const RatingsReviews = ({products, product}) => {
 
         {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
 
-        <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage}/></Section>
+        {showNewReviewForm ? <NewReviewModal setShowNewReviewForm={setShowNewReviewForm}/> : null}
+
+        <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}/></Section>
       </SectionsContainer>
       : null}
     </>

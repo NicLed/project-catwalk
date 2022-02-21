@@ -1,11 +1,18 @@
 import React, { Component, useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const HelpfulLink = styled.a`
+  color: grey;
+`
 
 const RatingHelpfulness = ( { review } ) => {
+
+  // need to add put request to update helpfulness count in database when link is clicked
 
   return (
       <div>
         Was this review helpful? -
-        <a href="">Yes ({review.helpfulness})</a>
+        <HelpfulLink href=""> Yes ({review.helpfulness})</HelpfulLink>
       </div>
   )
 }
