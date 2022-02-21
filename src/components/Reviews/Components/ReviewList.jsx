@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import ReviewTile from './ReviewTile.jsx';
-import NewReviewModal from './NewReviewModal.jsx';
 import SortDropdown from './SortDropdown.jsx';
 
 const InfiniteScroll = styled.div`
@@ -20,7 +19,6 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
   }
 
   const showModal = () => {
-    console.log('ooga booga');
     setShowNewReviewForm(true);
   }
 

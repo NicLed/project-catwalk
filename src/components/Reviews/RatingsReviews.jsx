@@ -97,7 +97,7 @@ const RatingsReviews = ({products, product}) => {
 
         {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
 
-        {showNewReviewForm ? <NewReviewModal setShowNewReviewForm={setShowNewReviewForm}/> : null}
+        {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm}/> : null}
 
         <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}/></Section>
       </SectionsContainer>
@@ -106,4 +106,4 @@ const RatingsReviews = ({products, product}) => {
   )
 }
 
-export default RatingsReviews;
+export default React.memo(RatingsReviews);
