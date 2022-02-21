@@ -18,9 +18,31 @@ const Section = styled.div`
   }
 `
 
+const LargeImageModal = styled.div`
+  z-index: 1;
+  position: fixed;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: auto;
+  cursor: pointer;
+`
+
+const LargeImage = styled.img`
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+`
+
 const RatingsReviews = ({products, product}) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
+  const [largeImage, setLargeImage] = useState(false);
+  const [imageSource, setImageSource] = useState('');
 
   // set state here for showing new review modal
   // pass down that state and handle function to review list
@@ -53,13 +75,27 @@ const RatingsReviews = ({products, product}) => {
       })
   }
 
+  const closeLargeImage = () => {
+    setLargeImage(false);
+    setImageSource('');
+  }
+
+  const displayLargeImage = (e) => {
+    setImageSource(e.target.src);
+    setLargeImage(true);
+  }
+
   return (
     <>
+
       {Object.keys(reviewsMeta).length && reviews.length ?
       <SectionsContainer>
+
         <Section><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></Section>
 
-        <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></Section>
+        {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
+
+        <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage}/></Section>
       </SectionsContainer>
       : null}
     </>

@@ -19,14 +19,26 @@ const Thumbnail = styled.img`
   border-radius: 4px;
   padding: 5px;
   width: 150px;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
   }
 `
 
-const ReviewTile = ({ review }) => {
-  const [largeImage, setLargeImage] = useState(false);
+const ReviewTile = ({ review, displayLargeImage }) => {
+  // const [largeImage, setLargeImage] = useState(false);
+  // const [imageSource, setImageSource] = useState('');
+
+  // const displayLargeImage = (e) => {
+  //   setImageSource(e.target.src);
+  //   setLargeImage(true);
+  // }
+
+  // const closeLargeImage = () => {
+  //   setLargeImage(false);
+  //   setImageSource('');
+  // }
 
   return (
     <Tile>
@@ -39,7 +51,7 @@ const ReviewTile = ({ review }) => {
       <br></br>
       <ImageContainer>
       {review.photos.map((photo, i) => {
-        return <Thumbnail src={photo.url} key={i}></Thumbnail>
+        return <Thumbnail src={photo.url} key={i} onClick={displayLargeImage}></Thumbnail>
       })}
       </ImageContainer>
       <br></br>
@@ -50,6 +62,7 @@ const ReviewTile = ({ review }) => {
       {review.response ? <div>Response: {review.response}</div> : null}
       <br></br>
       <RatingHelpfulness review={review} />
+      {/* {largeImage ? <figure><img src={imageSource} onClick={closeLargeImage}></img></figure> : null} */}
     </Tile>
   )
 }
