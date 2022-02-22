@@ -17,7 +17,7 @@ const Questions = (props) => {
 
 
   const getAllQuestions = () => {
-    axios.get(`/qa/questions/`)
+    axios.get(`/qa/questions/${props.product.id}`)
     .then((response) => {
       setQuestions(response.data.results);
       setAnswers(response.data.results);
