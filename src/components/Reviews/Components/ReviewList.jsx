@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import ReviewTile from './ReviewTile.jsx';
-import NewReviewModal from './NewReviewModal.jsx';
 import SortDropdown from './SortDropdown.jsx';
 
 const InfiniteScroll = styled.div`
-  max-height: 70vh;
+  max-height: 80vh;
   overflow: scroll;
 `
 
-const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
+const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm }) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
-  const [showNewReviewForm, setShowNewReviewForm] = useState(false);
+  // const [showNewReviewForm, setShowNewReviewForm] = useState(false);
 
   const showMoreReviews = () => {
     const newDisplayedReviews = displayedReviews + 2;
@@ -34,7 +33,7 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
       <InfiniteScroll>
         {reviews.length > displayedReviews ?
           reviews.slice(0, displayedReviews).map(review => {
-            return <ReviewTile review={review} key={review.review_id} />
+            return <ReviewTile review={review} key={review.review_id} displayLargeImage={displayLargeImage}/>
           })
           : reviews.map(review => {
             return <ReviewTile review={review} key={review.review_id} />
@@ -56,9 +55,3 @@ const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
 }
 
 export default ReviewList
-
-
-// TODO Tomorrow:
-// Fix infinite scroll on ReviewList
-// algo for dynamic ratings bars
-// fix styled-component for dynamic ratings bars
