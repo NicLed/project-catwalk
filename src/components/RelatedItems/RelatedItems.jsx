@@ -1,7 +1,9 @@
 import React, {Component, useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components'
-import { Title1, Button, RIdiv, Carousel } from './styles.js';
+import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, ElementDiv } from './styles/styles.js';
+import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
+import Modal from './styles/Modal.js';
 
 const GreenContainerDiv = styled.div`
   background-color: mediumseagreen;
@@ -22,52 +24,85 @@ export default function RelatedItems({productID}) {
   const getRelatedItems = (id) => {
     axios.get(`/related/${id}`)
     .then((related) => {
-      console.log(related.data);
-      const relatedPromises = Promise.all(related.data.map(itemID => {
+      // console.log(related.data);
+      const relatedData = related.data;
+      const relatedPromises = Promise.all(relatedData.map(itemID => {
         return axios.get(`/products/${itemID}`)
       }))
 
-      relatedPromises.then(result => {
-        const relatedItems = result.map( element => {
-          return element.data
+      const relatedReviews = Promise.all(relatedData.map(ID => {
+        return axios.get(`/average-reviews/${ID}`)
+      }))
+
+      relatedReviews.then(result => {
+        // console.log("RATINGS✨", result)
+        let ratingsArray = [];
+        result.forEach((element) => {
+          ratingsArray.push(element.data.avg)
         })
-        // console.log(relatedItems)
-        setRelatedProducts(relatedItems)
+        relatedPromises.then(result1 => {
+          const relatedItems = result1.map( element => {
+            return element.data
+          })
+
+          for (let i = 0; i < relatedItems.length; i ++) {
+            console.log(ratingsArray[i])
+            relatedItems[i].reviewRating = ratingsArray[i];
+          }
+          console.log(relatedItems)
+          setRelatedProducts(relatedItems)
+        })
+        .catch(err => {
+          console.log(err)
+        })
       })
-      .catch(err => {
-        console.log(err)
+      .catch((error) => {
+        throw new Error(error);
       })
-      // setRelatedProducts(related);
 
     })
-    .catch((error) => {
-      throw new Error(error);
-    })
+      .catch((error) => {
+        throw new Error(error);
+      })
   }
 
   return (
+
     <RIdiv>
     {/* <div> */}
-        <Title1>Related Products</Title1>
+        <Title1>RELATED PRODUCTS</Title1>
         {/* <GreenContainerDiv style={{ backgroundColor: 'aliceblue'}}/> */}
-        <Carousel>
+        <Container0>
+          <LeftArrow/>
+
           {relatedProducts.map(element => {
             return (
-              <div key={element.id}>
+              <ElementDiv key={element.id}>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
                 <div> {element.default_price} </div>
-                <div> {'✨✨✨✨✨'} </div>
-              </div>
+                <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
+              </ElementDiv>
             )
           })}
-        </Carousel>
-        {/* <li>
-          <ul> Lorem ipsum</ul>
-          <ul> Lorem ipsum</ul>
-          <ul> Lorem ipsum</ul>
-          <ul> Lorem ipsum</ul>
-        </li> */}
+          <RightArrow/>
+        </Container0>
+        <Title1>YOUR OUTFIT</Title1>
+        <Container0>
+          <LeftArrow/>
+
+          {relatedProducts.map(element => {
+            return (
+              <ElementDiv key={element.id}>
+                <div> {element.category} </div>
+                <div> {element.name} </div>
+                <div> {element.default_price} </div>
+                <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
+              </ElementDiv>
+            )
+          })}
+          <RightArrow/>
+        </Container0>
      {/* </div> */}
    </RIdiv>
   )
