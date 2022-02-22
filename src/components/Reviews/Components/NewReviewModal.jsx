@@ -10,7 +10,8 @@ const ReviewModal = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  // background-color: rgba(0, 0, 0, 0.7);
+  border: solid, black;
+  background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
 `
 
@@ -149,7 +150,7 @@ const NewReviewModal = ({ product, setShowNewReviewForm }) => {
           <FormLabel>What is your nickname?*:
             <input type="text" maxLength="60" placeholder="Example: jackson11!" required={true}></input>
             <br></br>
-            <span>For privacy resons, do not use your full name or email address.</span>
+            <span>For privacy reasons, do not use your full name or email address.</span>
           </FormLabel>
           <br></br>
           <FormLabel>Your email*:

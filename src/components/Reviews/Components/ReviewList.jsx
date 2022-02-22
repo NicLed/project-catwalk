@@ -6,7 +6,7 @@ import SortDropdown from './SortDropdown.jsx';
 
 const InfiniteScroll = styled.div`
   max-height: 80vh;
-  overflow: auto;
+  overflow: scroll;
 `
 
 const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm }) => {
