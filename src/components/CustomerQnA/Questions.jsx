@@ -8,8 +8,8 @@ const Questions = (props) => {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState({});
-  // const [showNumber, setShowNumber] = useState(4);
 
+  console.log('props.products: ', props.products)
 
   useEffect(() => {
     getAllQuestions();
@@ -17,16 +17,16 @@ const Questions = (props) => {
 
 
   const getAllQuestions = () => {
-    axios.get(`/qa/questions/${props.product.id}`)
+    axios.get(`/qa/questions/${props.productID}`)
     .then((response) => {
+      console.log('AllData: ', response.data.results);
       setQuestions(response.data.results);
-      setAnswers(response.data.results);
+      // setAnswers(response.data.results);
     })
     .catch((err) => {
       console.error(err)
     })
   }
-  console.log('lengthOfQ:', questions.length);
 
 
   // const getAllQuestions = async () => {
