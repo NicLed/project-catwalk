@@ -29,6 +29,7 @@ module.exports = {
       }
     ]
   },
+
   mode: 'development',
   plugins: [
     new HtmlPlugin({
