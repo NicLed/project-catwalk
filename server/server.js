@@ -45,7 +45,7 @@ app.get('/reviews/:product_id', (req, res) => {
 
 app.get('/qa/questions', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions?product_id=37311',
-  {headers: {Authorization: config.TOKEN}})
+  {headers: {Authorization: TOKEN}})
   .then((response) => {
     res.status(201).send(response.data)
     console.log('response:', response.data)
