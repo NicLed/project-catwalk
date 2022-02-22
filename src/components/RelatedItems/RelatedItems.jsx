@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, ElementDiv } from './styles/styles.js';
 import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
 import Modal from './styles/Modal.js';
+import requestsAPI from '../../../server/requestsAPI.js'
 
 const GreenContainerDiv = styled.div`
   background-color: mediumseagreen;
@@ -12,6 +13,7 @@ const GreenContainerDiv = styled.div`
 `
 
 export default function RelatedItems({productID}) {
+  // console.log("🤳>>>>>>>>" ,productID)
 
   const [relatedProducts, setRelatedProducts] = useState([])
 
@@ -19,15 +21,17 @@ export default function RelatedItems({productID}) {
     getRelatedItems(productID);
   }, [])
 
-  console.log(productID);
+  // console.log(productID);
 
   const getRelatedItems = (id) => {
+    // console.log('>>>>>>>>> ID IS HERE!!',id)
     axios.get(`/related/${id}`)
     .then((related) => {
-      // console.log(related.data);
+      console.log('>>>>>>>>> related data IS HERE!!', related.data);
       const relatedData = related.data;
       const relatedPromises = Promise.all(relatedData.map(itemID => {
         return axios.get(`/products/${itemID}`)
+        // requestsAPI.getProductDetails(itemID)
       }))
 
       const relatedReviews = Promise.all(relatedData.map(ID => {
@@ -41,6 +45,7 @@ export default function RelatedItems({productID}) {
           ratingsArray.push(element.data.avg)
         })
         relatedPromises.then(result1 => {
+          console.log(">>>>>>>>results1🎶" ,result1)
           const relatedItems = result1.map( element => {
             return element.data
           })
