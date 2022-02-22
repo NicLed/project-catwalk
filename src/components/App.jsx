@@ -32,14 +32,14 @@ const App = (props) => {
       <Title>Project Cat Walk</Title>
       <Button>button</Button>
 
-      {/* <ProductOverview products={products} product={product} />
-      <RelatedItems products={products} product={product} /> */}
+      {/* <ProductOverview products={products} product={product} /> */}
+      {/* <RelatedItems products={products} product={product} /> */}
       <div>
       <Questions products={products} product={product} />
       </div>
-      {/* {Object.keys(product).length && products.length ?
+      {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
-        : null} */}
+        : null}
       {/* {console.log(products.length)} */}
     </div>
   )
