@@ -7,7 +7,7 @@ import SelectQuantity from './SelectQuantity.jsx';
 
 
 const AddCartDiv = styled.div`
-  background: hsla(250,70%,70%,0.5);
+  /* background: hsla(250,70%,70%,0.5); */
   border-radius: 10%;
 `;
 
