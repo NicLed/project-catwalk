@@ -56,6 +56,7 @@ const App = (props) => {
       .then(() => {
         requestsAPI.getProductStyles(productID)
           .then((styles) => {
+            console.log('STYLES ARE HERE >>>>>>>>>>', styles)
             setStyles(styles.data.results);
           })
           .catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`))
@@ -73,7 +74,7 @@ const App = (props) => {
       <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
 
       {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />}
-      {products.length && <RelatedItems productID={productID} />}
+      {products.length && <RelatedItems productID={productID} styles={styles} />}
       <div>
 
       {Object.keys(product).length && products.length ? <Questions products={products} product={product} /> : null}

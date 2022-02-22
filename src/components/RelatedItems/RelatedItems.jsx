@@ -12,22 +12,33 @@ const GreenContainerDiv = styled.div`
   width: 100px;
 `
 
-export default function RelatedItems({productID}) {
+export default function RelatedItems({productID, styles}) {
   // console.log("🤳>>>>>>>>" ,productID)
 
   const [relatedProducts, setRelatedProducts] = useState([])
+  // const [relatedProductsPhotos, setRelatedProductsPhotos] = useState([])
+  // const [currentRelatedPhoto, setCurrentRelatedPhoto] = useState({})
 
   useEffect(() => {
     getRelatedItems(productID);
+    // getProductPhoto(productID);
   }, [])
 
-  // console.log(productID);
+  // getting photos
+  // const getProductPhoto = (id) => {
+  //   requestsAPI.getProductStyles(productID)
+  //         .then((styles) => {
+  //           // console.log('PHOTo is HERE >>>>>>>>>>', styles.data.results[0].photos[0].url)
+  //           setCurrentRelatedPhoto(styles.data.results[0].url);
+  //         })
+  //         .catch((err) => console.log(`FAILED to GRAB a PHOTO ${err}`))
+  // }
 
   const getRelatedItems = (id) => {
     // console.log('>>>>>>>>> ID IS HERE!!',id)
     axios.get(`/related/${id}`)
     .then((related) => {
-      console.log('>>>>>>>>> related data IS HERE!!', related.data);
+      // console.log('>>>>>>>>> related data IS HERE!!', related.data);
       const relatedData = related.data;
       const relatedPromises = Promise.all(relatedData.map(itemID => {
         return axios.get(`/products/${itemID}`)
@@ -45,16 +56,16 @@ export default function RelatedItems({productID}) {
           ratingsArray.push(element.data.avg)
         })
         relatedPromises.then(result1 => {
-          console.log(">>>>>>>>results1🎶" ,result1)
+          // console.log(">>>>>>>>results1🎶" ,result1)
           const relatedItems = result1.map( element => {
             return element.data
           })
 
           for (let i = 0; i < relatedItems.length; i ++) {
-            console.log(ratingsArray[i])
+            // console.log(ratingsArray[i])
             relatedItems[i].reviewRating = ratingsArray[i];
           }
-          console.log(relatedItems)
+          // console.log(relatedItems)
           setRelatedProducts(relatedItems)
         })
         .catch(err => {
@@ -81,11 +92,13 @@ export default function RelatedItems({productID}) {
           <LeftArrow/>
 
           {relatedProducts.map(element => {
+            console.log("ELEMENT IS HERE >>>>>", element)
             return (
               <ElementDiv key={element.id}>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
                 <div> {element.default_price} </div>
+                {/* <img src={element.photo.url}></img> */}
                 <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
               </ElementDiv>
             )

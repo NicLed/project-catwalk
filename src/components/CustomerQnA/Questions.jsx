@@ -26,7 +26,7 @@ const Questions = (props) => {
       console.error(err)
     })
   }
-  console.log('lengthOfQ:', questions.length);
+  // console.log('lengthOfQ:', questions.length);
 
 
   // const getAllQuestions = async () => {

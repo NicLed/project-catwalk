@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AnswerEntry from './AnswerEntry.jsx';
 
 const AnswersList = (props) => {
-  console.log('answersList: ', props);
+  // console.log('answersList: ', props);
   const answersArray = Object.values(props.answers);
   return (
     <div>
