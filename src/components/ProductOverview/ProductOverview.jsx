@@ -98,17 +98,15 @@ const ProductOverview = ({ product, productID, styles }) => {
 
   // UPDATE style ID
   const updateStyleID = (style_ID) => {
-    console.log('attempting to update STYLE ID');
     setStyleID(style_ID);
     getProductPhotos(productID, style_ID);
   }
 
   // GET product PHOTOS
   const getProductPhotos = (prod_ID,style_ID) => {
-    console.log('THIS IS THE CURRENT STYLE.ID: 🥶🥶🥶', styleID);
     requestsAPI.getProductStylePhotos(prod_ID,style_ID)
     .then((results) => {
-      console.log('PHOTO RESULTSSSSSS', results.photos);
+      // console.log('PHOTO RESULTSSSSSS', results.photos);
       setProductImages(results.photos[0].url);
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
@@ -120,7 +118,6 @@ const ProductOverview = ({ product, productID, styles }) => {
   const onHandleImageClick = (event) => {
     event.preventDefault();
     setExpandedView(!expandedView);
-    console.log('EXPANDED VIEW: ', expandedView);
   }
 
   // ADD ITEM TO CART => API
@@ -135,14 +132,6 @@ const ProductOverview = ({ product, productID, styles }) => {
   return (
 
     <OverviewDiv ref={ref}>
-
-      {console.log('OVERVIEW.CURRENT STYLEs ⭐ ⭐ ⭐', currentStyles[0].style_id)}
-      {console.log('OVERVIEW.STYLEs ⭐⭐⭐⭐⭐', styles[0].style_id)}
-      {console.log('OVERVIEW.  STYLEEE IDDD', styleID)}
-      {console.log('currentPRODUCCCTTTTT', currentProduct)}
-      {console.log(' product ID PRODUCCCTTTTT', productID)}
-      {console.log('productImages: ', productImages)};
-      {/* {console.log('thumbnailPhotos: ', thumbnailPhotos)}; */}
 
       {ExpandedViewComponent}
 

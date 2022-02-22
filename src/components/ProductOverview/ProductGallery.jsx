@@ -28,7 +28,7 @@ const ProductGallery = ({ productImages, onHandleImageClick }) => {
       <GalleryButton className="left-button" onClick={() => console.log('PREVIOUS STYLE PHOTO')}>PREVIOUS STYLE PHOTO</GalleryButton>
 
       {console.log('GALLERY PHOTO', productImages)}
-      <ProductItemView photo={productImages} onHandleImageClick={onHandleImageClick} /> ohhhhh shit
+      <ProductItemView photo={productImages} onHandleImageClick={onHandleImageClick} />
 
       <br />
 
