@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
-// import RelatedItems from './RelatedItems/RelatedItems.jsx';
-// import Questions from './CustomerQnA/Questions.jsx';
-// import ProductOverview from './ProductOverview/ProductOverview.jsx';
 
+import Questions from './CustomerQnA/Questions.jsx';
 
 const App = (props) => {
   const [products, setProducts] = useState([])
@@ -24,18 +22,25 @@ const App = (props) => {
       .catch((error) => {
         throw new Error(error);
       })
+
   }
+
+
 
   return (
     <div>
       <Title>Project Cat Walk</Title>
       <Button>button</Button>
-      {/* <ProductOverview products={products} product={product} /> */}
-      {/* <RelatedItems products={products} product={product} /> */}
-      {/* <Questions products={products} product={product} /> */}
-      {Object.keys(product).length && products.length ?
+
+      {/* <ProductOverview products={products} product={product} />
+      <RelatedItems products={products} product={product} /> */}
+      <div>
+      <Questions products={products} product={product} />
+      </div>
+      {/* {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
-        : null}
+        : null} */}
+      {/* {console.log(products.length)} */}
     </div>
   )
 }
