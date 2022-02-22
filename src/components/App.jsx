@@ -48,6 +48,7 @@ const App = (props) => {
       .then(({ data }) => {
         setProductID(data[productIndex].id);
         setAllProductID(data.map((item) => item.id));
+        setProduct(data[productIndex]);
       })
       .then(() => {
         requestsAPI.getProductStyles(productID)
@@ -71,7 +72,8 @@ const App = (props) => {
       {/* <RelatedItems products={products} product={product} /> */}
       <div>
 
-      {products.length && <Questions products={products} product={product} />}
+      {Object.keys(product).length && products.length ? <Questions products={products} product={product} /> : null}
+
       </div>
       {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
