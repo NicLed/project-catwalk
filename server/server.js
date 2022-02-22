@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const { TOKEN } = require('../config.js');
 const requestsAPI = require('./requestsAPI');
+const averageRating = require('./helpers/averageRating.js')
 
 const port = 3000;
 const app = express();
@@ -42,6 +43,35 @@ app.get('/reviews/:product_id', (req, res) => {
     throw new Error(error);
   })
 })
+// !!
+app.get('/related/:product_id', (req, res) => {
+  const id = Number(req.params.product_id);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${id}/related`,
+   {headers: {Authorization: TOKEN}})
+  .then((response) => {
+    res.status(200).send(response.data)
+  })
+  .catch((error) => {
+    throw new Error(error);
+  })
+})
+// !!
+app.get('/average-reviews/:product_id', (req, res) => {
+  const id = Number(req.params.product_id);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=${id}&count=1000`,
+   {headers: {Authorization: TOKEN}})
+  .then((response) => {
+    // console.log(averageRating(response.data.results))
+    const avgRating = { avg: averageRating(response.data.results)}
+    res.status(200).send(avgRating)
+    // res.sendStatus(200)
+  })
+  .catch((error) => {
+    console.log(error)
+    res.sendStatus(500)
+  })
+})
+
 
 
 app.get('/qa/questions/:product_id', (req, res) => {
@@ -69,6 +99,7 @@ app.get('/reviews/meta/:product_id', (req, res) => {
     throw new Error(error);
   })
 })
+
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
