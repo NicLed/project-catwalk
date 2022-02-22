@@ -64,7 +64,6 @@ const App = (props) => {
   };
 
 
-
   return (
     <div>
       <Title>Project Cat Walk</Title>

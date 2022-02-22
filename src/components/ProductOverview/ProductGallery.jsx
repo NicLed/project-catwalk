@@ -4,8 +4,9 @@ import ProductItemView from './ProductItemView.jsx';
 
 
 const GalleryDiv = styled.div`
-  background-color: hsla(200,50%,70%,0.5);
+  /* background-color: hsla(200,50%,70%,0.5); */
   /* cursor: pointer; */
+  width: 500px;
 `;
 
 const GalleryButton = styled.button`
@@ -27,7 +28,6 @@ const ProductGallery = ({ productImages, onHandleImageClick }) => {
 
       <GalleryButton className="left-button" onClick={() => console.log('PREVIOUS STYLE PHOTO')}>PREVIOUS STYLE PHOTO</GalleryButton>
 
-      {console.log('GALLERY PHOTO', productImages)}
       <ProductItemView photo={productImages} onHandleImageClick={onHandleImageClick} />
 
       <br />
