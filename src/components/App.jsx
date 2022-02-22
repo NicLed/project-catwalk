@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';

@@ -1,43 +1,64 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import ReviewTile from './ReviewTile.jsx';
+import NewReviewModal from './NewReviewModal.jsx';
+import SortDropdown from './SortDropdown.jsx';
 
-const ReviewList = (props) => {
+const InfiniteScroll = styled.div`
+  max-height: 70vh;
+  overflow: scroll;
+`
 
-  // getReviews() {
-    // console.log('ReviewList this', this)
-    // console.log('ReviewList product', this.state.id)
-    // axios.get(`/API/reviews/:${this.props.product.id}`)
-    //   .then((response) => {
-    //     console.log("reviews response", response.data);
-    //     this.setState({
-    //       reviews: response.data.results
-    //     })
-    //   })
-    //   .catch((error) => {
-    //     throw new Error(error);
-    //   })
+const ReviewList = ({ products, product, reviews, reviewsMeta }) => {
+  const [displayedReviews, setDisplayedReviews] = useState(2);
+  const [showNewReviewForm, setShowNewReviewForm] = useState(false);
+
+  const showMoreReviews = () => {
+    const newDisplayedReviews = displayedReviews + 2;
+    setDisplayedReviews(newDisplayedReviews);
+  }
+
+  const showModal = () => {
+    setShowNewReviewForm(true);
+  }
+
+  // const showFewerReviews = () => {
+  //   setDisplayedReviews(2);
   // }
 
-  // if (this.state.reviews.length > 2) {
   return (
-      <div>
-        <h3>Reviews</h3>
-        {/* {this.state.reviews.map((review, i) => {
-          return <ReviewListEntry review={review} key={i} />
-        })} */}
-        <button>More Reviews</button>
-      <div>{props.product.id}</div>
+    <div>
+      <h3> {reviews.length} Reviews, sorted by <SortDropdown /> </h3>
+
+      <InfiniteScroll>
+        {reviews.length > displayedReviews ?
+          reviews.slice(0, displayedReviews).map(review => {
+            return <ReviewTile review={review} key={review.review_id} />
+          })
+          : reviews.map(review => {
+            return <ReviewTile review={review} key={review.review_id} />
+          })
+        }
+      </InfiniteScroll>
+
+      {reviews.length >= displayedReviews ?
+        <button onClick={() => showMoreReviews()} >More Reviews</button>
+        : null}
+
+      <button onClick={showModal}>Add a Review +</button>
+
+      {/* {reviews.length <= displayedReviews ?
+        <button onClick={() => showFewerReviews()}>Fewer Reviews</button>
+        : null} */}
     </div>
   )
-  // } else {
-  // return (
-  //   <div>
-  //     <h3>Reviews</h3>
-  //     {/* {this.state.reviews.map((review, i) => {
-  //       return <ReviewListEntry review={review} key={i} />
-  //     })} */}
-  //   </div>
-  // )
-  // }
 }
 
 export default ReviewList
+
+
+// TODO Tomorrow:
+// Fix infinite scroll on ReviewList
+// algo for dynamic ratings bars
+// fix styled-component for dynamic ratings bars
