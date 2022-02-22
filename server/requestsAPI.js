@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { TOKEN } = require('../config');
+const { TOKEN } = require('../config.js');
 
 
 // PRODUCT OVERVIEW API REQUESTS
@@ -23,6 +23,17 @@ const { TOKEN } = require('../config');
 const getAllProducts = () => {
   const options = {
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products`,
+    method: 'GET',
+    headers: { Authorization: TOKEN },
+  };
+
+  return axios(options);
+};
+
+// `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=13&page=2`
+const getAllProductIDs = () => {
+  const options = {
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=100`,
     method: 'GET',
     headers: { Authorization: TOKEN },
   };
@@ -96,4 +107,10 @@ const addItemToCart = (item) => {
 };
 
 
-module.exports = { getAllProducts, getProductDetails, getProductStyles, getProductReviews, getProductStylePhotos, addItemToCart }
+module.exports = { getAllProducts, getAllProductIDs, getProductDetails, getProductStyles, getProductReviews, getProductStylePhotos, addItemToCart};
+
+
+
+
+
+
