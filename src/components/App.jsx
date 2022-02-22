@@ -2,16 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
-
+import ProductOverview from './ProductOverview/ProductOverview.jsx';
+import requestsAPI from '../../server/requestsAPI';
 import Questions from './CustomerQnA/Questions.jsx';
 
 const App = (props) => {
-  const [products, setProducts] = useState([])
-  const [product, setProduct] = useState({})
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({});
+  const [productID, setProductID] = useState(null);
+  const [allProductID, setAllProductID] = useState([]);
+  const [productIndex, setProductIndex] = useState(0);
+  const [styles, setStyles] = useState([]);
+
 
   useEffect(() => {
     getProducts();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProductID(allProductID[productIndex]);
+    }, 0);
+    getAllProductID();
+  }, [productID, productIndex]);
 
   const getProducts = () => {
     axios.get('/products')
@@ -22,19 +35,43 @@ const App = (props) => {
       .catch((error) => {
         throw new Error(error);
       })
+  };
 
-  }
+  const previousIndex = () => {
+    productIndex === 0 ? setProductIndex(0) : setProductIndex((previousState) => previousState - 1);
+  };
 
+  const nextIndex = () => { setProductIndex((previousState) => previousState + 1) };
+
+  const getAllProductID = () => {
+    requestsAPI.getAllProductIDs()
+      .then(({ data }) => {
+        setProductID(data[productIndex].id);
+        setAllProductID(data.map((item) => item.id));
+      })
+      .then(() => {
+        requestsAPI.getProductStyles(productID)
+          .then((styles) => {
+            setStyles(styles.data.results);
+          })
+          .catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`))
+      })
+      .catch((err) => console.error(err))
+  };
 
 
   return (
     <div>
       <Title>Project Cat Walk</Title>
-      <Button>button</Button>
 
       {/* <ProductOverview products={products} product={product} /> */}
+      <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
+      <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
+
+      {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />}
       {/* <RelatedItems products={products} product={product} /> */}
       <div>
+
       <Questions products={products} product={product} />
       </div>
       {Object.keys(product).length && products.length ?
@@ -42,7 +79,7 @@ const App = (props) => {
         : null}
       {/* {console.log(products.length)} */}
     </div>
-  )
-}
+  );
+};
 
 export default App;
