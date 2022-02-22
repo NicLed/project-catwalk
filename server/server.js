@@ -3,7 +3,7 @@ const axios = require('axios');
 const { TOKEN } = require('../config.js');
 const requestsAPI = require('./requestsAPI');
 
-const port = 3001;
+const port = 3000;
 const app = express();
 const path = require('path');
 

@@ -33,7 +33,7 @@ const getAllProducts = () => {
 // `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=13&page=2`
 const getAllProductIDs = () => {
   const options = {
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=50`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/?count=100`,
     method: 'GET',
     headers: { Authorization: TOKEN },
   };

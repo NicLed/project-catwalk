@@ -1,50 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import requestsAPI from '../../../server/requestsAPI';
 import ProductGallery from './ProductGallery.jsx';
-// import ExpandedView from './ExpandedView.jsx';
+import ExpandedView from './ExpandedView.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
+import StyleInformation from './StyleInformation.jsx';
 import AddToCart from './AddToCart.jsx';
-import Thumbnail from './Thumbnail.jsx';
+// import Thumbnail from './Thumbnail.jsx';
 import ProductDescription from './ProductDescription.jsx';
 
 
+const OverviewDiv = styled.div`
+  cursor: pointer;
+`;
+
 const ContainerDiv = styled.div`
-  padding: 0px;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: sans-serif;
   margin: 4px;
   min-width: 360px;
-  font-family: Arial;
+  padding: 0px;
+  /*  */
+  /* align-items: flex-start; */
+  /* display: flex; */
+  /* max-height: 600px; */
+  /* position: relative; */
+  /* width: auto; */
 `;
 
 const Div = styled.div`
-  padding: 5px;
-  margin: 5px;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  font-family: Arial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: sans-serif;
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
 `;
 
-const ImageContainer = styled.div`
+const ImageDiv = styled.div`
   display: flex;
 `;
 
 const Image = styled.img`
   cursor: url('./images/search.svg'), zoom-in;
-  max-height: 500px;
+  margin-top: 30px;
+  max-height: 600px;
   max-width: 100%;
 `;
 
 const SelectorDiv = styled.div`
   border: 1px solid grey;
-  margin: 12px;
-  padding: 2px;
-  min-width: 360px;
-  font-family: Arial;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  border-radius: 10%;
+  box-shadow: 2px 2px 5px #3838387f;
   background: linear-gradient(0deg, hsl(190,70%,99%), hsl(240,60%,100%));
+  /* display: flex; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 250px;
+  margin: 12px;
+  min-width: 360px;
+  padding: 2px;
 `;
 
 const ThumbnailDiv = styled.div`
@@ -52,59 +69,58 @@ const ThumbnailDiv = styled.div`
   max-height: 500px;
 `;
 
+const useVisibilityToggler = (component, visibility = false) => {
+  const [visible, setVisible] = useState(() => visibility);
+  return [(visible ? component : null), () => setVisible((state) => !state)];
+};
 
-const ProductOverview = ({ product, products, productID }) => {
 
+const ProductOverview = ({ product, productID, styles }) => {
 
   const [expandedView, setExpandedView] = useState(false);
-  const [prodID,setProdID] = useState(productID);
+  const [currentProduct, setCurrentProduct] = useState(productID);
+  const [currentStyles, setCurrentStyles] = useState(styles);
+  const [styleIndex, setStyleIndex] = useState(0);
+  const [styleID, setStyleID] = useState(styles[0].style_id);
   const [productImages, setProductImages] = useState([]);
   const [thumbnailPhotos, setThumbnailPhotos] = useState([]);
-  const [styles, setStyles] = useState([]);
-  const [styleID, setStyleID] = useState('');
 
+  const ref = useRef();
+  const [ExpandedViewComponent, toggleExpandVisibility] = useVisibilityToggler(
+    <ExpandedView className="expanded-view" expandedView={expandedView} />, false);
 
 
   useEffect(() => {
-    getStyles(37311);
-    getAllProducts();
-    getProductPhotos(37311,220998);
-  }, []);
-
-  // GET ALL product ID's in API
-  const getAllProducts = () => {
-    requestsAPI.getAllProductIDs()
-    .then((results) => console.log('ALL PRODUCTS', results))
-    .catch((err) => console.error(err))
-  }
-
-  // GET styles
-  const getStyles = (productID) => {
-    requestsAPI.getProductStyles(productID)
-      .then((styles) => {
-        setStyles(styles.data.results);
-        setStyleID(styles.data.results[0].style_id);
-      })
-      .catch((err) => console.error(err));
-  };
+    setCurrentProduct(productID);
+    setCurrentStyles(styles);
+    getProductPhotos(productID,currentStyles[0].style_id);
+  });
 
   // UPDATE style ID
-  const updateStyleID = (productID, styleID) => {
+  const updateStyleID = (style_ID) => {
     console.log('attempting to update STYLE ID');
-    setStyleID(styleID);
-    getProductPhotos(productID, styleID);
+    setStyleID(style_ID);
+    getProductPhotos(productID, style_ID);
   }
 
   // GET product PHOTOS
-  const getProductPhotos = (productID, styleID) => {
-    requestsAPI.getProductStylePhotos(productID,styleID)
+  const getProductPhotos = (prod_ID,style_ID) => {
+    console.log('THIS IS THE CURRENT STYLE.ID: 🥶🥶🥶', styleID);
+    requestsAPI.getProductStylePhotos(prod_ID,style_ID)
     .then((results) => {
-      console.log('PHOTO RESULTS', results.photos[0].url);
+      console.log('PHOTO RESULTSSSSSS', results.photos);
       setProductImages(results.photos[0].url);
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.log(`FAILED to GRAB PHOTOS 😟😟 ${err}`));
+  }
+
+  // HANDLE IMAGE CLICK EVENT
+  const onHandleImageClick = (event) => {
+    event.preventDefault();
+    setExpandedView(!expandedView);
+    console.log('EXPANDED VIEW: ', expandedView);
   }
 
   // ADD ITEM TO CART => API
@@ -118,36 +134,37 @@ const ProductOverview = ({ product, products, productID }) => {
 
   return (
 
-    <div>
+    <OverviewDiv ref={ref}>
 
-
-      {console.log('stylesOVERVIEW', styles)};
-      {console.log('styleID', styleID)};
-      {console.log('product: ', product)}
-      {console.log('productID', productID)};
-      {console.log('current productID', prodID)};
-      {console.log('expandedView: ', expandedView)};
+      {console.log('OVERVIEW.CURRENT STYLEs ⭐ ⭐ ⭐', currentStyles[0].style_id)}
+      {console.log('OVERVIEW.STYLEs ⭐⭐⭐⭐⭐', styles[0].style_id)}
+      {console.log('OVERVIEW.  STYLEEE IDDD', styleID)}
+      {console.log('currentPRODUCCCTTTTT', currentProduct)}
+      {console.log(' product ID PRODUCCCTTTTT', productID)}
       {console.log('productImages: ', productImages)};
-      {console.log('thumbnailPhotos: ', thumbnailPhotos)};
+      {/* {console.log('thumbnailPhotos: ', thumbnailPhotos)}; */}
 
-
-      {/* <ExpandedView /> */}
+      {ExpandedViewComponent}
 
       <ContainerDiv className="product-overview">
+
         <Div className="container">
 
-          <ImageContainer>
+          <ImageDiv>
 
-            <ProductGallery product={product} productImages={productImages} />
+            <ProductGallery
+              onHandleImageClick={toggleExpandVisibility}
+              product={product}
+              productImages={productImages} />
 
-            <Thumbnail />
+            {/* <Thumbnail /> */}
 
-            <Image src={productImages}/>
-
-          </ImageContainer>
+          </ImageDiv>
 
           <ContainerDiv>
+
             <ProductInformation product={product} productID={productID} rating={"rating"} styleID={styleID} />
+
             <SelectorDiv>
 
               <StyleSelector />
@@ -160,10 +177,15 @@ const ProductOverview = ({ product, products, productID }) => {
 
         </Div>
 
-        <ProductDescription product={product} />
+        <Div>
+
+          <ProductDescription product={product} />
+
+        </Div>
 
       </ContainerDiv>
-    </div>
+
+    </OverviewDiv>
   );
 
 };

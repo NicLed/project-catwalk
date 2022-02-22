@@ -12,10 +12,21 @@ const App = (props) => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
   const [productID, setProductID] = useState(null);
+  const [allProductID, setAllProductID] = useState([]);
+  const [productIndex, setProductIndex] = useState(0);
+  const [styles, setStyles] = useState([]);
+
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProductID(allProductID[productIndex]);
+    }, 0);
+    getAllProductID();
+  }, [productID, productIndex]);
 
 
   const getProducts = () => {
@@ -23,26 +34,49 @@ const App = (props) => {
       .then((response) => {
         setProducts(response.data);
         setProduct(response.data[0]);
-        setProductID(response.data[0].id);
       })
       .catch((error) => {
         throw new Error(error);
       })
-    }
+  };
 
-    return (
-      <div>
+  const previousIndex = () => {
+    productIndex === 0 ? setProductIndex(0) : setProductIndex((previousState) => previousState - 1);
+  };
+
+  const nextIndex = () => { setProductIndex((previousState) => previousState + 1) };
+
+  const getAllProductID = () => {
+    requestsAPI.getAllProductIDs()
+      .then(({ data }) => {
+        setProductID(data[productIndex].id);
+        setAllProductID(data.map((item) => item.id));
+      })
+      .then(() => {
+        requestsAPI.getProductStyles(productID)
+          .then((styles) => {
+            setStyles(styles.data.results);
+          })
+          .catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`))
+      })
+      .catch((err) => console.error(err))
+  };
+
+
+  return (
+    <div>
       <Title>Project Cat Walk</Title>
-        <Button>button</Button>
+      <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
+      <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
 
-      <ProductOverview products={products} product={product} productID={productID} ratings={"ratings"} />
+      {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />}
       {/* <RelatedItems products={products} product={product} /> */}
       {/* <Questions products={products} product={product} /> */}
       {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
         : null}
     </div>
-  )
+  );
 }
 
 export default App;

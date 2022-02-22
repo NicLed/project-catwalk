@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
 
 
-const Div = styled.div`
+const ProductInfoDiv = styled.div`
   border: 1px solid grey;
+  border-radius: 10%;
   box-shadow: 2px 2px 2px;
   background: linear-gradient(0deg, hsl(190,70%,99%), hsl(240,60%,100%));
   display: flex;
@@ -13,6 +14,10 @@ const Div = styled.div`
   max-width: 500px;
   padding: 30px 30px 15px 30px;
 `;
+
+const InfoSectionDiv = styled.div`
+  background: hsla(20,90%,80%,0.5);
+`
 
 const Category = styled.h3`
   color: hsla(150,50%,50%,0.5);
@@ -28,20 +33,36 @@ const Name = styled.h1`
   margin: 0;
 `;
 
+const Price = styled.h5`
+  font-style: italic;
+`
+
 
 const ProductInformation = ({product, productID, rating, styleID}) => {
 
   return (
 
-    <Div className="product-information">
+    <ProductInfoDiv className="product-information">
 
-      <StarDisplayAverage average=""/>
+      <InfoSectionDiv>
 
-      <Category>{product.category}</Category>
-      <Name>{product.name}</Name>
-      <h4>${product.default_price}</h4>
+        <StarDisplayAverage average="" />
 
-    </Div>
+      </InfoSectionDiv>
+
+      <br /><br />
+
+      <InfoSectionDiv>
+
+        <Category>{product.category}</Category>
+
+        <Name>{product.name}</Name>
+
+        <Price>USD ${product.default_price}</Price>
+
+      </InfoSectionDiv>
+
+    </ProductInfoDiv>
 
   );
 

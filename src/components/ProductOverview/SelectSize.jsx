@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 
 
@@ -8,19 +7,19 @@ const Select = styled.select`
   border: 1px solid grey;
   box-shadow: 2px 2px 2px;
   cursor: pointer;
-  width: 40%;
-  height: 35px;
-  padding-left: 5px;
   font-size: 14px;
-  margin-left: 10px;
+  height: 25px;
+  margin: 15px 12px 24px 12px;
+  padding-left: 5px;
+  width: 50%;
 
   option {
-    color: black;
     background-color: lightgrey;
+    color: black;
     display: flex;
-    white-space: pre;
     min-height: 20px;
     padding: 0px 2px 1px;
+    white-space: pre;
   }
 `;
 
@@ -28,15 +27,17 @@ const SelectSize = () => {
 
   return (
 
-    <Select className="select-size" onChange={() => console.log('must handleSelectSize')}>
-      <option className="option-size" value='' hidden>SELECT SIZE</option>
-      <option className="option-size" value='1'> S </option>
-      <option className="option-size" value='2'> M </option>
-      <option className="option-size" value='3'> L </option>
-      <option className="option-size" value='4'> XL </option>
-    </Select>
-  );
+    <Select id="select-size" onChange={(event) => console.log(event.target.value)}>
 
+      <option className="option-size" value='' hidden>SELECT SIZE</option>
+      <option className="option-size" value='S'> S </option>
+      <option className="option-size" value='M'> M </option>
+      <option className="option-size" value='L'> L </option>
+      <option className="option-size" value='XL'> XL </option>
+
+    </Select>
+
+  );
 };
 
 
