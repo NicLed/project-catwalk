@@ -7,9 +7,9 @@ const QuestionsList = (props) => {
   const [showNumber, setShowNumber] = useState(4);
 
 
-  const showMoreQuestions = () => {
-    setShowNumber(props.questions.length);
-  }
+  // const showMoreQuestions = () => {
+  //   setShowNumber(props.questions.length);
+  // }
 
 
   return (

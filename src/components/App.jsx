@@ -72,17 +72,17 @@ const App = (props) => {
       <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
       <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
 
-      {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />}
-      {products.length && <RelatedItems productID={productID} />}
+      {/* {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />} */}
+      {/* {products.length && <RelatedItems productID={productID} />} */}
       <div>
 
       {Object.keys(product).length && products.length ? <Questions products={products} product={product} productID={productID}/> : null}
       {/* {Object.keys(product).length && products.length ? <Questions products={products} product={product} /> : null} */}
 
       </div>
-      {Object.keys(product).length && products.length ?
+      {/* {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />
-        : null}
+        : null} */}
       {/* {console.log(products.length)} */}
     </div>
   );

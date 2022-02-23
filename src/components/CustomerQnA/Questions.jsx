@@ -28,20 +28,13 @@ const Questions = (props) => {
     })
   }
 
-
-  // const getAllQuestions = async () => {
-  //   try {
-  //     let response = await axios.get('/qa/questions')
-  //     console.log('response:', response)
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
+  console.log('QuestionsList: ', QuestionsList.props);
 
 return (
 <div>
 {questions.length > 0  ?  <QuestionsList questions={questions} /> : null}
 {/* {questions.length > 0 ? <AnswersList questions={questions} /> : null} */}
+<button>More Answered Questions</button>
 </div>
   )
 };

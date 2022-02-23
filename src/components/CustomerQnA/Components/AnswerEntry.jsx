@@ -6,7 +6,7 @@ import moment from 'moment';
 const AnswerEntry = (props) => {
   console.log('AnswerEntry: ', props);
   let username = '';
-  {props.answer.answerer_name === 'test' ? username = <strong>Seller</strong> : username = props.answer.answerer_name}
+  {props.answer.answerer_name === 'Seller' ? username = <strong>Seller</strong> : username = props.answer.answerer_name}
 
   return (
     <div>

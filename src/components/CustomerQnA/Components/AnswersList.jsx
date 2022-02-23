@@ -5,7 +5,8 @@ const AnswersList = (props) => {
   const [showAnswers, setShowAnswers] = useState(2);
   console.log('answersList: ', props);
 
-
+  // double check in order to ensure that this is how I want
+  // expand list.
   const showMoreAnswers = () => {
     setShowAnswers(showAnswers + 2);
   }

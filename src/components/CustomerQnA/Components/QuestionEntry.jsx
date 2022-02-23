@@ -4,8 +4,9 @@ import AnswersList from './AnswersList.jsx';
 
 
 const QuestionEntry = (props) => {
-
+  console.log('QuestionEntryProps: ', props);
   const answers = props.eachQuestion.answers;
+
   return (
 <div>
   <div>Q:  {props.eachQuestion.question_body}</div>
