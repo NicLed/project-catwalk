@@ -16,6 +16,8 @@ const App = (props) => {
 
 	useEffect(() => {
 		getAllProducts();
+    console.log('Product ID:', productID);
+    console.log('Product', product);
 	}, []);
 
 	const getAllProducts = () => {
@@ -65,7 +67,7 @@ const App = (props) => {
 				) : null}
 			</div>
 			{Object.keys(product).length && products.length ? (
-				<RatingsReviews products={products} product={product} />
+				<RatingsReviews products={products} product={product} productID={productID} />
 			) : null}
 		</div>
 	);

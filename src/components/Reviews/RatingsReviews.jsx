@@ -39,7 +39,9 @@ const LargeImage = styled.img`
   max-width: 700px;
 `
 
-const RatingsReviews = ({ products, product }) => {
+const RatingsReviews = ({ products, product, productID }) => {
+  console.log('RnR product', product);
+  console.log('RnR productID', productID);
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
