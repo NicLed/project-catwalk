@@ -75,7 +75,7 @@ const useVisibilityToggler = (component, visibility = false) => {
 };
 
 
-const ProductOverview = ({ product, productID, styles }) => {
+const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings,setProductID }) => {
 
   const [expandedView, setExpandedView] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(productID);
@@ -91,10 +91,43 @@ const ProductOverview = ({ product, productID, styles }) => {
 
 
   useEffect(() => {
-    setCurrentProduct(productID);
-    setCurrentStyles(styles);
-    getProductPhotos(productID,currentStyles[0].style_id);
-  });
+    console.log('PRODUCTSSSSSSSSSSSSSSSSS: ', products[0].id)
+    getStyles(products[0].id);
+    // getProductPhotos(productID, stylesAll[0].style_id);
+  }, []);
+
+  useEffect(() => {
+		setTimeout(() => {
+      setCurrentProductID(products[productIndex]);
+      setProductID(products[productIndex].id);
+      console.log('OVERVIEW.stylesAll: ', stylesAll)
+		}, 0);
+	}, [currentProductID, productIndex]);
+
+
+	const previousIndex = () => {
+		productIndex === 0 ? setProductIndex(0) : setProductIndex((previousState) => previousState - 1);
+	};
+
+	const nextIndex = () => {
+		setProductIndex((previousState) => previousState + 1);
+  };
+
+  // GET STYLES
+  const getStyles = (prod_ID) => {
+		requestsAPI
+			.getProductStyles(prod_ID)
+      .then(({ data }) => {
+        console.log('ALL STYLESSSSSSSSS: ', data)
+				setCurrentStylesAll(data.results);
+        setCurrentStyle(data.results[0]);
+      })
+      .then(() => {
+        console.log('currentStylesAll: ', currentStylesAll)
+        console.log('currentStyle: ', currentStyle)
+      })
+			.catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`));
+	};
 
   // UPDATE style ID
   const updateStyleID = (style_ID) => {
