@@ -75,7 +75,7 @@ const useVisibilityToggler = (component, visibility = false) => {
 };
 
 
-const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings }) => {
+const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings,setProductID }) => {
 
   const [expandedView, setExpandedView] = useState(false);
   const [productIndex, setProductIndex] = useState(0);
@@ -101,7 +101,8 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
   useEffect(() => {
 		setTimeout(() => {
       setCurrentProductID(products[productIndex]);
-      // console.log('OVERVIEW.stylesAll: ', stylesAll)
+      setProductID(products[productIndex].id);
+      console.log('OVERVIEW.stylesAll: ', stylesAll)
 		}, 0);
 	}, [currentProductID, productIndex]);
 

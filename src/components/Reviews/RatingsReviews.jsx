@@ -39,9 +39,7 @@ const LargeImage = styled.img`
   max-width: 700px;
 `
 
-const RatingsReviews = ({ products, product, productID }) => {
-  console.log('RnR product', product);
-  console.log('RnR productID', productID);
+const RatingsReviews = ({productID,products, product}) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
@@ -50,12 +48,13 @@ const RatingsReviews = ({ products, product, productID }) => {
   const defaultSort = 'relevant';
 
   useEffect(() => {
-    getReviews(product, defaultSort);
-    getReviewsMetaData();
-  }, [])
+    console.log('im getting HIT AGAIN! ⭐⭐⭐')
+    getReviews(productID);
+    getReviewsMetaData(productID);
+  }, [productID])
 
-  const getReviews = (product, sort) => {
-    axios.get(`/reviews/${product.id}&${sort}`)
+  const getReviews = (product_id) => {
+    axios.get(`/reviews/${product_id}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -65,8 +64,8 @@ const RatingsReviews = ({ products, product, productID }) => {
       })
   }
 
-  const getReviewsMetaData = () => {
-    axios.get(`/reviews/meta/${product.id}`)
+  const getReviewsMetaData = (product_id) => {
+    axios.get(`/reviews/meta/${product_id}`)
       .then((response) => {
         console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
