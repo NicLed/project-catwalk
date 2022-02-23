@@ -5,6 +5,7 @@ import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, Ele
 import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
 import Modal from './styles/Modal.js';
 import requestsAPI from '../../../server/requestsAPI.js'
+import {relatedPhotos} from '../ProductOverview/ProductOverview.jsx'
 
 const GreenContainerDiv = styled.div`
   background-color: mediumseagreen;
@@ -14,7 +15,7 @@ const GreenContainerDiv = styled.div`
 
 export default function RelatedItems({productID, styles}) {
   // console.log("🤳>>>>>>>>" ,productID)
-
+  console.log('PHOTOS Are HERE MAAAN!!! >>>>>' , relatedPhotos)
   const [relatedProducts, setRelatedProducts] = useState([])
   // const [relatedProductsPhotos, setRelatedProductsPhotos] = useState([])
   // const [currentRelatedPhoto, setCurrentRelatedPhoto] = useState({})
@@ -22,7 +23,7 @@ export default function RelatedItems({productID, styles}) {
   useEffect(() => {
     getRelatedItems(productID);
     // getProductPhoto(productID);
-  }, [])
+  }, [productID])
 
   // getting photos
   // const getProductPhoto = (id) => {
@@ -61,7 +62,7 @@ export default function RelatedItems({productID, styles}) {
             return element.data
           })
 
-          for (let i = 0; i < relatedItems.length; i ++) {
+          for (let i = 0; i < relatedItems.length; i++) {
             // console.log(ratingsArray[i])
             relatedItems[i].reviewRating = ratingsArray[i];
           }
@@ -91,14 +92,16 @@ export default function RelatedItems({productID, styles}) {
         <Container0>
           <LeftArrow/>
 
-          {relatedProducts.map(element => {
-            console.log("ELEMENT IS HERE >>>>>", element)
+          {relatedProducts.map((element, i) => {
+            // console.log("ELEMENT IS HERE >>>>>", element)
             return (
               <ElementDiv key={element.id}>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
                 <div> {element.default_price} </div>
-                {/* <img src={element.photo.url}></img> */}
+                <div>
+                  <img src={relatedPhotos} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
+                </div>
                 <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
               </ElementDiv>
             )
