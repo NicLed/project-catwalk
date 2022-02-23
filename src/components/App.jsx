@@ -18,6 +18,11 @@ const App = (props) => {
 		getAllProducts();
 	}, []);
 
+	useEffect(() => {
+		setProductID(productID);
+		console.log('APPPPP.PRODUCT IDDDDD 😡😡', productID)
+	}, [productID]);
+
 	const getAllProducts = () => {
 		requestsAPI
 			.getAllProductIDs()
@@ -54,6 +59,7 @@ const App = (props) => {
 					allProductIDs={allProductIDs}
 					stylesAll={stylesAll}
 					ratings={'ratings'}
+					setProductID={setProductID}
 				/>
 			)}
 
@@ -65,7 +71,7 @@ const App = (props) => {
 				) : null}
 			</div>
 			{Object.keys(product).length && products.length ? (
-				<RatingsReviews products={products} product={product} />
+				<RatingsReviews productID={productID} products={products} product={product} />
 			) : null}
 		</div>
 	);
