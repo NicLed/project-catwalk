@@ -28,7 +28,11 @@ const Questions = (props) => {
     })
   }
 
-  console.log('QuestionsList: ', QuestionsList.props);
+  // console.log('QuestionsList: ');
+
+  const showMoreQuestions = () => {
+    setShowNumber(props.questions.length);
+  }
 
 return (
 <div>
