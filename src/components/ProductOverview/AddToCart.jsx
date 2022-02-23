@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaCartPlus, FaStar } from "react-icons/fa";
 import axios from 'axios';
 import styled from 'styled-components';
-import SelectSize from './SelectSize.jsx';
-import SelectQuantity from './SelectQuantity.jsx';
 
 
 const AddCartDiv = styled.div`
@@ -14,6 +11,7 @@ const AddCartDiv = styled.div`
 const CartButton = styled.button`
   background: lightgrey;
   border: 1px solid lightgrey;
+  box-shadow: 2px 2px 2px;
   color: black;
   cursor: pointer;
   font-size: 15px;
@@ -30,9 +28,21 @@ const CartButton = styled.button`
   }
 `;
 
+const Div = styled.div`
+  display: flex;
+  height: 50px;
+  /* justify-content: center; */
+  margin: 5px;
+`;
+
+const ButtonDiv = styled.div`
+  margin-bottom: 25px;
+`
+
 const StarButton = styled.button`
   background: lightgrey;
   border: 1px solid lightgrey;
+  box-shadow: 2px 2px 2px;
   color: white;
   cursor: pointer;
   font-size: 18px;
@@ -48,28 +58,60 @@ const StarButton = styled.button`
   }
 `;
 
-const Div = styled.div`
-  display: flex;
-  height: 50px;
-  /* justify-content: center; */
-  margin: 5px;
+const SelectQuantity = styled.select`
+  background-color: lightgray;
+  border: 1px solid grey;
+  box-shadow: 2px 2px 2px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 25px;
+  margin: 15px 12px 24px 12px;
+  padding-left: 5px;
+  width: 30%;
+
+  option {
+    background-color: lightgrey;
+    color: black;
+    display: flex;
+    min-height: 20px;
+    padding: 0px 2px 1px;
+    white-space: pre;
+  }
 `;
 
-const ButtonDiv = styled.div`
-  margin-bottom: 25px;
-`
+const SelectSize = styled.select`
+  background-color: lightgray;
+  border: 1px solid grey;
+  box-shadow: 2px 2px 2px;
+  cursor: pointer;
+  font-size: 14px;
+  height: 25px;
+  margin: 15px 12px 24px 12px;
+  padding-left: 5px;
+  width: 50%;
+
+  option {
+    background-color: lightgrey;
+    color: black;
+    display: flex;
+    min-height: 20px;
+    padding: 0px 2px 1px;
+    white-space: pre;
+  }
+`;
+
 
 const getSelectedSizeQuantity = () => {
-  const selectSize = document.getElementById('select-size');
-  const size = selectSize.options[selectSize.selectedIndex].value;
-  const selectQuantity = document.getElementById('select-quantity');
-  const quantity = selectQuantity.options[selectQuantity.selectedIndex].value;
+  const sizeSelect = document.getElementById('select-size');
+  const size = SelectSize.options[sizeSelect.selectedIndex].value;
+  const quantitySelect = document.getElementById('select-quantity');
+  const quantity = SelectQuantity.options[quantitySelect.selectedIndex].value;
 
   console.log(`MUST ADD ${quantity} SIZE ${size}'s of selected item to CART 🛒`);
 }
 
 
-const AddToCart = ({ AddToCart, styles }) => {
+const AddToCart = ({ addToCart, styles }) => {
 
   return (
 
@@ -77,17 +119,39 @@ const AddToCart = ({ AddToCart, styles }) => {
 
       <Div className="add-items-cart">
 
-        <SelectSize />
+        <SelectSize id="select-size" onChange={(event) => console.log(event.target.value)}>
 
-        <SelectQuantity />
+          <option className="option-size" value='' hidden>SELECT SIZEEEEEE</option>
+          <option className="option-size" value='S'> S </option>
+          <option className="option-size" value='M'> M </option>
+          <option className="option-size" value='L'> L </option>
+          <option className="option-size" value='XL'> XL </option>
+
+        </SelectSize>
+
+        <SelectQuantity id="select-quantity" onChange={(event) => console.log(event.target.value)}>
+
+          <option className="option-quantity"> - </option>
+          <option className="option-quantity" value={1}> 1 </option>
+          <option className="option-quantity" value={2}> 2 </option>
+          <option className="option-quantity" value={3}> 3 </option>
+          <option className="option-quantity" value={4}> 4 </option>
+          <option className="option-quantity" value={5}> 5 </option>
+          <option className="option-quantity" value={6}> 6 </option>
+          <option className="option-quantity" value={7}> 7 </option>
+          <option className="option-quantity" value={8}> 8 </option>
+          <option className="option-quantity" value={9}> 9 </option>
+          <option className="option-quantity" value={10}> 10 </option>
+
+        </SelectQuantity>
 
       </Div>
 
       <Div>
 
-        <CartButton style={{ width: '45%', marginLeft: '10px' }} onClick={() => getSelectedSizeQuantity()} >ADD TO CART <FaCartPlus style={{marginLeft: '5px', paddingTop: '2px'}} /></CartButton>
+        <CartButton style={{ width: '45%', marginLeft: '10px' }} onClick={() => getSelectedSizeQuantity()}>ADD TO CART <i className="fa-solid fa-cart-shopping-fast"></i></CartButton>
 
-        <StarButton style={{ width: '15%', marginLeft: '80px' }} onClick={() => console.log('must ADD to LIKED ❤️')} ><FaStar /></StarButton>
+        <StarButton style={{ width: '15%', marginLeft: '80px' }} onClick={() => console.log('must ADD to LIKED ❤️')} ><i className="fa-solid fa-star"></i></StarButton>
 
         {/* <Button onClick={() => "shouldAddFav"} style={{ width: '15%' }} >
         <img src="" style={{ height: '20px', width: '20px' }} alt="" />

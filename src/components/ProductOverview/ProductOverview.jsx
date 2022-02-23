@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import requestsAPI from '../../../server/requestsAPI';
+import { Button } from '../../styles/styles';
 import ProductGallery from './ProductGallery.jsx';
 import ExpandedView from './ExpandedView.jsx';
 import ProductInformation from './ProductInformation.jsx';
 import StyleSelector from './StyleSelector.jsx';
-import StyleInformation from './StyleInformation.jsx';
 import AddToCart from './AddToCart.jsx';
 // import Thumbnail from './Thumbnail.jsx';
 import ProductDescription from './ProductDescription.jsx';
@@ -78,10 +78,12 @@ const useVisibilityToggler = (component, visibility = false) => {
 const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings,setProductID }) => {
 
   const [expandedView, setExpandedView] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(productID);
-  const [currentStyles, setCurrentStyles] = useState(styles);
-  const [styleIndex, setStyleIndex] = useState(0);
-  const [styleID, setStyleID] = useState(styles[0].style_id);
+  const [productIndex, setProductIndex] = useState(0);
+  const [currentProduct, setCurrentProduct] = useState(product);
+  const [currentProductID, setCurrentProductID] = useState(productID);
+  const [currentStylesAll, setCurrentStylesAll] = useState(stylesAll);
+  const [currentStyle, setCurrentStyle] = useState(stylesAll[0]);
+  const [styleID, setStyleID] = useState(null);
   const [productImages, setProductImages] = useState([]);
   const [thumbnailPhotos, setThumbnailPhotos] = useState([]);
 
@@ -91,6 +93,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
 
   useEffect(() => {
+    console.log('PRODUCTSSSSSSSSSSSSSSSSS: ', products[0].id)
     getStyles(products[0].id);
     // getProductPhotos(productID, stylesAll[0].style_id);
   }, []);
@@ -99,6 +102,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 		setTimeout(() => {
       setCurrentProductID(products[productIndex]);
       setProductID(products[productIndex].id);
+      console.log('OVERVIEW.stylesAll: ', stylesAll)
 		}, 0);
 	}, [currentProductID, productIndex]);
 
@@ -162,7 +166,11 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
   return (
 
-    <OverviewDiv ref={ref}>
+    <OverviewDiv style={{ background: 'lightGreen' }} ref={ref}>
+
+      <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
+      <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
+      <h2>{productIndex}</h2>
 
       {ExpandedViewComponent}
 
@@ -172,24 +180,38 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
           <ImageDiv>
 
+            {/* <Thumbnail /> */}
+
             <ProductGallery
               onHandleImageClick={toggleExpandVisibility}
               product={product}
               productImages={productImages} />
 
-            {/* <Thumbnail /> */}
-
           </ImageDiv>
 
           <ContainerDiv>
+
+            <Div style={{display: 'flex'}}>
+              <Div style={{justifyContent: 'spaceEvenly'}}><i className="footer-icon fab fa-twitter"></i></Div>
+              <Div style={{justifyContent: 'spaceEvenly'}}><i className="fa-brands fa-instagram-square"></i></Div>
+              <Div style={{justifyContent: 'spaceEvenly'}}><i className="footer-icon fab fa-facebook-square"></i></Div>
+            </Div>
 
             <ProductInformation product={product} productID={productID} rating={"rating"} styleID={styleID} />
 
             <SelectorDiv>
 
-              <StyleSelector />
-
-              <AddToCart addToCart={addToCart} styles={styles} />
+              <StyleSelector
+                currentProduct={currentProduct}
+                currentStylesAll={stylesAll}
+                onHandleSelect={"onHandleSelect"}
+                addToCart={addToCart}
+                onQuantitySelect={"onQuantitySelect"}
+                onStyleSelect={"onStyleSelect"}
+                onSelectSKU={"onSelect"}
+                ratings={"ratings"}
+                styleID={styleID}
+              />
 
             </SelectorDiv>
 
@@ -207,7 +229,6 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
     </OverviewDiv>
   );
-
 };
 
 
