@@ -35,16 +35,17 @@ const ProductDescription = ({ product }) => {
   return (
 
     <DescriptionDiv className="product-description">
-
       <Div>
-
         <Slogan className="slogan"><em>{product.slogan}</em></Slogan>
-
         <Description>{product.description}</Description>
-
       </Div>
 
-      <br /><br />
+      {(product.features) ? product.features.map((elem, index) => {
+        <Div key={index}>
+          <Description>{elem.feature}</Description>
+          <Description><i className="fa-solid fa-check"></i>{elem.value}</Description>
+        </Div>
+      }) : null}
 
     </DescriptionDiv>
   );

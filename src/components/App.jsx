@@ -8,81 +8,67 @@ import Questions from './CustomerQnA/Questions.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
 const App = (props) => {
-  const [products, setProducts] = useState([]);
-  const [product, setProduct] = useState({});
-  const [productID, setProductID] = useState(null);
-  const [allProductID, setAllProductID] = useState([]);
-  const [productIndex, setProductIndex] = useState(0);
-  const [styles, setStyles] = useState([]);
+	const [product, setProduct] = useState({});
+	const [products, setProducts] = useState([]);
+	const [productID, setProductID] = useState(null);
+	const [allProductIDs, setAllProductIDs] = useState([]);
+	const [stylesAll, setStylesAll] = useState([]);
 
+	useEffect(() => {
+		getAllProducts();
+	}, []);
 
-  useEffect(() => {
-    getProducts();
-  }, []);
+	const getAllProducts = () => {
+		requestsAPI
+			.getAllProductIDs()
+			.then(({ data }) => {
+				setProducts(data);
+				setProduct(data[0]);
+				setProductID(data[0].id);
+				setAllProductIDs(data.map((item) => item.id));
+				getStyles(data[0].id);
+			})
+			.catch((err) => console.error(err));
+	};
 
-  useEffect(() => {
-    setTimeout(() => {
-      setProductID(allProductID[productIndex]);
-    }, 0);
-    getAllProductID();
-  }, [productID, productIndex]);
+	const getStyles = (prod_ID) => {
+		requestsAPI
+			.getProductStyles(prod_ID)
+			.then(({ data }) => {
+				setStylesAll(data.results);
+			})
+			.catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`));
+	};
 
-  const getProducts = () => {
-    axios.get('/products')
-      .then((response) => {
-        // console.log(response.data);
-        setProducts(response.data);
-        setProduct(response.data[0]);
-      })
-      .catch((error) => {
-        throw new Error(error);
-      })
-  }
+	return (
+		<div>
+			<Title>Project Cat Walk</Title>
 
+			{/* {console.log('APP.stylesAll: ', stylesAll)} */}
 
-  const previousIndex = () => {
-    productIndex === 0 ? setProductIndex(0) : setProductIndex((previousState) => previousState - 1);
-  };
+			{products.length && (
+				<ProductOverview
+					product={product}
+					products={products}
+					productID={productID}
+					allProductIDs={allProductIDs}
+					stylesAll={stylesAll}
+					ratings={'ratings'}
+				/>
+			)}
 
-  const nextIndex = () => { setProductIndex((previousState) => previousState + 1) };
-
-  const getAllProductID = () => {
-    requestsAPI.getAllProductIDs()
-      .then(({ data }) => {
-        setProductID(data[productIndex].id);
-        setAllProductID(data.map((item) => item.id));
-        setProduct(data[productIndex]);
-      })
-      .then(() => {
-        requestsAPI.getProductStyles(productID)
-          .then((styles) => {
-            setStyles(styles.data.results);
-          })
-          .catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`))
-      })
-      .catch((err) => console.error(err))
-  };
-
-
-  return (
-    <div>
-      <Title>Project Cat Walk</Title>
-
-      <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
-      <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
-
-      {styles.length && <ProductOverview product={product} productID={productID} styles={styles} ratings={"ratings"} />}
-      {products.length && <RelatedItems productID={productID} />}
-      <div>
-
-      {Object.keys(product).length && products.length ? <Questions products={products} product={product} /> : null}
-
-      </div>
-      {Object.keys(product).length && products.length ?
-        <RatingsReviews products={products} product={productID} />
-        : null}
-    </div>
-  );
+			<br />
+			{products.length && <RelatedItems productID={productID} />}
+			<div>
+				{Object.keys(product).length && products.length ? (
+					<Questions products={products} product={product} />
+				) : null}
+			</div>
+			{Object.keys(product).length && products.length ? (
+				<RatingsReviews products={products} product={product} />
+			) : null}
+		</div>
+	);
 };
 
 export default App;

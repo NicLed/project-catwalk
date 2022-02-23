@@ -53,7 +53,7 @@ const RatingsReviews = ({ products, product }) => {
   }, [])
 
   const getReviews = (product, sort) => {
-    axios.get(`/reviews/${product}&${sort}`)
+    axios.get(`/reviews/${product.id}&${sort}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -64,7 +64,7 @@ const RatingsReviews = ({ products, product }) => {
   }
 
   const getReviewsMetaData = () => {
-    axios.get(`/reviews/meta/${product}`)
+    axios.get(`/reviews/meta/${product.id}`)
       .then((response) => {
         console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
