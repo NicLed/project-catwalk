@@ -16,7 +16,7 @@ const MainBar = styled.div`
 
 const BarTitle = styled.a`
   margin-right: 8px;
-  color: grey;
+  color: #767676;
 `
 
 const AmountBar = styled.div`
@@ -30,7 +30,7 @@ const ReviewTotals = styled.div`
   width: 8px;
 `
 const PercentRec = styled.p`
-  color: grey;
+  color: #767676;
 `
 
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {

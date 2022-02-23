@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const HelpfulLink = styled.a`
-  color: grey;
+  color: #767676;
 `
 
 const RatingHelpfulness = ( { review } ) => {

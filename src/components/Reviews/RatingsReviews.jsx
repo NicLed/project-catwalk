@@ -39,24 +39,21 @@ const LargeImage = styled.img`
   max-width: 700px;
 `
 
-const RatingsReviews = ({products, product}) => {
+const RatingsReviews = ({ products, product }) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
   const [imageSource, setImageSource] = useState('');
   const [showNewReviewForm, setShowNewReviewForm] = useState(false);
-
-  // set state here for showing new review modal
-  // pass down that state and handle function to review list
-  // when click add a reivew button it toggles modal state here to display modal
+  const defaultSort = 'relevant';
 
   useEffect(() => {
-    getReviews();
+    getReviews(product, defaultSort);
     getReviewsMetaData();
   }, [])
 
-  const getReviews = () => {
-    axios.get(`/reviews/${product.id}`)
+  const getReviews = (product, sort) => {
+    axios.get(`/reviews/${product}&${sort}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -67,7 +64,7 @@ const RatingsReviews = ({products, product}) => {
   }
 
   const getReviewsMetaData = () => {
-    axios.get(`/reviews/meta/${product.id}`)
+    axios.get(`/reviews/meta/${product}`)
       .then((response) => {
         console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
@@ -89,19 +86,18 @@ const RatingsReviews = ({products, product}) => {
 
   return (
     <>
-
       {Object.keys(reviewsMeta).length && reviews.length ?
-      <SectionsContainer>
+        <SectionsContainer>
 
-        <Section><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></Section>
+          <Section><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></Section>
 
-        {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
+          {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
 
-        {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm}/> : null}
+          {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm} /> : null}
 
-        <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}/></Section>
-      </SectionsContainer>
-      : null}
+          <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}  getReviews={getReviews}/></Section>
+        </SectionsContainer>
+        : null}
     </>
   )
 }
