@@ -64,7 +64,6 @@ const App = (props) => {
   };
 
 
-
   return (
     <div>
       <Title>Project Cat Walk</Title>
@@ -78,6 +77,8 @@ const App = (props) => {
       <div>
 
       {Object.keys(product).length && products.length ? <Questions products={products} product={product} productID={productID}/> : null}
+      {/* {Object.keys(product).length && products.length ? <Questions products={products} product={product} /> : null} */}
+
       </div>
       {Object.keys(product).length && products.length ?
         <RatingsReviews products={products} product={product} />

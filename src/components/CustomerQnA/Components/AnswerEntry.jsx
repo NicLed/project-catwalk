@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-// [questionAnswerer, setQuestionAnswerer] = useState('testUser')
+// [questionAnswerer, setQuestionAnswerer] = useState(props.answer.answerer_name);
 
 
 const AnswerEntry = (props) => {
   console.log('AnswerEntry: ', props);
+  let username = '';
+  {props.answer.answerer_name === 'test' ? username = <strong>Seller</strong> : username = props.answer.answerer_name}
+
   return (
     <div>
-      {/* <div>A: {props.answer.body}</div> */}
-      {/* {props.answer.answerer_name === 'Seller' && setQuestionAnswerer('Seller')} */}
+      <div>{props.answer.body}</div>
       <div>
-       {'Date: '} {moment(props.answer.date).format('LL')}
+       by {username}, {'Date: '}  {moment(props.answer.date).format('LL')}
       </div>
     </div>
   )

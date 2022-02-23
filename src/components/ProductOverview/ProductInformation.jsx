@@ -16,7 +16,7 @@ const ProductInfoDiv = styled.div`
 `;
 
 const InfoSectionDiv = styled.div`
-  background: hsla(20,90%,80%,0.5);
+  /* background: hsla(20,90%,80%,0.5); */
 `
 
 const Category = styled.h3`
