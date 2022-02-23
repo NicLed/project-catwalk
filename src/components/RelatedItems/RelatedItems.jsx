@@ -13,7 +13,7 @@ const GreenContainerDiv = styled.div`
   width: 100px;
 `
 
-export default function RelatedItems({productID, styles}) {
+export default function RelatedItems({productID, stylesAll}) {
   // console.log("🤳>>>>>>>>" ,productID)
   console.log('PHOTOS Are HERE MAAAN!!! >>>>>' , relatedPhotos)
   const [relatedProducts, setRelatedProducts] = useState([])
