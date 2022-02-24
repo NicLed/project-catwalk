@@ -10,6 +10,7 @@ import StyleSelector from './StyleSelector.jsx';
 import AddToCart from './AddToCart.jsx';
 // import Thumbnail from './Thumbnail.jsx';
 import ProductDescription from './ProductDescription.jsx';
+import { FaCloudShowersHeavy } from 'react-icons/fa';
 
 
 const OverviewDiv = styled.div`
@@ -77,7 +78,7 @@ const useVisibilityToggler = (component, visibility = false) => {
 // !!
 export let relatedPhotos;
 
-const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings,setProductID }) => {
+const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings, setProductID }) => {
 
   const [expandedView, setExpandedView] = useState(false);
   const [productIndex, setProductIndex] = useState(0);
@@ -86,19 +87,18 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
   const [currentStylesAll, setCurrentStylesAll] = useState(stylesAll);
   const [currentStyle, setCurrentStyle] = useState(stylesAll[0]);
   const [styleID, setStyleID] = useState(null);
+  const [imageIndex, setImageIndex] = useState(0);
   const [productImages, setProductImages] = useState([]);
   const [thumbnailPhotos, setThumbnailPhotos] = useState([]);
 
   const ref = useRef();
   const [ExpandedViewComponent, toggleExpandVisibility] = useVisibilityToggler(
-    <ExpandedView className="expanded-view" expandedView={expandedView} />, false);
+    <ExpandedView className="expanded-view" src={productImages[imageIndex]} expandedView={expandedView} />, false);
 
 
   useEffect(() => {
-    // console.log('PRODUCTSSSSSSSSSSSSSSSSS: ', products[0].id)
-    getStyles(products[0].id);
-    // getProductPhotos(productID, stylesAll[0].style_id);
-  }, []);
+    getStyles(productID);
+  }, [productID]);
 
   useEffect(() => {
 		setTimeout(() => {
@@ -122,15 +122,15 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 		requestsAPI
 			.getProductStyles(prod_ID)
       .then(({ data }) => {
-        // console.log('ALL STYLESSSSSSSSS: ', data)
 				setCurrentStylesAll(data.results);
         setCurrentStyle(data.results[0]);
+        getProductPhotos(prod_ID, data.results[0].style_id )
       })
       .then(() => {
         // console.log('currentStylesAll: ', currentStylesAll)
         // console.log('currentStyle: ', currentStyle)
       })
-			.catch((err) => console.log(`FAILED to GRAB STYLES 😟😟😟 ${err}`));
+			.catch((err) => console.log(`FAILED GET STYLES 😟😟😟 ${err}`));
 	};
 
   // UPDATE style ID
@@ -149,7 +149,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
     })
-    .catch((err) => console.log(`FAILED to GRAB PHOTOS 😟😟 ${err}`));
+      .catch((err) => console.log(`FAILED to GRAB PHOTOS 😟😟 ${err}`));
   }
 
   // HANDLE IMAGE CLICK EVENT
@@ -166,10 +166,11 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
   }
 
 
-
   return (
 
-    <OverviewDiv style={{ background: 'lightGreen' }} ref={ref}>
+    // <OverviewDiv style={{ background: 'lightGreen' }} ref={ref}>
+    <OverviewDiv >
+
 
       <Button onClick={() => previousIndex()}><strong><em>prev</em></strong></Button>
       <Button onClick={() => nextIndex()}><strong><em>next</em></strong></Button>
@@ -177,6 +178,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
       {ExpandedViewComponent}
 
+      {/* {console.log('PRODUCTTTTT OVERVIEWWWWW  💯👏💯👏💯👏', productImages[0].url)} */}
       <ContainerDiv className="product-overview">
 
         <Div className="container">
@@ -200,12 +202,12 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
               <Div style={{justifyContent: 'spaceEvenly'}}><i className="footer-icon fab fa-facebook-square"></i></Div>
             </Div>
 
-            <ProductInformation product={product} productID={productID} rating={"rating"} styleID={styleID} />
+            <ProductInformation currentProduct={products[productIndex]} productID={productID} rating={"rating"} styleID={styleID} />
 
             <SelectorDiv>
 
               <StyleSelector
-                currentProduct={currentProduct}
+                currentProduct={products[productIndex]}
                 currentStylesAll={stylesAll}
                 onHandleSelect={"onHandleSelect"}
                 addToCart={addToCart}
@@ -224,7 +226,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
         <Div>
 
-          <ProductDescription product={product} />
+          <ProductDescription currentProduct={products[productIndex]} />
 
         </Div>
 

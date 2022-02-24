@@ -8,7 +8,7 @@ const ExpandView = styled.figure`
   animation-iteration-count: 1;
   animation-duration: .5s;
   background-repeat: no-repeat;
-  background: hsla(100,90%,80%,0.5);
+  /* background: hsla(100,90%,80%,0.5); */
   border: 1px dotted lightgrey;
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@ const Image = styled.img`
 
 
 
-const ExpandedView = ({ expandedView, onHandleImageClick }) => {
+const ExpandedView = ({ src, expandedView, onHandleImageClick }) => {
 
   const expandRef = useRef();
 
@@ -37,7 +37,7 @@ const ExpandedView = ({ expandedView, onHandleImageClick }) => {
 
     <ExpandView onClick={onHandleImageClick} ref={expandRef}>
 
-      <h1>EXPANDED VIEW OF IMAGE</h1>
+      <Image src={src} className="expanded-image" alt="" >EXPANDED VIEW OF IMAGE</Image>
 
     </ExpandView>
 

@@ -22,7 +22,6 @@ const App = (props) => {
 
 	useEffect(() => {
 		setProductID(productID);
-		// console.log('APPPPP.PRODUCT IDDDDD 😡😡', productID)
 	}, [productID]);
 
 	const getAllProducts = () => {
