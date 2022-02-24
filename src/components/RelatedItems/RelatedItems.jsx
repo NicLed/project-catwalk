@@ -19,7 +19,7 @@ export default function RelatedItems({productID}) {
 
   useEffect(() => {
     getRelatedItems(productID);
-  }, [])
+  }, [productID])
 
   // console.log(productID);
 
@@ -27,7 +27,7 @@ export default function RelatedItems({productID}) {
     // console.log('>>>>>>>>> ID IS HERE!!',id)
     axios.get(`/related/${id}`)
     .then((related) => {
-      console.log('>>>>>>>>> related data IS HERE!!', related.data);
+      // console.log('>>>>>>>>> related data IS HERE!!', related.data);
       const relatedData = related.data;
       const relatedPromises = Promise.all(relatedData.map(itemID => {
         return axios.get(`/products/${itemID}`)
@@ -45,16 +45,16 @@ export default function RelatedItems({productID}) {
           ratingsArray.push(element.data.avg)
         })
         relatedPromises.then(result1 => {
-          console.log(">>>>>>>>results1🎶" ,result1)
+          // console.log(">>>>>>>>results1🎶" ,result1)
           const relatedItems = result1.map( element => {
             return element.data
           })
 
           for (let i = 0; i < relatedItems.length; i ++) {
-            console.log(ratingsArray[i])
+            // console.log(ratingsArray[i])
             relatedItems[i].reviewRating = ratingsArray[i];
           }
-          console.log(relatedItems)
+          // console.log(relatedItems)
           setRelatedProducts(relatedItems)
         })
         .catch(err => {

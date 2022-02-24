@@ -9,7 +9,7 @@ const InfiniteScroll = styled.div`
   overflow: scroll;
 `
 
-const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm, getReviews }) => {
+const ReviewList = ({ products, product, productID, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm, getReviews }) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
 
 
@@ -28,15 +28,15 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
 
   return (
     <div>
-      <h3> {reviews.length} Reviews, <SortDropdown product={product} getReviews={getReviews}/> </h3>
+      <h3> {reviews.length} Reviews, <SortDropdown productID={productID} getReviews={getReviews}/> </h3>
 
       <InfiniteScroll>
         {reviews.length > displayedReviews ?
           reviews.slice(0, displayedReviews).map(review => {
-            return <ReviewTile review={review} key={review.review_id} displayLargeImage={displayLargeImage}/>
+            return <ReviewTile review={review} key={review.review_id} displayLargeImage={displayLargeImage} getReviews={getReviews} productID={productID} />
           })
           : reviews.map(review => {
-            return <ReviewTile review={review} key={review.review_id} />
+            return <ReviewTile review={review} key={review.review_id} getReviews={getReviews} productID={productID} />
           })
         }
       </InfiniteScroll>

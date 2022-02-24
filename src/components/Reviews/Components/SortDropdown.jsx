@@ -14,7 +14,7 @@ const SortDropdown = (props) => {
   const handleDropdownSelectionChange = (e) => {
     console.log("event target value:", e.target.value);
     setSortMethod(e.target.value);
-    props.getReviews(props.product, e.target.value);
+    props.getReviews(props.productID, e.target.value);
   }
 
   return (

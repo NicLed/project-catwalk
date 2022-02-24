@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+// Styling
 const StarBar = styled.div`
   display:flex;
   align-items: center;
@@ -33,8 +34,11 @@ const PercentRec = styled.p`
   color: #767676;
 `
 
+
 const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
 
+
+  // Initial states and variables
   const recommended = Number(reviewsMeta.recommended.true) || 0;
   const notRecommended = Number(reviewsMeta.recommended.false) || 0;
   const recommendCount = recommended + notRecommended;
@@ -42,6 +46,9 @@ const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
   let averages = [];
   let totalsByRating = [];
 
+
+
+  // Check for proper data shape (make sure all star ratings have an associated value)
   if (Object.values(reviewsMeta.ratings).length !== 5) {
     const ratingValues = [5, 4, 3, 2, 1];
 
@@ -58,6 +65,8 @@ const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
   }
 
 
+
+  // Calculate width of green star bar
   const totalRatings = totalsByRating.reduce((previous, current) => {
     return Number(previous) + Number(current);
   })
@@ -66,6 +75,9 @@ const RatingsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
     return (Number(value) / totalRatings) * 100;
   })
 
+
+
+  // Rendered components
   return (
     <>
       {averages.map((average, i) => {

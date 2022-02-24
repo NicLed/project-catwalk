@@ -5,18 +5,22 @@ import ReviewList from './Components/ReviewList.jsx';
 import RatingSummary from './Components/RatingSummary.jsx';
 import NewReviewModal from './Components/NewReviewModal.jsx';
 
+// Styling
 const SectionsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 100px;
 `
 
-const Section = styled.div`
+const BreakdownSection = styled.div`
   outline: grey;
   max-width: 50%;
   &:hover {
     // background-color: grey;
   }
+`
+const ReviewsSection = styled.div`
+  width: 1000px;
 `
 
 const LargeImageModal = styled.div`
@@ -39,7 +43,11 @@ const LargeImage = styled.img`
   max-width: 700px;
 `
 
-const RatingsReviews = ({productID,products, product}) => {
+
+
+const RatingsReviews = ({productID, products, product}) => {
+
+  // Set initial states
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
@@ -48,11 +56,12 @@ const RatingsReviews = ({productID,products, product}) => {
   const defaultSort = 'relevant';
 
   useEffect(() => {
-    console.log('im getting HIT AGAIN! ⭐⭐⭐')
     getReviews(productID);
     getReviewsMetaData(productID);
   }, [productID])
 
+
+  // GET request for reviews
   const getReviews = (product_id) => {
     axios.get(`/reviews/${product_id}`)
       .then((response) => {
@@ -64,6 +73,8 @@ const RatingsReviews = ({productID,products, product}) => {
       })
   }
 
+
+  // GET request for reviews meta data
   const getReviewsMetaData = (product_id) => {
     axios.get(`/reviews/meta/${product_id}`)
       .then((response) => {
@@ -75,28 +86,35 @@ const RatingsReviews = ({productID,products, product}) => {
       })
   }
 
+
+  // Close modal
   const closeLargeImage = () => {
     setLargeImage(false);
     setImageSource('');
   }
 
+
+  // Open modal
   const displayLargeImage = (e) => {
     setImageSource(e.target.src);
     setLargeImage(true);
   }
 
+
+
+  // Render
   return (
     <>
       {Object.keys(reviewsMeta).length && reviews.length ?
         <SectionsContainer>
 
-          <Section><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></Section>
+          <BreakdownSection><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></BreakdownSection>
 
           {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
 
           {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm} /> : null}
 
-          <Section><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}  getReviews={getReviews}/></Section>
+          <ReviewsSection><ReviewList products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} displayLargeImage={displayLargeImage} setShowNewReviewForm={setShowNewReviewForm}  getReviews={getReviews} productID={productID} /></ReviewsSection>
         </SectionsContainer>
         : null}
     </>

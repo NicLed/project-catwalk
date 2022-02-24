@@ -102,7 +102,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 		setTimeout(() => {
       setCurrentProductID(products[productIndex]);
       setProductID(products[productIndex].id);
-      console.log('OVERVIEW.stylesAll: ', stylesAll)
+      // console.log('OVERVIEW.stylesAll: ', stylesAll)
 		}, 0);
 	}, [currentProductID, productIndex]);
 

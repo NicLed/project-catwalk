@@ -16,13 +16,13 @@ const App = (props) => {
 
 	useEffect(() => {
 		getAllProducts();
-    console.log('Product ID:', productID);
-    console.log('Product', product);
+    // console.log('Product ID:', productID);
+    // console.log('Product', product);
 	}, []);
 
 	useEffect(() => {
 		setProductID(productID);
-		console.log('APPPPP.PRODUCT IDDDDD 😡😡', productID)
+		// console.log('APPPPP.PRODUCT IDDDDD 😡😡', productID)
 	}, [productID]);
 
 	const getAllProducts = () => {
@@ -66,7 +66,7 @@ const App = (props) => {
 			)}
 
 			<br />
-			{products.length && <RelatedItems productID={productID} />}
+			{productID && <RelatedItems productID={productID} />}
 			<div>
 				{Object.keys(product).length && products.length ? (
 					<Questions products={products} product={product} />
