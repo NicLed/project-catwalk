@@ -75,8 +75,7 @@ const getProductReviews = (productID) => {
 };
 
 // GET PRODUCT PHOTOS BY ID
-// const getProductStylePhotos = (productID, styleID) => {
-const getProductStylePhotos = (productID) => {
+const getProductStylePhotos = (productID, styleID) => {
   const options = {
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${productID}/styles`,
     method: 'GET',
@@ -86,13 +85,10 @@ const getProductStylePhotos = (productID) => {
   };
 
   return axios(options)
-    .then(({ data }) => {
-      return data
-    })
-    // .then(({ data }) => data.results.reduce((acc, elem) => {
-    //   if (elem.style_id === styleID) { return elem }
-    //   return acc;
-    // }, {}));
+    .then(({ data }) => data.results.reduce((acc, elem) => {
+      if (elem.style_id === styleID) { return elem }
+      return acc;
+    }, {}));
 };
 
 // ADD ITEM TO SHOPPING CART
