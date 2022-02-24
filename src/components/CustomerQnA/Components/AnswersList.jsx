@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import AnswerEntry from './AnswerEntry.jsx';
 
 const AnswersList = (props) => {
+
   const [showAnswers, setShowAnswers] = useState(2);
   console.log('answersList: ', props);
 
@@ -10,6 +11,7 @@ const AnswersList = (props) => {
   const showMoreAnswers = () => {
     setShowAnswers(showAnswers + 2);
   }
+
 
   const answersArray = Object.values(props.answers);
 

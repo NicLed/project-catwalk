@@ -79,7 +79,7 @@ app.get('/qa/questions/:product_id', (req, res) => {
     { headers: { Authorization: TOKEN } })
     .then((response) => {
       res.status(201).send(response.data)
-      console.log('response:', response.data)
+      // console.log('response:', response.data)
     })
     .catch((err) => {
       console.error(err);

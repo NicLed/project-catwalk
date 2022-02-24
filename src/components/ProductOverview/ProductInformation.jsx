@@ -38,7 +38,7 @@ const Price = styled.h5`
 `
 
 
-const ProductInformation = ({product, productID, rating, styleID}) => {
+const ProductInformation = ({currentProduct, productID, rating, styleID}) => {
 
   return (
 
@@ -54,11 +54,11 @@ const ProductInformation = ({product, productID, rating, styleID}) => {
 
       <InfoSectionDiv>
 
-        <Category>{product.category}</Category>
+        <Category>{currentProduct.category}</Category>
 
-        <Name>{product.name}</Name>
+        <Name>{currentProduct.name}</Name>
 
-        <Price>USD ${product.default_price}</Price>
+        <Price>USD ${currentProduct.default_price}</Price>
 
       </InfoSectionDiv>
 
