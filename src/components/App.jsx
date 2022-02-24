@@ -64,7 +64,7 @@ const App = (props) => {
 			)}
 
 			<br />
-			{products.length && <RelatedItems productID={productID} />}
+			{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product}/>}
 			<div>
 				{Object.keys(product).length && products.length ? (
 					<Questions products={products} product={product} />

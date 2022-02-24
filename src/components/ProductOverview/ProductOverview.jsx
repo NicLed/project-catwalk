@@ -74,6 +74,8 @@ const useVisibilityToggler = (component, visibility = false) => {
   return [(visible ? component : null), () => setVisible((state) => !state)];
 };
 
+// !!
+export let relatedPhotos;
 
 const ProductOverview = ({ product, products, productID, allProductIDs, stylesAll, ratings,setProductID }) => {
 
@@ -141,7 +143,8 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
   const getProductPhotos = (prod_ID,style_ID) => {
     requestsAPI.getProductStylePhotos(prod_ID,style_ID)
     .then((results) => {
-      // console.log('PHOTO RESULTSSSSSS', results.photos);
+      console.log('PHOTO RESULTSSSSSS', results.photos);
+      relatedPhotos = results.photos[0].url;
       setProductImages(results.photos[0].url);
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
