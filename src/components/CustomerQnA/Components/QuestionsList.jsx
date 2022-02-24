@@ -3,7 +3,7 @@ import QuestionEntry from './QuestionEntry.jsx';
 
 
 const QuestionsList = (props) => {
-  console.log('props.questions:', props.questions);
+  // console.log('props.questions:', props.questions);
   const [showNumber, setShowNumber] = useState(4);
 
 

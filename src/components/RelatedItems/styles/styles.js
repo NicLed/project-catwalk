@@ -4,6 +4,7 @@ import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 export const Title1 = styled.h3`
   // background-color: mediumseagreen;
   color: grey;
+  margin: 2% 15% 0%;
 `
 export const ElementDiv = styled.div`
   flex-direction: column;
@@ -12,11 +13,13 @@ export const ElementDiv = styled.div`
   height: auto;
 `
 export const RIdiv = styled.div`
-  width: 70%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  max-width: 50%;
   height: 80%;
   position: relative;
-  margin: 30px;
-  display: flex;
+  margin: 5% 25% 5%;
   flex-direction: column;
   border: 1px grey solid;
   padding: 5px;
@@ -62,6 +65,7 @@ export const Container0 = styled.div`
   flex-direction: row;
   border: 1px grey solid;
   padding: 5px;
+  margin: 1% 15% 2%;
 
 `
 export const Container1 = styled.div`
@@ -97,3 +101,14 @@ export const RightArrow = styled(FaArrowAltCircleRight)`
   height: 20px;
   width: 20px;
 `
+const ListContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  overflow: scroll;
+  position: relative;
+  height: 415px;
+  margin: 0px;
+  padding: 0px;
+  transitions: .5s;
+  scroll-behavior: smooth;
+`;
