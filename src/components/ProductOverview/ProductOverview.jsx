@@ -145,7 +145,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
     .then((results) => {
       console.log('PHOTO RESULTSSSSSS', results.photos);
       relatedPhotos = results.photos[0].url;
-      setProductImages(results.photos[0].url);
+      setProductImages(results.photos[0]);
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
     })
