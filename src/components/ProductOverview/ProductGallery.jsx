@@ -72,7 +72,7 @@ const ItemImage = styled.img`
 
 
 
-const ProductGallery = ({ productImage, onHandleImageClick }) => {
+const ProductGallery = ({ productImages, onHandleImageClick }) => {
 
   // const [photo, setPhoto] = useState(productImages);
   const [current, setCurrent] = useState(0);
