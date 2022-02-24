@@ -4,41 +4,38 @@ import QuestionsList from '../CustomerQnA/Components/QuestionsList.jsx';
 import QuestionEntry from '../CustomerQnA/Components/QuestionEntry.jsx';
 import AnswersList from '../CustomerQnA/Components/AnswersList.jsx'
 
-const Questions = (props) => {
+const Questions = ({products, product, productID}) => {
   const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState({});
 
-  console.log('props.products: ', props.products)
+
 
   useEffect(() => {
-    getAllQuestions();
-  }, []);
+    getAllQuestions(productID);
+  }, [productID]);
 
 
-  const getAllQuestions = () => {
-    axios.get(`/qa/questions/${props.productID}`)
+  const getAllQuestions = (product_ID) => {
+    axios.get(`/qa/questions/${product_ID}`)
     .then((response) => {
-      console.log('AllData: ', response.data.results);
+      // console.log('AllData: ', response.data.results);
       setQuestions(response.data.results);
-      // setAnswers(response.data.results);
     })
     .catch((err) => {
       console.error(err)
     })
   }
 
-  // console.log('QuestionsList: ');
 
-  const showMoreQuestions = () => {
-    setShowNumber(props.questions.length);
-  }
 
 return (
+
 <div>
-{questions.length > 0  ?  <QuestionsList questions={questions} /> : null}
-{/* {questions.length > 0 ? <AnswersList questions={questions} /> : null} */}
-<button>More Answered Questions</button>
+  {questions.length > 0  ?  <QuestionsList questions={questions}  getAllQuestions={getAllQuestions} productID={productID} /> : null}
+  <button>
+    More Answered Questions
+  </button>
 </div>
   )
 };

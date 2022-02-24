@@ -39,7 +39,7 @@ const LargeImage = styled.img`
   max-width: 700px;
 `
 
-const RatingsReviews = ({products, product}) => {
+const RatingsReviews = ({productID,products, product}) => {
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState({});
   const [largeImage, setLargeImage] = useState(false);
@@ -51,12 +51,13 @@ const RatingsReviews = ({products, product}) => {
   // when click add a reivew button it toggles modal state here to display modal
 
   useEffect(() => {
-    getReviews();
-    getReviewsMetaData();
-  }, [])
+    console.log('im getting HIT AGAIN! ⭐⭐⭐')
+    getReviews(productID);
+    getReviewsMetaData(productID);
+  }, [productID])
 
-  const getReviews = () => {
-    axios.get(`/reviews/${product.id}`)
+  const getReviews = (product_id) => {
+    axios.get(`/reviews/${product_id}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)
@@ -66,8 +67,8 @@ const RatingsReviews = ({products, product}) => {
       })
   }
 
-  const getReviewsMetaData = () => {
-    axios.get(`/reviews/meta/${product.id}`)
+  const getReviewsMetaData = (product_id) => {
+    axios.get(`/reviews/meta/${product_id}`)
       .then((response) => {
         console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
