@@ -53,7 +53,6 @@ const RatingsReviews = ({productID, products, product}) => {
   const [largeImage, setLargeImage] = useState(false);
   const [imageSource, setImageSource] = useState('');
   const [showNewReviewForm, setShowNewReviewForm] = useState(false);
-  const defaultSort = 'relevant';
 
   useEffect(() => {
     getReviews(productID);
@@ -62,8 +61,9 @@ const RatingsReviews = ({productID, products, product}) => {
 
 
   // GET request for reviews
-  const getReviews = (product_id) => {
-    axios.get(`/reviews/${product_id}`)
+  const getReviews = (product_id, sortMethod) => {
+    sortMethod = sortMethod || 'relevant';
+    axios.get(`/reviews/${product_id}&${sortMethod}`)
       .then((response) => {
         console.log("reviews response", response.data);
         setReviews(response.data.results)

@@ -32,16 +32,17 @@ app.get('/products/:product_id', (req, res) => {
     })
 });
 
-app.get('/reviews/:product_id', (req, res) => {
-  // console.log('server reviews req.params', req.params)
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=${req.params.product_id}&count=1000`,
+app.get('/reviews/:product_id&:sortMethod', (req, res) => {
+  console.log(req.params);
+  console.log(req);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews?product_id=${req.params.product_id}&count=1000&sort=${req.params.sortMethod}`,
     { headers: { Authorization: TOKEN } })
     .then((response) => {
       res.status(200).send(response.data)
     })
     .catch((error) => {
       // throw new Error(error);
-      console.error(error);
+      // console.error(error);
     })
 });
 
@@ -74,7 +75,7 @@ app.get('/average-reviews/:product_id', (req, res) => {
 });
 
 
-app.get('/qa/questions/:product_id', (req, res) => {
+app.get('/qa/questions/:product_id:sortMethod', (req, res) => {
   // console.log('reqparams: 👁👁👁👁👁👁', req.params);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions?product_id=${req.params.product_id}&count=1000`,
     { headers: { Authorization: TOKEN } })
@@ -83,13 +84,12 @@ app.get('/qa/questions/:product_id', (req, res) => {
       // console.log('response:', response.data)
     })
     .catch((err) => {
-      console.error(err);
+      // console.error(err);
     });
 });
 
 
 app.get('/reviews/meta/:product_id', (req, res) => {
-  // console.log('server reviews meta req.params', req.params)
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta?product_id=${req.params.product_id}`,
     { headers: { Authorization: TOKEN } })
     .then((response) => {
@@ -97,12 +97,11 @@ app.get('/reviews/meta/:product_id', (req, res) => {
     })
     .catch((error) => {
       // throw new Error(error);
-      console.error(error);
+      // console.error(error);
     })
 });
 
 app.put('/reviews/:review_id/helpful', (req, res) => {
-  console.log(req.params);
   axios({
     method: 'put',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${req.params.review_id}/helpful`,
@@ -116,6 +115,20 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
   })
 })
 
+app.put('/reviews/:review_id/report', (req, res) => {
+  console.log(req.params);
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${req.params.review_id}/report`,
+    headers: {Authorization: TOKEN}})
+  .then((response) => {
+    console.log('Put request worked!!!')
+    res.sendStatus(204);
+  })
+  .catch((error) => {
+    console.error(error);
+  })
+})
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
