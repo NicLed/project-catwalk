@@ -10,6 +10,7 @@ const QuestionEntry = (props) => {
   const questionID = props.eachQuestion.question_id;
 
 
+
   const isHelpfulHandler = () => {
     axios.put(`/qa/questions/${questionID}/helpful`)
     .then(() => {
