@@ -9,9 +9,9 @@ const InfiniteScroll = styled.div`
   overflow: scroll;
 `
 
-const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm }) => {
+const ReviewList = ({ products, product, productID, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm, getReviews }) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
-  // const [showNewReviewForm, setShowNewReviewForm] = useState(false);
+
 
   const showMoreReviews = () => {
     const newDisplayedReviews = displayedReviews + 2;
@@ -22,21 +22,21 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
     setShowNewReviewForm(true);
   }
 
-  // const showFewerReviews = () => {
-  //   setDisplayedReviews(2);
-  // }
+  const showFewerReviews = () => {
+    setDisplayedReviews(2);
+  }
 
   return (
     <div>
-      <h3> {reviews.length} Reviews, sorted by <SortDropdown /> </h3>
+      <h3> {reviews.length} Reviews, <SortDropdown productID={productID} getReviews={getReviews}/> </h3>
 
       <InfiniteScroll>
         {reviews.length > displayedReviews ?
           reviews.slice(0, displayedReviews).map(review => {
-            return <ReviewTile review={review} key={review.review_id} displayLargeImage={displayLargeImage}/>
+            return <ReviewTile review={review} key={review.review_id} displayLargeImage={displayLargeImage} getReviews={getReviews} productID={productID} />
           })
           : reviews.map(review => {
-            return <ReviewTile review={review} key={review.review_id} />
+            return <ReviewTile review={review} key={review.review_id} getReviews={getReviews} productID={productID} />
           })
         }
       </InfiniteScroll>
@@ -45,11 +45,12 @@ const ReviewList = ({ products, product, reviews, reviewsMeta, displayLargeImage
         <button onClick={() => showMoreReviews()} >More Reviews</button>
         : null}
 
+      {displayedReviews > 2 ?
+        <button onClick={() => showFewerReviews()}>Fewer Reviews</button>
+        : null}
+
       <button onClick={showModal}>Add a Review +</button>
 
-      {/* {reviews.length <= displayedReviews ?
-        <button onClick={() => showFewerReviews()}>Fewer Reviews</button>
-        : null} */}
     </div>
   )
 }
