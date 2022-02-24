@@ -5,7 +5,7 @@ import AnswersList from './AnswersList.jsx';
 
 const QuestionEntry = (props) => {
   // [helpfulnessCount, setHelpfulnessCount] = useState(props.eachQuestion.question_helpfulness);
-  console.log('QuestionEntryProps: ', props.eachQuestion.question_helpfulness);
+  // console.log('QuestionEntryProps: ', props.eachQuestion.question_helpfulness);
   const answers = props.eachQuestion.answers;
   const questionID = props.eachQuestion.question_id;
 

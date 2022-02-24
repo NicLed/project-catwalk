@@ -25,7 +25,7 @@ export default function RelatedItems({productID, stylesAll}) {
   const [arrayOfIDs, setArrayOfIDs] = useState([])
   // let ratingsArray = []
 
-  console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
+  // console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
   useEffect(() => {
     getRelatedItems(productID);
     getProductPhoto(productID);
@@ -93,7 +93,7 @@ export default function RelatedItems({productID, stylesAll}) {
           photoPromises.then((data) => {
 
             const relatedPhotos = [];
-            console.log(data, 'before loop data <<<<<<<<')
+            // console.log(data, 'before loop data <<<<<<<<')
             for (let i = 0; i < data.length; i++) {
               let element = data[i].data.results[0].photos[0].url;
               if (!relatedPhotos.includes(element)) {
@@ -101,14 +101,14 @@ export default function RelatedItems({productID, stylesAll}) {
               }
             }
 
-            console.log(relatedPhotos, "RELATED PHOTOS ARE HERE!!!!!!<<<<<<<<<<<")
+            // console.log(relatedPhotos, "RELATED PHOTOS ARE HERE!!!!!!<<<<<<<<<<<")
 
             setRelatedProductsPhotos(relatedPhotos)
             for (let i = 0; i < relatedItems.length; i++) {
               // console.log(ratingsArray[i])
               relatedItems[i].photo = relatedPhotos[i]
             }
-            console.log(relatedItems, '<<<<<<<< after ading a photo!')
+            // console.log(relatedItems, '<<<<<<<< after ading a photo!')
           })
           .catch(err => {
             console.log(err)
