@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const DescriptionDiv = styled.div`
   display: flex;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Ubuntu';
   justify-content: center;
   max-width: 1000px;
   margin: 0 10px 10px 10px;
@@ -17,14 +17,16 @@ const Div = styled.div`
 `;
 
 const Slogan = styled.h3`
-  color: hsla(150,80%,50%,0.5);
+  color: hsla(100,40%,60%,0.5);
   font-size: 1.5rem;
-  font-style: italic;
+  font-family: 'Ubuntu';
+  /* font-style: italic; */
   margin-top: 10px;
 `;
 
 const Description = styled.p`
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-family: 'Ubuntu';
   /* font-style: italic; */
   margin-top: 10px;
 `;

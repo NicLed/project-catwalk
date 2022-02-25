@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import {FaStar,FaShoppingCart} from 'react-icons/fa';
 
 
 const AddCartDiv = styled.div`
@@ -15,6 +16,7 @@ const CartButton = styled.button`
   color: black;
   cursor: pointer;
   font-size: 15px;
+  font-family: 'Noto Serif';
   height: 25px;
   margin: 10px 12px 24px 12px;
   padding-left: 5px;
@@ -46,6 +48,7 @@ const StarButton = styled.button`
   color: white;
   cursor: pointer;
   font-size: 18px;
+  font-family: 'Noto Serif';
   height: 25px;
   margin: 10px 12px 24px 12px;
   padding-left: 5px;
@@ -64,6 +67,7 @@ const SelectQuantity = styled.select`
   box-shadow: 2px 2px 2px;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Noto Serif';
   height: 25px;
   margin: 15px 12px 24px 12px;
   padding-left: 5px;
@@ -85,6 +89,7 @@ const SelectSize = styled.select`
   box-shadow: 2px 2px 2px;
   cursor: pointer;
   font-size: 14px;
+  font-family: 'Noto Serif';
   height: 25px;
   margin: 15px 12px 24px 12px;
   padding-left: 5px;
@@ -99,6 +104,15 @@ const SelectSize = styled.select`
     white-space: pre;
   }
 `;
+
+const StarIcon = styled(FaStar)`
+  color: #fffb2c;
+`;
+
+const CartIcon = styled(FaShoppingCart)`
+color: grey;
+margin-top: 3px;
+`
 
 
 const getSelectedSizeQuantity = () => {
@@ -121,7 +135,7 @@ const AddToCart = ({ addToCart, styles }) => {
 
         <SelectSize id="select-size" onChange={(event) => console.log(event.target.value)}>
 
-          <option className="option-size" value='' hidden>SELECT SIZEEEEEE</option>
+          <option className="option-size" value='' hidden>SELECT SIZE</option>
           <option className="option-size" value='S'> S </option>
           <option className="option-size" value='M'> M </option>
           <option className="option-size" value='L'> L </option>
@@ -149,13 +163,10 @@ const AddToCart = ({ addToCart, styles }) => {
 
       <Div>
 
-        <CartButton style={{ width: '45%', marginLeft: '10px' }} onClick={() => getSelectedSizeQuantity()}>ADD TO CART <i className="fa-solid fa-cart-shopping-fast"></i></CartButton>
+        <CartButton style={{ width: '45%', marginLeft: '10px' }} onClick={() => getSelectedSizeQuantity()}>ADD TO CART <CartIcon /></CartButton>
 
-        <StarButton style={{ width: '15%', marginLeft: '80px' }} onClick={() => console.log('must ADD to LIKED ❤️')} ><i className="fa-solid fa-star"></i></StarButton>
+        <StarButton style={{ width: '15%', marginLeft: '80px' }} onClick={() => console.log('must ADD to LIKED ❤️')} ><StarIcon /></StarButton>
 
-        {/* <Button onClick={() => "shouldAddFav"} style={{ width: '15%' }} >
-        <img src="" style={{ height: '20px', width: '20px' }} alt="" />
-      </Button> */}
       </Div>
 
     </AddCartDiv>
