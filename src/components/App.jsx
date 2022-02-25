@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Title, Button } from '../styles/styles';
+import styled from 'styled-components';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
 import ProductOverview from './ProductOverview/ProductOverview.jsx';
@@ -7,6 +7,12 @@ import requestsAPI from '../../server/requestsAPI';
 import Questions from './CustomerQnA/Questions.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+`
 const App = (props) => {
 	const [product, setProduct] = useState({});
 	const [products, setProducts] = useState([]);
@@ -16,11 +22,12 @@ const App = (props) => {
 
 	useEffect(() => {
 		getAllProducts();
+    // console.log('Product ID:', productID);
+    // console.log('Product', product);
 	}, []);
 
 	useEffect(() => {
 		setProductID(productID);
-		console.log('APPPPP.PRODUCT IDDDDD 😡😡', productID)
 	}, [productID]);
 
 	const getAllProducts = () => {
@@ -46,10 +53,10 @@ const App = (props) => {
 	};
 
 	return (
-		<div>
-			<Title>Project Cat Walk</Title>
+		<AppContainer>
+			<h1>Project Cat Walk</h1>
 
-			{console.log('APP.stylesAll: ', stylesAll)}
+			{/* {console.log('APP.stylesAll: ', stylesAll)} */}
 
 			{products.length && (
 				<ProductOverview
@@ -64,7 +71,7 @@ const App = (props) => {
 			)}
 
 			<br />
-			{products.length && <RelatedItems
+			{productID && <RelatedItems
       productID={productID}
       stylesAll={stylesAll}
       product={product}
@@ -72,14 +79,15 @@ const App = (props) => {
       />}
 			<div>
 				{Object.keys(product).length && products.length ? (
-					<Questions products={products} product={product} />
+					<Questions products={products} product={product} productID={productID} />
 				) : null}
 			</div>
 			{Object.keys(product).length && products.length ? (
 				<RatingsReviews productID={productID} products={products} product={product} />
 			) : null}
-		</div>
+		</AppContainer>
 	);
 };
 
 export default App;
+

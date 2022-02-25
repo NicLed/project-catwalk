@@ -30,17 +30,17 @@ const Description = styled.p`
 `;
 
 
-const ProductDescription = ({ product }) => {
+const ProductDescription = ({ currentProduct }) => {
 
   return (
 
     <DescriptionDiv className="product-description">
       <Div>
-        <Slogan className="slogan"><em>{product.slogan}</em></Slogan>
-        <Description>{product.description}</Description>
+        <Slogan className="slogan"><em>{currentProduct.slogan}</em></Slogan>
+        <Description>{currentProduct.description}</Description>
       </Div>
 
-      {(product.features) ? product.features.map((elem, index) => {
+      {(currentProduct.features) ? currentProduct.features.map((elem, index) => {
         <Div key={index}>
           <Description>{elem.feature}</Description>
           <Description><i className="fa-solid fa-check"></i>{elem.value}</Description>

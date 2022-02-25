@@ -34,7 +34,6 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
   useEffect(() => {
     getRelatedItems(productID);
     getProductPhoto(productID);
-
   }, [productID])
 
 

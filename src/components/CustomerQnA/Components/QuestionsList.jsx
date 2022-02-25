@@ -3,20 +3,22 @@ import QuestionEntry from './QuestionEntry.jsx';
 
 
 const QuestionsList = (props) => {
-  // console.log('props.questions:', props.questions);
+
   const [showNumber, setShowNumber] = useState(4);
+  // console.log('props.questions 💄💄💄💄💄💄💄💄💄:', showNumber);
 
 
-  const showMoreQuestions = () => {
-    setShowNumber(props.questions.length);
-  }
+
+  // const showMoreQuestions = () => {
+  //   setShowNumber(props.questions.length);
+  // }
 
 
   return (
 
     <div>
-
-     {props.questions.length > showNumber ? props.questions.slice(0, props.showNumber).map((eachQuestion, key) => (
+    <h3>Questions &amp; Answers</h3>
+     {props.questions.length > showNumber ? props.questions.slice(0, showNumber).map((eachQuestion, key) => (
         <QuestionEntry eachQuestion={eachQuestion} key={eachQuestion.question_id} />
      )) : props.questions.map((eachQuestion) => {
        return <QuestionEntry eachQuestion={eachQuestion} key={eachQuestion.question_id} />

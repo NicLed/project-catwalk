@@ -12,7 +12,6 @@ const Tile = styled.div`
 
 const ImageContainer = styled.div`
   display: flex;
-
 `
 const Thumbnail = styled.img`
   border: 1px solid #ddd;
@@ -26,7 +25,7 @@ const Thumbnail = styled.img`
   }
 `
 
-const ReviewTile = ({ review, displayLargeImage }) => {
+const ReviewTile = ({ review, displayLargeImage, getReviews, productID }) => {
 
   return (
     <Tile>
@@ -49,7 +48,7 @@ const ReviewTile = ({ review, displayLargeImage }) => {
       <br></br>
       {review.response ? <div>Response: {review.response}</div> : null}
       <br></br>
-      <RatingHelpfulness review={review} />
+      <RatingHelpfulness review={review} getReviews={getReviews} productID={productID} />
     </Tile>
   )
 }

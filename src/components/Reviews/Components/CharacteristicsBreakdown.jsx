@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+
+// Styling
 const CharacteristicsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,10 +14,17 @@ const SpanNumberContainer = styled.div`
 
 const CharacteristicInput = styled.input`
   width: 100%;
+  ::slider-thumb {
+    color: grey;
+  }
 `
+
+
 
 const CharacteristicsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
 
+
+  // Rendered components
   return (
     <>
       <CharacteristicsContainer>
