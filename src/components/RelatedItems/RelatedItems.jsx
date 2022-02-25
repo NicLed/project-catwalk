@@ -1,7 +1,7 @@
 import React, {Component, useState, useEffect} from 'react';
 import axios from 'axios';
 import styled from 'styled-components'
-import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, ElementDiv, ListContainer } from './styles/styles.js';
+import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, ElementDiv, ListContainer, Titlediv } from './styles/styles.js';
 import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
 
 import requestsAPI from '../../../server/requestsAPI.js'
@@ -27,7 +27,7 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
   const [visible, setVisible] = useState({})
   const [currentProducts, setCurrentProducts] = useState([])
   const [counter, setCounter] = useState(0)
-  const [outfitCounter, setoutfitCounter] = useState(0);
+  const [outfitCounter, setOutfitCounter] = useState(0);
 
 
   console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
@@ -133,9 +133,17 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
     })
   }
 
-  const addToOutfit = (name, product) => {
+  const addToOutfit = (id, product) => {
+    console.log(id, '<<<< ID, product >>>>>', product)
     let outfitArr = outfit.slice()
-    outfitArr.push(product)
+    let id_arr = []
+    for (let i = 0; i < outfitArr.length; i++) {
+      id_arr.push(outfitArr[i].id)
+    }
+    console.log(id_arr)
+    if(!id_arr.includes(id)) {
+      outfitArr.push(product)
+    }
     setOutfit(outfitArr)
   }
 
@@ -189,7 +197,7 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
         setOutfitCounter(outfitCounter - 1)
       }
     } else if (direction === 'right' && section === 'outfit') {
-      if (outfitCounter > relatedProducts.length-4) {
+      if (outfitCounter > outfit.length-4) {
         // console.log( 'no more elements')
         setOutfitCounter(relatedProducts.length-4)
       } else if (outfitCounter <= 0) {
@@ -202,8 +210,9 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
   return (
 
     <RIdiv>
-
-        <Title1>RELATED PRODUCTS</Title1>
+        <Titlediv>
+          <Title1>RELATED PRODUCTS</Title1>
+        </Titlediv>
 
         <Container0>
           <LeftArrow onClick={() => {handleArrow('left', 'related')}}/>
@@ -212,13 +221,13 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
             // console.log(element, '<<<<<< element >>>>>>> photo', element.photo)
 
             return (
-              <ElementDiv key={element.id} onClick={() => addToOutfit(element.name, element)}>
+              <ElementDiv key={element.id} onClick={() => addToOutfit(element.id, element)}>
                 <div>
                   <img src={relatedProductsPhotos[i + counter]} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
                 </div>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
-                <div> {`$${element.default_price}`} </div>
+                <div> {`USD $${element.default_price}`} </div>
                 <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
                 {/* <button onClick={() => hideButton()}>{visible.visability ? 'Enable' : 'Disable'}</button> */}
               </ElementDiv>
@@ -226,7 +235,9 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
           })}
           <RightArrow onClick={()=> handleArrow('right', 'related')}/>
         </Container0>
-        <Title1>YOUR OUTFIT</Title1>
+        <Titlediv>
+          <Title1>YOUR OUTFIT</Title1>
+        </Titlediv>
         <Container0>
           <LeftArrow onClick={() => {handleArrow('left', 'outfit')}}/>
 
@@ -238,7 +249,7 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
                 </div>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
-                <div> {`$${element.default_price}`} </div>
+                <div> {`USD $${element.default_price}`} </div>
                 <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
               </ElementDiv>
             )

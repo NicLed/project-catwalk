@@ -6,6 +6,12 @@ export const Title1 = styled.h3`
   color: grey;
   margin: 2% 15% 0%;
 `
+export const Titlediv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 1150px;
+
+`
 export const ElementDiv = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
