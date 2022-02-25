@@ -15,8 +15,8 @@ export const ElementDiv = styled.div`
 export const RIdiv = styled.div`
   display: flex;
   justify-content: center;
-  // align-items: center;
-  max-width: 50%;
+  align-items: center;
+  width: 1000px;
   height: 80%;
   position: relative;
   margin: 5% 25% 5%;
@@ -59,7 +59,7 @@ export const Container0 = styled.div`
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 70%;
+  width: 800px;
   height: 80%;
   flex-direction: row;
   border: 1px grey solid;
