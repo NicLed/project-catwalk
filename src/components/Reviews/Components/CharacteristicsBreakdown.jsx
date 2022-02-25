@@ -19,8 +19,6 @@ const CharacteristicInput = styled.input`
   }
 `
 
-
-
 const CharacteristicsBreakdown = ({ products, product, reviews, reviewsMeta }) => {
 
 

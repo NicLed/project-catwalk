@@ -75,7 +75,7 @@ app.get('/average-reviews/:product_id', (req, res) => {
 });
 
 
-app.get('/qa/questions/:product_id:sortMethod', (req, res) => {
+app.get('/qa/questions/:product_id', (req, res) => {
   // console.log('reqparams: 👁👁👁👁👁👁', req.params);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions?product_id=${req.params.product_id}&count=1000`,
     { headers: { Authorization: TOKEN } })
