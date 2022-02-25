@@ -11,8 +11,8 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
 
+`
 const App = (props) => {
 	const [product, setProduct] = useState({});
 	const [products, setProducts] = useState([]);
@@ -57,23 +57,28 @@ const App = (props) => {
 
 		<>
 			<OakShop>The Oak Shop</OakShop>
-
 			<div>
 
 				{products.length && (
-					<ProductOverview
-						product={product}
-						products={products}
-						productID={productID}
-						allProductIDs={allProductIDs}
-						stylesAll={stylesAll}
-						ratings={'ratings'}
-						setProductID={setProductID}
+          <ProductOverview
+          product={product}
+          products={products}
+          productID={productID}
+          allProductIDs={allProductIDs}
+          stylesAll={stylesAll}
+          ratings={'ratings'}
+          setProductID={setProductID}
 					/>
-				)}
+          )}
 
-				<br />
-				{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product} />}
+          <br />
+          {productID && <RelatedItems
+          productID={productID}
+          stylesAll={stylesAll}
+          product={product}
+          setProductID={setProductID}
+          />}
+
 				<div>
 					{Object.keys(product).length && products.length ? (
 						<Questions productID={productID} products={products} product={product} />
