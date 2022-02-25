@@ -29,12 +29,6 @@ export default function RelatedItems({productID, stylesAll}) {
   useEffect(() => {
     getRelatedItems(productID);
     getProductPhoto(productID);
-    // if (arrayOfIDs.length < 1 ) {
-    //   return null
-    // } else {
-    //   getAllPhotos(arrayOfIDs);
-
-    // }
   }, [productID])
 
 

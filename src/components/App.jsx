@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Title, Button } from '../styles/styles';
+import styled from 'styled-components';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
 import ProductOverview, { OakShop } from './ProductOverview/ProductOverview.jsx';
@@ -7,6 +7,11 @@ import requestsAPI from '../../server/requestsAPI';
 import Questions from './CustomerQnA/Questions.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const App = (props) => {
 	const [product, setProduct] = useState({});
@@ -17,6 +22,8 @@ const App = (props) => {
 
 	useEffect(() => {
 		getAllProducts();
+    // console.log('Product ID:', productID);
+    // console.log('Product', product);
 	}, []);
 
 	useEffect(() => {
@@ -46,6 +53,7 @@ const App = (props) => {
 	};
 
 	return (
+		<AppContainer>
 
 		<>
 			<OakShop>The Oak Shop</OakShop>
@@ -68,7 +76,7 @@ const App = (props) => {
 				{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product} />}
 				<div>
 					{Object.keys(product).length && products.length ? (
-						<Questions products={products} product={product} />
+						<Questions productID={productID} products={products} product={product} />
 					) : null}
 				</div>
 				{Object.keys(product).length && products.length ? (
@@ -76,9 +84,10 @@ const App = (props) => {
 				) : null}
 			</div>
 		</>
-
+		</AppContainer>
 	);
 };
 
 
 export default App;
+

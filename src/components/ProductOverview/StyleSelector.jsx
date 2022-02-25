@@ -47,8 +47,10 @@ const StyleSelector = ({ onHandleImageClick, currentProduct, productImages, styl
 		<>
 			<StyleDiv className='style-selector'>
 				<Div>
+					{productImages ? productImages.map((image,index) => (
+						<img key={index} src={image.thumbnail_url} alt='' className='style-image' />
+					)) : null}
 
-					<img src='' alt='' className='style-image' />
 				</Div>
 			</StyleDiv>
 

@@ -138,8 +138,11 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 
 
   useEffect(() => {
-    setTimeout(() => setProductID(products[productIndex].id), 0);
-  }, [productIndex]);
+		setTimeout(() => {
+      setProductID(products[productIndex].id);
+      // console.log('OVERVIEW.stylesAll: ', stylesAll)
+		}, 0);
+	}, [productIndex]);
 
 
   const previousIndex = () => {
@@ -157,8 +160,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
       .then(({ data }) => {
         setCurrentStylesAll(data.results);
         setCurrentStyle(data.results[0]);
-        setStyleID(data.results[0].style_id);
-        getProductPhotos(prod_ID, data.results[0].style_id)
+        getProductPhotos(prod_ID, data.results[0].style_id )
       })
       .catch((err) => console.log(`FAILED GET STYLES 😟😟😟 ${err}`));
   };
