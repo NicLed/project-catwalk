@@ -54,7 +54,6 @@ export const Container = styled.div`
 //!!
 export const Container0 = styled.div`
   display: flex;
-  // justify-content: center;
   justify-content: space-between;
   width: auto;
   position: relative;
@@ -67,16 +66,6 @@ export const Container0 = styled.div`
   padding: 5px;
   margin: 1% 15% 2%;
 
-`
-export const Container1 = styled.div`
-  display: flex;
-  // justify-content: center;
-  width: auto;
-  position: relative;
-`
-
-export const Container2 = styled.div`
-  display: flex;
 `
 
 export const LeftArrow = styled(FaArrowAltCircleLeft)`
@@ -101,7 +90,7 @@ export const RightArrow = styled(FaArrowAltCircleRight)`
   height: 20px;
   width: 20px;
 `
-const ListContainer = styled.div`
+export const SliderDiv = styled.div`
   display: flex;
   justify-content: flex-start;
   overflow: scroll;

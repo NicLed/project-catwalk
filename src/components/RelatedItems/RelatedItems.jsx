@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components'
 import { Title1, Button, RIdiv, Carousel, Container0, LeftArrow, RightArrow, ElementDiv, ListContainer } from './styles/styles.js';
 import StarDisplayAverage from '../Reviews/Components/StarDisplayAverage.jsx';
-import Modal from './styles/Modal.js';
+
 import requestsAPI from '../../../server/requestsAPI.js'
 import {relatedPhotos} from '../ProductOverview/ProductOverview.jsx'
 
@@ -17,24 +17,24 @@ const unique = (value, index, self) => {
   return self.indexOf(value) === index
 }
 
-export default function RelatedItems({productID, stylesAll}) {
+export default function RelatedItems({productID, stylesAll, setProductID}) {
   // console.log("🤳>>>>>>>>" ,productID)
   const [relatedProducts, setRelatedProducts] = useState([])
   const [relatedProductsPhotos, setRelatedProductsPhotos] = useState([])
   const [currentRelatedPhoto, setCurrentRelatedPhoto] = useState({})
   const [arrayOfIDs, setArrayOfIDs] = useState([])
-  // let ratingsArray = []
+  const [outfit, setOutfit] = useState([])
+  const [visible, setVisible] = useState({})
+  const [currentProducts, setCurrentProducts] = useState([])
+  const [counter, setCounter] = useState(0)
+  const [outfitCounter, setoutfitCounter] = useState(0);
+
 
   console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
   useEffect(() => {
     getRelatedItems(productID);
     getProductPhoto(productID);
-    // if (arrayOfIDs.length < 1 ) {
-    //   return null
-    // } else {
-    //   getAllPhotos(arrayOfIDs);
 
-    // }
   }, [productID])
 
 
@@ -99,7 +99,7 @@ export default function RelatedItems({productID, stylesAll}) {
           photoPromises.then((data) => {
 
             const relatedPhotos = [];
-            console.log(data, 'before loop data <<<<<<<<')
+            // console.log(data, 'before loop data <<<<<<<<')
             for (let i = 0; i < data.length; i++) {
               let element = data[i].data.results[0].photos[0].url;
               if (!relatedPhotos.includes(element)) {
@@ -107,7 +107,7 @@ export default function RelatedItems({productID, stylesAll}) {
               }
             }
 
-            console.log(relatedPhotos, "RELATED PHOTOS ARE HERE!!!!!!<<<<<<<<<<<")
+            // console.log(relatedPhotos, "RELATED PHOTOS ARE HERE!!!!!!<<<<<<<<<<<")
 
             setRelatedProductsPhotos(relatedPhotos)
             for (let i = 0; i < relatedItems.length; i++) {
@@ -133,51 +133,109 @@ export default function RelatedItems({productID, stylesAll}) {
       throw new Error(error);
     })
   }
-  const addToOutfit = (product) => {
-    console.log(`>>>${product}<<< added to the outfit`)
-  }
-  const removeFromOutfit = (product) => {
-    console.log(`>>>${product}<<< removed from the outfit`)
+
+  const addToOutfit = (name, product) => {
+    let outfitArr = outfit.slice()
+    outfitArr.push(product)
+    setOutfit(outfitArr)
   }
 
+  const removeFromOutfit = (name, index) => {
+    let outfitArr = outfit.slice();
+    outfitArr.splice(index, 1)
+    setOutfit(outfitArr)
+  }
+
+
+  // const hideButton = () => {
+  //   if(visible.visability) {
+  //     setVisible({ visability: false })
+  //     console.log(">>>>>>> hiden <<<<<<<<<<")
+  //   } else {
+
+  //     setVisible({ visability: true })
+  //     console.log(">>>>>>> shown <<<<<<<<<<")
+  //   }
+  // }
+
+
+  const grabFour = (index) => {
+    let arrOfFour = relatedProducts.slice(index, index + 4);
+    return arrOfFour;
+  }
+
+  const handleArrow = (direction, section) => {
+    // console.log(direction , '<<<<<<<<<< direction is here!!!', counter)
+    if (direction === 'left' && section === 'related') {
+      if (counter <= 0) {
+        console.log( 'no elements on negative index')
+        setCounter(0)
+      } else if ( counter > 0) {
+        setCounter(counter - 1)
+      }
+    } else if (direction === 'right' && section === 'related') {
+      if (counter > relatedProducts.length-4) {
+        // console.log( 'no more elements')
+        setCounter(relatedProducts.length-4)
+      } else if (counter <= 0) {
+        setCounter(counter + 1)
+      }
+    }
+
+    if (direction === 'left' && section === 'outfit') {
+      if (outfitCounter <= 0) {
+        // console.log( 'no elements on negative index')
+        setOutfitCounter(0)
+      } else if ( outfitCounter > 0) {
+        setOutfitCounter(outfitCounter - 1)
+      }
+    } else if (direction === 'right' && section === 'outfit') {
+      if (outfitCounter > relatedProducts.length-4) {
+        // console.log( 'no more elements')
+        setOutfitCounter(relatedProducts.length-4)
+      } else if (outfitCounter <= 0) {
+        setOutfitCounter(outfitCounter + 1)
+      }
+    }
+
+
+  }
   return (
 
     <RIdiv>
-    {/* <div> */}
-        <Title1>RELATED PRODUCTS</Title1>
-        {/* <GreenContainerDiv style={{ backgroundColor: 'aliceblue'}}/> */}
-        <Container0>
-          <LeftArrow/>
 
-          {relatedProducts.map((element, i) => {
-            // console.log("ELEMENT IS HERE >>>>>", element)
-            // let picture = !element.photo ?
-            // 'https://thumbs.dreamstime.com/z/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg' :
-            // element.photo;
-            // console.log("PICTURE IS HERE >>>>>", picture)
+        <Title1>RELATED PRODUCTS</Title1>
+
+        <Container0>
+          <LeftArrow onClick={() => {handleArrow('left', 'related')}}/>
+
+          {relatedProducts.slice(counter, counter + 4).map((element, i) => {
+            // console.log(element, '<<<<<< element >>>>>>> photo', element.photo)
+
             return (
-              <ElementDiv key={element.id} onClick={() => addToOutfit(element.name)}>
+              <ElementDiv key={element.id} onClick={() => addToOutfit(element.name, element)}>
                 <div>
-                  <img src={relatedProductsPhotos[i]} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
+                  <img src={relatedProductsPhotos[i + counter]} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
                 </div>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
                 <div> {`$${element.default_price}`} </div>
                 <StarDisplayAverage average={element.reviewRating}></StarDisplayAverage>
+                {/* <button onClick={() => hideButton()}>{visible.visability ? 'Enable' : 'Disable'}</button> */}
               </ElementDiv>
             )
           })}
-          <RightArrow/>
+          <RightArrow onClick={()=> handleArrow('right', 'related')}/>
         </Container0>
         <Title1>YOUR OUTFIT</Title1>
         <Container0>
-          <LeftArrow/>
+          <LeftArrow onClick={() => {handleArrow('left', 'outfit')}}/>
 
-          {relatedProducts.map((element, i) => {
+          {outfit.slice(outfitCounter, outfitCounter + 4).map((element, i) => {
             return (
-              <ElementDiv key={element.id} onClick={() => removeFromOutfit(element.name)}>
+              <ElementDiv key={element.id} onClick={() => removeFromOutfit(element.name, i)}>
                 <div>
-                  <img src={relatedProductsPhotos[i]} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
+                  <img src={element.photo} style={{maxWidth: '200px', maxHeight: '200px'}}></img>
                 </div>
                 <div> {element.category} </div>
                 <div> {element.name} </div>
@@ -186,7 +244,7 @@ export default function RelatedItems({productID, stylesAll}) {
               </ElementDiv>
             )
           })}
-          <RightArrow/>
+          <RightArrow onClick={()=> handleArrow('right', 'outfit')}/>
         </Container0>
      {/* </div> */}
    </RIdiv>
