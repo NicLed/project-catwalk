@@ -1,6 +1,21 @@
 import React, {useState} from 'react';
 import moment from 'moment';
-// [questionAnswerer, setQuestionAnswerer] = useState(props.answer.answerer_name);
+import styled from 'styled-components';
+
+
+const AnswerContainer = styled.div`
+  margin-bottom: 10px;
+
+`
+const AnswerBodyContainer = styled.div`
+  margin-bottom: 10px;
+  margin-top: 20px;
+`
+const UserContainer = styled.div`
+  padding-left: 20px;
+
+
+`
 
 
 const AnswerEntry = (props) => {
@@ -9,12 +24,12 @@ const AnswerEntry = (props) => {
   {props.answer.answerer_name === 'Seller' ? username = <strong>Seller</strong> : username = props.answer.answerer_name}
 
   return (
-    <div>
-      <div>{props.answer.body}</div>
-      <div>
+    <AnswerContainer>
+      <AnswerBodyContainer>A: {props.answer.body}</AnswerBodyContainer>
+      <UserContainer>
        by {username}, {'Date: '}  {moment(props.answer.date).format('LL')}
-      </div>
-    </div>
+      </UserContainer>
+    </AnswerContainer>
   )
 }
 
