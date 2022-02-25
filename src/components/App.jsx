@@ -11,15 +11,7 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
-
 `
-
-
-
-
-
 
 const App = (props) => {
 	const [product, setProduct] = useState({});

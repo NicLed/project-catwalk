@@ -10,6 +10,7 @@ const SectionsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 100px;
+  padding-bottom: 45px;
 `
 
 const BreakdownSection = styled.div`
