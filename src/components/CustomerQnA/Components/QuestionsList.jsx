@@ -17,7 +17,7 @@ const QuestionsList = (props) => {
   return (
 
     <div>
-
+    <h3>Questions &amp; Answers</h3>
      {props.questions.length > showNumber ? props.questions.slice(0, showNumber).map((eachQuestion, key) => (
         <QuestionEntry eachQuestion={eachQuestion} key={eachQuestion.question_id} />
      )) : props.questions.map((eachQuestion) => {
