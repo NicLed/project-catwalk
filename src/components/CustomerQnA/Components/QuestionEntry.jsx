@@ -1,6 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import AnswersList from './AnswersList.jsx';
+import styled from 'styled-components';
+
+const QuestionContainer = styled.div`
+  display: flex;
+  justtify-content: space-between;
+
+`
+
+
+
 
 
 const QuestionEntry = (props) => {
@@ -22,21 +32,25 @@ const QuestionEntry = (props) => {
   }
 
   return (
-<div>
+<>
+<QuestionContainer>
+
   {/* <sytle>u{cursor: pointer;}</sytle> */}
-  <span>
-    <div>Q:  {props.eachQuestion.question_body}</div>
-    <span>
+
+    <h3>Q:  {props.eachQuestion.question_body}</h3>
+    <div>
       Helpful?
-      <div onClick={isHelpfulHandler}>
-        <u>
+
+        <a src=''>
             Yes
-        </u>
-      </div>
-    </span>
-  </span>
- A: <AnswersList answers={answers}/>
-</div>
+        </a>
+    </div>
+  <br></br>
+</QuestionContainer>
+
+
+A: <AnswersList answers={answers}/>
+</>
   )
 }
 
