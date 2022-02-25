@@ -69,7 +69,6 @@ const RatingsReviews = ({productID, products, product}) => {
     sortMethod = sortMethod || 'relevant';
     axios.get(`/reviews/${product_id}&${sortMethod}`)
       .then((response) => {
-        console.log("reviews response", response.data);
         setReviews(response.data.results)
       })
       .catch((error) => {
@@ -82,7 +81,6 @@ const RatingsReviews = ({productID, products, product}) => {
   const getReviewsMetaData = (product_id) => {
     axios.get(`/reviews/meta/${product_id}`)
       .then((response) => {
-        console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
       })
       .catch((error) => {
