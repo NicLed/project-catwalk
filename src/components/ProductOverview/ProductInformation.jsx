@@ -20,54 +20,65 @@ const InfoSectionDiv = styled.div`
 `
 
 const Category = styled.h3`
-  color: hsla(150,50%,50%,0.5);
+  color: hsla(100,40%,60%,0.5);
   font-size: 20px;
+  font-family: "Montserrat", sans-serif;
   font-style: italic;
   margin-bottom: 15px;
 `;
 
 const Name = styled.h1`
-  color: hsla(150,90%,50%,0.5);
+  color: hsla(100,40%,60%,0.5);
   font-size: 30px;
-  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
   margin: 0;
 `;
 
-const Price = styled.h5`
+const Price = styled.h4`
+  font-family: 'Noto Serif';
   font-style: italic;
 `
 
+const getPrice = (item) => {
+  if (item.sale_price) { return `SALE $${item.sale_price}` }
 
-const ProductInformation = ({currentProduct, productID, rating, styleID}) => {
+  return item.original_price;
+}
+
+const ProductInformation = ({ currentProduct, productID, rating, stylesAll, styleID, imageIndex, setImageIndex, currentStyle }) => {
 
   return (
 
-    <ProductInfoDiv className="product-information">
+      <ProductInfoDiv className="product-information">
 
-      <InfoSectionDiv>
+        <InfoSectionDiv>
 
-        <StarDisplayAverage average="" />
+          {stylesAll && <StarDisplayAverage average="" />}
 
-      </InfoSectionDiv>
+        </InfoSectionDiv>
 
-      <br /><br />
+        <br /><br />
 
-      <InfoSectionDiv>
+        <InfoSectionDiv>
 
-        <Category>{currentProduct.category}</Category>
+          {console.log('stylesAllllllllllllll: ', stylesAll[imageIndex])}
+          {console.log('stylesINDEXXXXXXXXXX: ', currentStyle)}
 
-        <Name>{currentProduct.name}</Name>
+        {currentStyle ? (
+          <>
+            <Category>{currentStyle.category || null}</Category>
+            <Name>{currentStyle.name}</Name>
+            <Price>USD ${getPrice(currentStyle)}</Price>
+          </>
+        ) : null}
 
-        <Price>USD ${currentProduct.default_price}</Price>
+        </InfoSectionDiv>
 
-      </InfoSectionDiv>
-
-    </ProductInfoDiv>
+      </ProductInfoDiv>
 
   );
-
 };
-
 
 
 export default ProductInformation;

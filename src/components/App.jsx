@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Title, Button } from '../styles/styles';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
-import ProductOverview from './ProductOverview/ProductOverview.jsx';
+import ProductOverview, { OakShop } from './ProductOverview/ProductOverview.jsx';
 import requestsAPI from '../../server/requestsAPI';
 import Questions from './CustomerQnA/Questions.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
+
 
 const App = (props) => {
 	const [product, setProduct] = useState({});
@@ -45,35 +46,39 @@ const App = (props) => {
 	};
 
 	return (
-		<div>
-			<Title>Project Cat Walk</Title>
 
-			{console.log('APP.stylesAll: ', stylesAll)}
+		<>
+			<OakShop>The Oak Shop</OakShop>
 
-			{products.length && (
-				<ProductOverview
-					product={product}
-					products={products}
-					productID={productID}
-					allProductIDs={allProductIDs}
-					stylesAll={stylesAll}
-					ratings={'ratings'}
-					setProductID={setProductID}
-				/>
-			)}
-
-			<br />
-			{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product}/>}
 			<div>
+
+				{products.length && (
+					<ProductOverview
+						product={product}
+						products={products}
+						productID={productID}
+						allProductIDs={allProductIDs}
+						stylesAll={stylesAll}
+						ratings={'ratings'}
+						setProductID={setProductID}
+					/>
+				)}
+
+				<br />
+				{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product} />}
+				<div>
+					{Object.keys(product).length && products.length ? (
+						<Questions products={products} product={product} />
+					) : null}
+				</div>
 				{Object.keys(product).length && products.length ? (
-					<Questions products={products} product={product} />
+					<RatingsReviews productID={productID} products={products} product={product} />
 				) : null}
 			</div>
-			{Object.keys(product).length && products.length ? (
-				<RatingsReviews productID={productID} products={products} product={product} />
-			) : null}
-		</div>
+		</>
+
 	);
 };
+
 
 export default App;

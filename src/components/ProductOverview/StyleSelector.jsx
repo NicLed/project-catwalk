@@ -5,14 +5,16 @@ import AddToCart from './AddToCart.jsx';
 const Div = styled.div`
 	display: flex;
 	flex-wrap: wrap;
+	font-family: "Montserrat", sans-serif;
 	justify-content: center;
 	margin-top: 8px;
 	max-width: 400px;
 `;
 
 const StyleDiv = styled.div`
-	background: hsla(100, 50%, 50%, 0.5);
+	background: hsla(100,40%,60%,0.5);
 	border-radius: 15%;
+	font-family: "Montserrat", sans-serif;
 	height: 125px;
 	margin: 12px 12px 0px 12px;
 	margin: 0px;
@@ -34,42 +36,28 @@ const StyleImage = styled.img`
 	}
 `;
 
-const StyleSelector = ({
-	currentProduct,
-	currentStylesAll,
-	onHandleSelect,
-	addToCart,
-	onQuantitySelect,
-	onStyleSelect,
-	onSelectSKU,
-	ratings,
-	styleID,
-}) => {
+const StyleSelector = ({ onHandleImageClick, currentProduct, productImages, styleID, stylesAll, imageIndex, setImageIndex, setSelectedImage, selectedImage, setExpandedView, expandedView, addToCart }) => {
+
 	const [styleName, setStyleName] = useState(null);
 	const [styleInfo, setStyleInfo] = useState(null);
 	const [styleImages, setStyleImages] = useState(null);
 
-	// if (currentStylesAll.results) {
-	//   currentStylesAll.results.forEach((style) => {
-	//     if (style.style_id === styleID) {
-	//       setStyleName(style.name);
-	//       setStyleInfo(style);
-	//     }
-	//   });
-
 	return (
+
 		<>
 			<StyleDiv className='style-selector'>
 				<Div>
-					<h4 className='style-selector'>StyleSelector</h4>
 
 					<img src='' alt='' className='style-image' />
 				</Div>
 			</StyleDiv>
 
 			<AddToCart addToCart={addToCart} styles={'styles'} />
+
 		</>
+
 	);
 };
+
 
 export default StyleSelector;

@@ -8,7 +8,7 @@ const ExpandView = styled.figure`
   animation-iteration-count: 1;
   animation-duration: .5s;
   background-repeat: no-repeat;
-  /* background: hsla(100,90%,80%,0.5); */
+  background: hsla(100,90%,80%,0.5);
   border: 1px dotted lightgrey;
   display: flex;
   justify-content: center;
@@ -27,22 +27,40 @@ const Image = styled.img`
 `;
 
 
-
 const ExpandedView = ({ src, expandedView, onHandleImageClick }) => {
 
+  const [position, setPosition] = useState('0% 0%');
+  const [zoom, setZoom] = useState(false);
+
   const expandRef = useRef();
+
+  useEffect(() => {
+    const prevOverFlow = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => document.body.style.overflow = prevOverFlow
+  }, []);
+
+  const onHandleCursorMove = (event) => {
+    const [left, width, top, height] = event.target.getBoundingClientRect();
+    const x = (event.pageX - left) / width * 100;
+    const y = (event.pageY - top) / height * 100;
+
+    setPosition(`${x}% ${y}%`);
+  }
 
 
   return (
 
-    <ExpandView onClick={onHandleImageClick} ref={expandRef}>
+    <ExpandView onHandleCursorMove={onHandleCursorMove} ref={expandRef}>
 
       <Image src={src} className="expanded-image" alt="" >EXPANDED VIEW OF IMAGE</Image>
 
     </ExpandView>
 
   );
-}
+
+};
 
 
 export default ExpandedView;
