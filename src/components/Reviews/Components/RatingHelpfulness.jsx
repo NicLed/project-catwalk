@@ -6,6 +6,7 @@ import axios from 'axios';
 // Styling
 const HelpfulLink = styled.a`
   color: #767676;
+  margin-right: 5px;
 `
 
 
@@ -16,11 +17,10 @@ const RatingHelpfulness = ( { review, getReviews, productID } ) => {
 
   // PUT request to vote review helpful
   const updateHelpfulRating = () => {
-    event.preventDefault()
+    event.preventDefault();
 
     axios.put(`/reviews/${review.review_id}/helpful`)
     .then((response) => {
-      console.log('Helloooooooooooooo')
       getReviews(productID);
     })
     .catch((error) => {
@@ -28,13 +28,24 @@ const RatingHelpfulness = ( { review, getReviews, productID } ) => {
     })
   }
 
+  const reportReview = () => {
+    event.preventDefault();
 
+    axios.put(`reviews/${review.review_id}/report`)
+    .then((reponse) => {
+      getReviews(productID);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+  }
 
   // Rendered components
   return (
       <div>
         Was this review helpful? -
         <HelpfulLink href="" onClick={updateHelpfulRating} > Yes ({review.helpfulness})</HelpfulLink>
+        <HelpfulLink href="" onClick={reportReview} > Report </HelpfulLink>
       </div>
   )
 }

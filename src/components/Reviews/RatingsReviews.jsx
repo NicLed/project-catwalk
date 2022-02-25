@@ -10,6 +10,7 @@ const SectionsContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 100px;
+  padding-bottom: 45px;
 `
 
 const BreakdownSection = styled.div`
@@ -34,13 +35,17 @@ const LargeImageModal = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
   cursor: pointer;
-`
+  dislay: flex;
+  justify-content: center;
+  align-items: center;
+  `
 
-const LargeImage = styled.img`
+  const LargeImage = styled.img`
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
+  border: 2px solid black;
 `
 
 
@@ -53,7 +58,6 @@ const RatingsReviews = ({productID, products, product}) => {
   const [largeImage, setLargeImage] = useState(false);
   const [imageSource, setImageSource] = useState('');
   const [showNewReviewForm, setShowNewReviewForm] = useState(false);
-  const defaultSort = 'relevant';
 
   useEffect(() => {
     getReviews(productID);
@@ -62,10 +66,10 @@ const RatingsReviews = ({productID, products, product}) => {
 
 
   // GET request for reviews
-  const getReviews = (product_id) => {
-    axios.get(`/reviews/${product_id}`)
+  const getReviews = (product_id, sortMethod) => {
+    sortMethod = sortMethod || 'relevant';
+    axios.get(`/reviews/${product_id}&${sortMethod}`)
       .then((response) => {
-        console.log("reviews response", response.data);
         setReviews(response.data.results)
       })
       .catch((error) => {
@@ -78,7 +82,6 @@ const RatingsReviews = ({productID, products, product}) => {
   const getReviewsMetaData = (product_id) => {
     axios.get(`/reviews/meta/${product_id}`)
       .then((response) => {
-        console.log("reviews meta response", response.data);
         setReviewsMeta(response.data)
       })
       .catch((error) => {
@@ -110,7 +113,7 @@ const RatingsReviews = ({productID, products, product}) => {
 
           <BreakdownSection><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></BreakdownSection>
 
-          {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
+          {largeImage ? <LargeImageModal><LargeImage src={imageSource} onClick={closeLargeImage}></LargeImage></LargeImageModal> : null}
 
           {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm} /> : null}
 

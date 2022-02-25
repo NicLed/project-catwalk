@@ -12,6 +12,9 @@ const InfiniteScroll = styled.div`
 const ReviewList = ({ products, product, productID, reviews, reviewsMeta, displayLargeImage, setShowNewReviewForm, getReviews }) => {
   const [displayedReviews, setDisplayedReviews] = useState(2);
 
+  useEffect(() => {
+    setDisplayedReviews(2);
+  }, [productID])
 
   const showMoreReviews = () => {
     const newDisplayedReviews = displayedReviews + 2;

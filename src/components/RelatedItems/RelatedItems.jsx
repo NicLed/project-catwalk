@@ -30,7 +30,7 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
   const [outfitCounter, setOutfitCounter] = useState(0);
 
 
-  console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
+  // console.log('IDS Are HERE MAAAN!!! >>>>>' , arrayOfIDs)
   useEffect(() => {
     getRelatedItems(productID);
     getProductPhoto(productID);
@@ -113,7 +113,7 @@ export default function RelatedItems({productID, stylesAll, setProductID}) {
               // console.log(ratingsArray[i])
               relatedItems[i].photo = relatedPhotos[i]
             }
-            console.log(relatedItems, '<<<<<<<< after ading a photo!')
+            // console.log(relatedItems, '<<<<<<<< after ading a photo!')
           })
           .catch(err => {
             console.log(err)
