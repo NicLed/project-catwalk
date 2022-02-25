@@ -42,7 +42,7 @@ app.get('/reviews/:product_id&:sortMethod', (req, res) => {
     })
     .catch((error) => {
       // throw new Error(error);
-      // console.error(error);
+      console.error(error);
     })
 });
 
@@ -84,7 +84,7 @@ app.get('/qa/questions/:product_id:sortMethod', (req, res) => {
       // console.log('response:', response.data)
     })
     .catch((err) => {
-      // console.error(err);
+      console.error(err);
     });
 });
 
@@ -97,7 +97,7 @@ app.get('/reviews/meta/:product_id', (req, res) => {
     })
     .catch((error) => {
       // throw new Error(error);
-      // console.error(error);
+      console.error(error);
     })
 });
 
