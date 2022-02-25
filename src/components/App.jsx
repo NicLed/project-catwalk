@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RatingsReviews from './Reviews/RatingsReviews.jsx';
-import ProductOverview from './ProductOverview/ProductOverview.jsx';
+import ProductOverview, { OakShop } from './ProductOverview/ProductOverview.jsx';
 import requestsAPI from '../../server/requestsAPI';
 import Questions from './CustomerQnA/Questions.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
@@ -54,40 +54,45 @@ const App = (props) => {
 
 	return (
 		<AppContainer>
-			<h1>Project Cat Walk</h1>
 
-			{/* {console.log('APP.stylesAll: ', stylesAll)} */}
-
-			{products.length && (
-				<ProductOverview
-					product={product}
-					products={products}
-					productID={productID}
-					allProductIDs={allProductIDs}
-					stylesAll={stylesAll}
-					ratings={'ratings'}
-					setProductID={setProductID}
-				/>
-			)}
-
-			<br />
-			{productID && <RelatedItems
-      productID={productID}
-      stylesAll={stylesAll}
-      product={product}
-      setProductID={setProductID}
-      />}
+		<>
+			<OakShop>The Oak Shop</OakShop>
 			<div>
+
+				{products.length && (
+          <ProductOverview
+          product={product}
+          products={products}
+          productID={productID}
+          allProductIDs={allProductIDs}
+          stylesAll={stylesAll}
+          ratings={'ratings'}
+          setProductID={setProductID}
+					/>
+          )}
+
+          <br />
+          {productID && <RelatedItems
+          productID={productID}
+          stylesAll={stylesAll}
+          product={product}
+          setProductID={setProductID}
+          />}
+
+				<div>
+					{Object.keys(product).length && products.length ? (
+						<Questions productID={productID} products={products} product={product} />
+					) : null}
+				</div>
 				{Object.keys(product).length && products.length ? (
-					<Questions products={products} product={product} productID={productID} />
+					<RatingsReviews productID={productID} products={products} product={product} />
 				) : null}
 			</div>
-			{Object.keys(product).length && products.length ? (
-				<RatingsReviews productID={productID} products={products} product={product} />
-			) : null}
+		</>
 		</AppContainer>
 	);
 };
+
 
 export default App;
 
