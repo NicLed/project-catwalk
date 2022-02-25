@@ -6,6 +6,12 @@ export const Title1 = styled.h3`
   color: grey;
   margin: 2% 15% 0%;
 `
+export const Titlediv = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 1150px;
+
+`
 export const ElementDiv = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
@@ -15,8 +21,8 @@ export const ElementDiv = styled.div`
 export const RIdiv = styled.div`
   display: flex;
   justify-content: center;
-  // align-items: center;
-  max-width: 50%;
+  align-items: center;
+  width: 1000px;
   height: 80%;
   position: relative;
   margin: 5% 25% 5%;
@@ -54,29 +60,18 @@ export const Container = styled.div`
 //!!
 export const Container0 = styled.div`
   display: flex;
-  // justify-content: center;
   justify-content: space-between;
   width: auto;
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 70%;
+  width: 800px;
   height: 80%;
   flex-direction: row;
   border: 1px grey solid;
   padding: 5px;
   margin: 1% 15% 2%;
 
-`
-export const Container1 = styled.div`
-  display: flex;
-  // justify-content: center;
-  width: auto;
-  position: relative;
-`
-
-export const Container2 = styled.div`
-  display: flex;
 `
 
 export const LeftArrow = styled(FaArrowAltCircleLeft)`
@@ -101,7 +96,7 @@ export const RightArrow = styled(FaArrowAltCircleRight)`
   height: 20px;
   width: 20px;
 `
-const ListContainer = styled.div`
+export const SliderDiv = styled.div`
   display: flex;
   justify-content: flex-start;
   overflow: scroll;
