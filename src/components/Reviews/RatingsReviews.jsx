@@ -34,13 +34,17 @@ const LargeImageModal = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
   cursor: pointer;
-`
+  dislay: flex;
+  justify-content: center;
+  align-items: center;
+  `
 
-const LargeImage = styled.img`
+  const LargeImage = styled.img`
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
+  border: 2px solid black;
 `
 
 
@@ -110,7 +114,7 @@ const RatingsReviews = ({productID, products, product}) => {
 
           <BreakdownSection><RatingSummary products={products} product={product} reviews={reviews} reviewsMeta={reviewsMeta} /></BreakdownSection>
 
-          {largeImage ? <LargeImageModal><img src={imageSource} onClick={closeLargeImage}></img></LargeImageModal> : null}
+          {largeImage ? <LargeImageModal><LargeImage src={imageSource} onClick={closeLargeImage}></LargeImage></LargeImageModal> : null}
 
           {showNewReviewForm ? <NewReviewModal product={product} setShowNewReviewForm={setShowNewReviewForm} /> : null}
 

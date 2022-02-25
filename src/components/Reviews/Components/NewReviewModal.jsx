@@ -13,6 +13,8 @@ const ReviewModal = styled.div`
   border: solid, black;
   background-color: rgba(0, 0, 0, 0.7);
   overflow: auto;
+  display: flex;
+  justify-content: center;
 `
 
 const CloseModal = styled.span`
@@ -27,13 +29,29 @@ const CloseModal = styled.span`
 
 const FormContainer = styled.div`
   background-color: white;
+  width: 500px;
+  height: 840px;
+  border-radius: 20px;
+  border: 2px solid black;
 `
 const FormLabel = styled.div`
   margin-bottom: 10px;
+  margin-left: 10px;
 `
 
 const StarContainer = styled.div`
   display: flex;
+  margin-left: 5px;
+`
+
+const FormTitle = styled.h2`
+  display: flex;
+  justify-content: center;
+`
+
+const FormSubTitle = styled.h4`
+  display: flex;
+  justify-content: center;
 `
 
 const NewReviewModal = ({ product, setShowNewReviewForm }) => {
@@ -60,8 +78,8 @@ const NewReviewModal = ({ product, setShowNewReviewForm }) => {
     <ReviewModal>
       <FormContainer>
         <CloseModal onClick={closeModal}>&times;</CloseModal>
-        <h2>Write Your Review</h2>
-        <h4>About the {product.name}</h4>
+        <FormTitle>Write Your Review</FormTitle>
+        <FormSubTitle>About the {product.name}</FormSubTitle>
         <form>
           <FormLabel>Overall rating*:
             <StarContainer>
