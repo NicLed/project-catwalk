@@ -30,6 +30,8 @@ const App = (props) => {
 
 	useEffect(() => {
 		getAllProducts();
+    // console.log('Product ID:', productID);
+    // console.log('Product', product);
 	}, []);
 
 	useEffect(() => {
@@ -62,7 +64,7 @@ const App = (props) => {
 		<AppContainer>
 			<h1>Project Cat Walk</h1>
 
-			{console.log('APP.stylesAll: ', stylesAll)}
+			{/* {console.log('APP.stylesAll: ', stylesAll)} */}
 
 			{products.length && (
 				<ProductOverview
@@ -77,7 +79,7 @@ const App = (props) => {
 			)}
 
 			<br />
-			{products.length && <RelatedItems productID={productID} stylesAll={stylesAll} product={product}/>}
+			{productID && <RelatedItems productID={productID} stylesAll={stylesAll} product={product}/>}
 			<div>
 				{Object.keys(product).length && products.length ? (
 					<Questions products={products} product={product} productID={productID} />
@@ -91,3 +93,4 @@ const App = (props) => {
 };
 
 export default App;
+

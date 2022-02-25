@@ -3,6 +3,12 @@ import axios from 'axios';
 import QuestionsList from '../CustomerQnA/Components/QuestionsList.jsx';
 import QuestionEntry from '../CustomerQnA/Components/QuestionEntry.jsx';
 import AnswersList from '../CustomerQnA/Components/AnswersList.jsx'
+import styled from 'styled-components';
+
+const QuestionsContainer = styled.div`
+  padding-bottom: 40px;
+
+`
 
 const Questions = ({products, product, productID}) => {
   const [questions, setQuestions] = useState([]);
@@ -32,12 +38,12 @@ const Questions = ({products, product, productID}) => {
 
 return (
 
-<div>
+<QuestionsContainer>
   {questions.length > 0  ?  <QuestionsList questions={questions}  getAllQuestions={getAllQuestions} productID={productID} /> : null}
   <button>
     More Answered Questions
   </button>
-</div>
+</QuestionsContainer>
   )
 };
 

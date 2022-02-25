@@ -5,10 +5,15 @@ import styled from 'styled-components';
 
 const QuestionContainer = styled.div`
   display: flex;
-  justtify-content: space-between;
-
+  justify-content: space-between;
+  width: 900px;
+  gap: 20px;
+  margin-top: 50px;
 `
-
+const HelpfulStyle = styled.u`
+  margin-left: 5px;
+  cursor: pointer;
+`
 
 
 
@@ -33,23 +38,24 @@ const QuestionEntry = (props) => {
 
   return (
 <>
+
 <QuestionContainer>
 
   {/* <sytle>u{cursor: pointer;}</sytle> */}
 
-    <h3>Q:  {props.eachQuestion.question_body}</h3>
-    <div>
-      Helpful?
+    <div>Q:  {props.eachQuestion.question_body}</div>
 
-        <a src=''>
-            Yes
-        </a>
+    <div>Helpful?
+
+    <HelpfulStyle>Yes</HelpfulStyle>
     </div>
-  <br></br>
+
+
+
 </QuestionContainer>
 
 
-A: <AnswersList answers={answers}/>
+<AnswersList answers={answers}/>
 </>
   )
 }

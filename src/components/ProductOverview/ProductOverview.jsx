@@ -104,7 +104,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
 		setTimeout(() => {
       setCurrentProductID(products[productIndex]);
       setProductID(products[productIndex].id);
-      console.log('OVERVIEW.stylesAll: ', stylesAll)
+      // console.log('OVERVIEW.stylesAll: ', stylesAll)
 		}, 0);
 	}, [currentProductID, productIndex]);
 
@@ -127,8 +127,8 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
         getProductPhotos(prod_ID, data.results[0].style_id )
       })
       .then(() => {
-        console.log('currentStylesAll: ', currentStylesAll)
-        console.log('currentStyle: ', currentStyle)
+        // console.log('currentStylesAll: ', currentStylesAll)
+        // console.log('currentStyle: ', currentStyle)
       })
 			.catch((err) => console.log(`FAILED GET STYLES 😟😟😟 ${err}`));
 	};
@@ -145,7 +145,7 @@ const ProductOverview = ({ product, products, productID, allProductIDs, stylesAl
     .then((results) => {
       console.log('PHOTO RESULTSSSSSS', results.photos);
       relatedPhotos = results.photos[0].url;
-      setProductImages(results.photos[0].url);
+      setProductImages(results.photos[0]);
       // setProductImages(results.photos.map(({url}, id) => ({id,url})));
       // setThumbnailPhotos(results.photos.map(({thumbnail_url}, id) => ({id,thumbnail_url})));
     })
